@@ -9,7 +9,9 @@ const StyledView = styled.View`
 function TlDefaultScreen(){
     return(
         <StyledView>
+            <Text>
             DEFAULT
+            </Text>
         </StyledView>
     )
 }
