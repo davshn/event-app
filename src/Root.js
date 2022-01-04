@@ -1,18 +1,21 @@
 import { ThemeProvider } from 'styled-components/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import TimelineDefault from './components/TimelineDefault'
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator()
+export default function Root() {
 
-export default function Root() { 
+    
     const modes = useSelector(state=>state.darkModeReducer.darkMode);
     return (
         <>
             <NavigationContainer >
                 <ThemeProvider theme={{ mode: (modes) ? 'dark' : 'light' }}>
-                    <Stack.Navigator screenOptions={{headerShown: false}}>                      
-                    </Stack.Navigator>
+                    <Tab.Navigator screenOptions={{headerShown: false}}>
+                        <Tab.Screen name="TlDefault" component={TimelineDefault}/>           
+                    </Tab.Navigator>
                 </ThemeProvider>
             </NavigationContainer>
         </>
