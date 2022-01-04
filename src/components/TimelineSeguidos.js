@@ -6,14 +6,14 @@ const StyledView = styled.View`
     background-color: ${backgroundColor};
 `
 
-function TlDefaultScreen(){
+function TlSeguidosScreen(){
     return(
         <StyledView>
-            DEFAULT
+            SEGUIDOS
         </StyledView>
     )
 }
 
 
 
-export default TlDefaultScreen
+export default TlSeguidosScreen
