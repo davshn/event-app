@@ -1,23 +1,25 @@
 import { ThemeProvider } from 'styled-components/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useSelector } from 'react-redux';
-import TimelineDefault from './components/TimelineDefault'
-import TimelineSeguidos from './components/TimelineSeguidos'
+import Login from "./components/Login"
+import Register from './components/Register'
+import { HomeScreen } from "./components/Home"
 
-const Tab = createBottomTabNavigator()
+const Drawer = createDrawerNavigator();
+
 export default function Root() {
-
 
     const modes = useSelector(state=>state.darkModeReducer.darkMode);
     return (
         <>
             <NavigationContainer >
                 <ThemeProvider theme={{ mode: (modes) ? 'dark' : 'light' }}>
-                    <Tab.Navigator screenOptions={{headerShown: false}}>
-                        <Tab.Screen name="TlDefault" component={TimelineDefault}/>       
-                        <Tab.Screen name="TlSeguidos" component={TimelineSeguidos}/>    
-                    </Tab.Navigator>
+                    <Drawer.Navigator initialRouteName="Home">
+                        <Drawer.Screen name="Home" component={HomeScreen} />
+                        <Drawer.Screen name="Log in" component={Login} />
+                        <Drawer.Screen name="Register" component={Register} />
+                    </Drawer.Navigator>
                 </ThemeProvider>
             </NavigationContainer>
         </>
