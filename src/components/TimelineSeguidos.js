@@ -9,9 +9,6 @@ const StyledView = styled.View`
 function TlSeguidosScreen(){
     return(
         <StyledView>
-            <Text>
-            SEGUIDOS
-            </Text>
         </StyledView>
     )
 }
