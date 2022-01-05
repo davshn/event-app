@@ -1,18 +1,21 @@
-import { Text } from "react-native-web"
+import { Text } from "react-native"
 import {backgroundColor} from "../services/theme.js"
 import styled from "styled-components/native"
 
-const StyledView = styled.View`
+const StyledView = styled.ScrollView`
     background-color: ${backgroundColor};
 `
 
-function TlSeguidosScreen(){
+function ExplorarScreen(){
     return(
         <StyledView>
+            <Text>
+                EXPLORAR
+            </Text>
         </StyledView>
     )
 }
 
 
 
-export default TlSeguidosScreen
+export default ExplorarScreen
