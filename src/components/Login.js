@@ -40,17 +40,26 @@ const SectionStyled = styled.View`
 `
 
 export default function Login() {
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
+  const initialState={ //Estado inicial para usuarios
+    mail:"",
+    password:"",
+  }
+  
+  const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
+  const [errors,setErrors]=useState({});  //Crea el estado que contendrá los errores
+  
+  function hadleInputChange(prop,e) {               //Cuando se digita lo guarda en el estado
+    setInput(prev => ({ ...prev, [prop]: e }))
+  }
   
   return (
     <ViewStyled>
       <TitleStyled>FindSpot</TitleStyled>
       <FormStyled>
-        <InputStyled value={user} onChangeText={setUser} placeholder="Correo" placeholderTextColor='gray' />
+        <InputStyled value={input.mail} onChangeText={(ev)=>hadleInputChange("mail",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
       </FormStyled>
       <FormStyled>
-        <InputStyled value={password} onChangeText={setPassword} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
+        <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
       </FormStyled>
       <SectionStyled>
         <ButtonGen title="Acceder" />
