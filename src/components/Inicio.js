@@ -1,7 +1,8 @@
 import { Text } from "react-native"
 import {backgroundColor} from "../services/theme.js"
 import styled from "styled-components/native"
-import ButtonGen from "./ButtonGen.js"
+import data from '../../data'
+import { EventCard } from "./EventCard.js"
 
 const StyledView = styled.ScrollView`
     background-color: ${backgroundColor};
@@ -10,9 +11,9 @@ const StyledView = styled.ScrollView`
 function InicioScreen(){
     return(
         <StyledView>
-            <Text>
-                INICIO
-            </Text>
+            {
+                data?.map(p => <EventCard title={p.title} image={p.image} location={p.location} price={p.price}/>)
+            }
         </StyledView>
     )
 }
