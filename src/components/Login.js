@@ -1,53 +1,12 @@
-import styled from 'styled-components/native';
 import { useState } from 'react';
-import ButtonGen from './ButtonGen';
-
-const TitleStyled = styled.Text`
-  padding:15% 0 0 0;
-  font-size: 40px;
-  font-weight: bold;
-  text-align: center;
-`;
-const FormError = styled.Text`            
-    color:red;
-    font-size:10px;
-`;
-const TextStyled = styled.Text`
-  font-size: 14px;
-  text-align: center;
-  margin:5%;
-`;
-const ViewStyled = styled.View`
-  height:100%;
-  padding:15%;
-  align-items:center;
-`;
-
-const InputStyled = styled.TextInput`
-  width:80%;
-`;
-
-const FormStyled = styled.View`
-  border-bottom-width:1px;
-  border-bottom-color:#999999;
-  margin:5% 0;
-  width:100%;
-  display:flex;
-  flex-direction: row;
-  align-items:center;
-`;
-
-const SectionStyled = styled.View`
-  margin:15% 0;
-  align-items:center;
-`
+import ButtonGen from '../generiComponents/ButtonGen';
+import { SectionStyled,TextStyled,ViewStyled,InputStyled,FormStyled,FormError,TitleStyled } from '../generiComponents/GenericStyles';
 
 export default function Login() {
-  const initialState={ //Estado inicial para usuarios
-    mail:"",
-    password:"",
-  }
-  
+  const initialState = { //Estado inicial para usuarios
+    mail: "",
+    password: "",
+  };
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
   const [errors,setErrors] = useState(initialState);  //Crea el estado que contendrá los errores
    
@@ -56,7 +15,7 @@ export default function Login() {
     if(!input.mail){error.mail="Requerido"}
     else if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/i).test(input.mail)){error.mail="Correo invalido"};
     if (!input.password) { error.password = "Requerido" };
-    setErrors(error);
+    return error
   };
   
   function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
@@ -75,7 +34,7 @@ export default function Login() {
         <FormError>{errors.password}</FormError>
       </FormStyled>
       <SectionStyled>
-        <ButtonGen title="Acceder" onPress={()=>validate(input)}/>
+        <ButtonGen title="Acceder" onPress={()=>setErrors(validate(input))}/>
         <TextStyled style={{ color: "red" }} >Olvidaste tu contraseña</TextStyled>
       </SectionStyled>
       <SectionStyled>

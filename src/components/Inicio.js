@@ -1,7 +1,7 @@
 import { Text } from "react-native"
 import {backgroundColor} from "../services/theme.js"
 import styled from "styled-components/native"
-import ButtonGen from "./ButtonGen.js"
+import ButtonGen from "../generiComponents/ButtonGen.js"
 
 const StyledView = styled.ScrollView`
     background-color: ${backgroundColor};

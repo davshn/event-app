@@ -1,53 +1,50 @@
-import styled from 'styled-components/native';
 import { useState } from 'react';
-import ButtonGen from './ButtonGen';
-
-const TextStyled = styled.Text`
-  font-size: 14px;
-  text-align: center;
-  margin:5%;
-`;
-const ViewStyled = styled.View`
-  height:100%;
-  padding:15%;
-  align-items:center;
-`;
-
-const InputStyled = styled.TextInput`
-  width:80%;
-`;
-
-const FormStyled = styled.View`
-  border-bottom-width:1px;
-  border-bottom-color:#999999;
-  margin:5% 0;
-  width:100%;
-  display:flex;
-  flex-direction: row;
-  align-items:center;
-`;
+import ButtonGen from '../generiComponents/ButtonGen';
+import { TextStyled,ViewStyled,InputStyled,FormStyled,FormError } from '../generiComponents/GenericStyles';
 
 export default function Register() {
-  const [mail, setMail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const initialState = { //Estado inicial para usuarios
+    name: "",
+    mail: "",
+    password: "",
+  };
+  const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
+  const [errors, setErrors] = useState(initialState);  //Crea el estado que contendrá los errores
+  
+  function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
+    setInput(prev => ({ ...prev, [input]: e }))
+  };
+  
+  function validate(input) {
+    let error={};       //Guarda temporalmente los errores encontrados
+    if (!input.name) { error.name = "Requerido" }
+    else if(!(/^[a-z ,.'-]+$/i).test(input.name)){error.name="Nombre invalido"};
+    if (!input.mail) { error.mail = "Requerido" }
+    else if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/i).test(input.mail)){error.mail="Correo invalido"};
+    if (!input.password) { error.password = "Requerido" }
+    else if(!(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i).test(input.password)){error.password="Contraseña insegura"};
+    return error
+  };
   
   return (
     <ViewStyled>
       <FormStyled>
-        <InputStyled value={name} onChangeText={setName} placeholder="Nombre completo" placeholderTextColor='gray' />
+        <InputStyled value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre completo" placeholderTextColor='gray' />
+        <FormError>{errors.name}</FormError>
       </FormStyled>
       <FormStyled>
-        <InputStyled value={mail} onChangeText={setMail} placeholder="Correo" placeholderTextColor='gray' />
+        <InputStyled value={input.mail} onChangeText={(ev)=>hadleInputChange("mail",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
+        <FormError>{errors.mail}</FormError>
       </FormStyled>
       <FormStyled>
-        <InputStyled value={password} onChangeText={setPassword} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
+        <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
+        <FormError>{errors.password}</FormError>
       </FormStyled>
       <TextStyled>Fecha nacimiento</TextStyled>
       <TextStyled>Foto perfil</TextStyled>
       <TextStyled>Terminos y condiciones</TextStyled>
       <ButtonGen title="intereses" />
-        <ButtonGen title="Enviar" />
+        <ButtonGen title="Enviar" onPress={()=>setErrors(validate(input))}/>
     </ViewStyled>
   );
 }
