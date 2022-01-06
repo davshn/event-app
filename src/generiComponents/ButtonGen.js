@@ -15,9 +15,9 @@ const TextStyled = styled.Text`
   padding:10%;
 `;
 
-export default function ButtonGen({ title }) {
+export default function ButtonGen({ title,onPress }) {
   return (
-      <ButtonStyled >
+      <ButtonStyled onPress={onPress}>
           <TextStyled>{title}</TextStyled>
       </ButtonStyled>
   );

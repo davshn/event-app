@@ -1,53 +1,98 @@
-import styled from 'styled-components/native';
 import { useState } from 'react';
-import ButtonGen from './ButtonGen';
+import ButtonGen from '../generiComponents/ButtonGen';
+import { TextStyled, ViewStyled, InputStyled, FormStyled, FormError } from '../generiComponents/GenericStyles';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import * as ImagePicker from 'expo-image-picker';
+import {Image} from 'react-native' ; 
 
-const TextStyled = styled.Text`
-  font-size: 14px;
-  text-align: center;
-  margin:5%;
-`;
-const ViewStyled = styled.View`
-  height:100%;
-  padding:15%;
-  align-items:center;
-`;
-
-const InputStyled = styled.TextInput`
-  width:80%;
-`;
-
-const FormStyled = styled.View`
-  border-bottom-width:1px;
-  border-bottom-color:#999999;
-  margin:5% 0;
-  width:100%;
-  display:flex;
-  flex-direction: row;
-  align-items:center;
-`;
 
 export default function Register() {
-  const [mail, setMail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  var today = new Date();
+  const initialState = { //Estado inicial para usuarios
+    name: "",
+    mail: "",
+    password: "",
+    date: today,
+    image:null,
+  };
+
+  const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
+  const [errors, setErrors] = useState({});  //Crea el estado que contendrá los errores
+  const [show, setShow] = useState(false);
   
+  function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
+    setInput(prev => ({ ...prev, [input]: e }))
+  };
+  
+  function validate(input) {
+    let error={};       //Guarda temporalmente los errores encontrados
+    if (!input.name) { error.name = "Requerido" }
+    else if(!(/^[a-z ,.'-]+$/i).test(input.name)){error.name="Nombre invalido"};
+    if (!input.mail) { error.mail = "Requerido" }
+    else if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/i).test(input.mail)){error.mail="Correo invalido"};
+    if (!input.password) { error.password = "Requerido" }
+    else if (!(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i).test(input.password)) { error.password = "Contraseña insegura" };
+    if(!validateAge()){ error.date = "Debes ser mayor de edad" }
+    return error
+  };
+  
+  function validateAge() {
+    var year = today.getFullYear() - input.date.getFullYear();
+    var month = today.getMonth() - input.date.getMonth();
+
+    if (month < 0 || (month === 0 && today.getDate() < input.date.getDate())) {
+        year--;
+    }
+    if (year < 18) { return false };
+    return true;
+  }
+    
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || input.date;
+    setShow(Platform.OS === 'ios');
+    setInput(prev => ({ ...prev, "date": currentDate }))
+  };
+
+  const showDatepicker = () => {
+    setShow(true);
+  };
+  
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      setInput(prev => ({ ...prev, "image": result.uri }))
+    };
+  };
+
   return (
     <ViewStyled>
       <FormStyled>
-        <InputStyled value={name} onChangeText={setName} placeholder="Nombre completo" placeholderTextColor='gray' />
+        <InputStyled value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre completo" placeholderTextColor='gray' />
+        {errors.name&&(<FormError>{errors.name}</FormError>)}
       </FormStyled>
       <FormStyled>
-        <InputStyled value={mail} onChangeText={setMail} placeholder="Correo" placeholderTextColor='gray' />
+        <InputStyled value={input.mail} onChangeText={(ev)=>hadleInputChange("mail",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
+        {errors.mail&&(<FormError>{errors.mail}</FormError>)}
       </FormStyled>
       <FormStyled>
-        <InputStyled value={password} onChangeText={setPassword} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
+        <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
+        {errors.password&&(<FormError>{errors.password}</FormError>)}
       </FormStyled>
-      <TextStyled>Fecha nacimiento</TextStyled>
-      <TextStyled>Foto perfil</TextStyled>
-      <TextStyled>Terminos y condiciones</TextStyled>
+      <FormStyled>
+      <TextStyled style={{ color: "gray"}} onPress={showDatepicker}>Año de nacimiento</TextStyled>
+        {errors.password&&(<FormError>{errors.date}</FormError>)}
+      </FormStyled>
+      <TextStyled onPress={pickImage} style={{ color: "red"}}>Subir Foto perfil </TextStyled>
       <ButtonGen title="intereses" />
-        <ButtonGen title="Enviar" />
+      <ButtonGen title="Enviar" onPress={() => setErrors(validate(input))} />
+        {show && (<DateTimePicker value={input.date} mode='date' display="default" onChange={onChange} /> )}
+        {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
     </ViewStyled>
   );
 }
