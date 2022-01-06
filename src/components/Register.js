@@ -2,6 +2,9 @@ import { useState } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
 import { TextStyled, ViewStyled, InputStyled, FormStyled, FormError } from '../generiComponents/GenericStyles';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import * as ImagePicker from 'expo-image-picker';
+import {Image} from 'react-native' ; 
+
 
 export default function Register() {
   var today = new Date();
@@ -9,7 +12,8 @@ export default function Register() {
     name: "",
     mail: "",
     password: "",
-    date:today,
+    date: today,
+    image:null,
   };
 
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
@@ -52,6 +56,19 @@ export default function Register() {
   const showDatepicker = () => {
     setShow(true);
   };
+  
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      setInput(prev => ({ ...prev, "image": result.uri }))
+    };
+  };
 
   return (
     <ViewStyled>
@@ -71,17 +88,11 @@ export default function Register() {
       <TextStyled style={{ color: "gray"}} onPress={showDatepicker}>Año de nacimiento</TextStyled>
         {errors.password&&(<FormError>{errors.date}</FormError>)}
       </FormStyled>
-      <TextStyled>Foto perfil</TextStyled>
+      <TextStyled onPress={pickImage} style={{ color: "red"}}>Subir Foto perfil </TextStyled>
       <ButtonGen title="intereses" />
       <ButtonGen title="Enviar" onPress={() => setErrors(validate(input))} />
-            {show && (
-        <DateTimePicker
-          value={input.date}
-          mode='date'
-          display="default"
-          onChange={onChange}
-        />
-      )}
+        {show && (<DateTimePicker value={input.date} mode='date' display="default" onChange={onChange} /> )}
+        {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
     </ViewStyled>
   );
 }
