@@ -8,7 +8,7 @@ export default function Login() {
     password: "",
   };
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
-  const [errors,setErrors] = useState(initialState);  //Crea el estado que contendrá los errores
+  const [errors,setErrors] = useState({});  //Crea el estado que contendrá los errores
    
   function validate(input) {
     let error={};       //Guarda temporalmente los errores encontrados
@@ -27,11 +27,11 @@ export default function Login() {
       <TitleStyled>FindSpot</TitleStyled>
       <FormStyled>
         <InputStyled value={input.mail} onChangeText={(ev)=>hadleInputChange("mail",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
-        <FormError>{errors.mail}</FormError>
+        {errors.mail&&(<FormError>{errors.mail}</FormError>)}
       </FormStyled>
       <FormStyled>
         <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
-        <FormError>{errors.password}</FormError>
+        {errors.password&&(<FormError>{errors.password}</FormError>)}
       </FormStyled>
       <SectionStyled>
         <ButtonGen title="Acceder" onPress={()=>setErrors(validate(input))}/>
