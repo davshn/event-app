@@ -14,7 +14,6 @@ export default function Register() {
 
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
   const [errors, setErrors] = useState({});  //Crea el estado que contendrá los errores
-  const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   
   function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
@@ -50,13 +49,8 @@ export default function Register() {
     setInput(prev => ({ ...prev, "date": currentDate }))
   };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
   const showDatepicker = () => {
-    showMode('date');
+    setShow(true);
   };
 
   return (
@@ -84,7 +78,7 @@ export default function Register() {
             {show && (
         <DateTimePicker
           value={input.date}
-          mode={mode}
+          mode='date'
           display="default"
           onChange={onChange}
         />
