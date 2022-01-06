@@ -4,7 +4,13 @@ import { TextStyled, ViewStyled, InputStyled, FormStyled, FormError } from '../g
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import {Image} from 'react-native' ; 
+import axios from 'axios';
 
+export function postBreed(input){
+        axios.post('https://breeds-back.herokuapp.com/dog',input) //Envia por post la a crear
+        .then((res)=>{window.alert(`Created with ID: ${res.data.msg}`);})
+        .catch((res)=>console.log(res));  
+}
 
 export default function Register() {
   var today = new Date();
