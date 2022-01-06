@@ -72,8 +72,7 @@ export default function Register() {
         {errors.password&&(<FormError>{errors.date}</FormError>)}
       </FormStyled>
       <TextStyled>Foto perfil</TextStyled>
-      <TextStyled>Terminos y condiciones</TextStyled>
-      <ButtonGen title="intereses" onPress={validateAge}/>
+      <ButtonGen title="intereses" />
       <ButtonGen title="Enviar" onPress={() => setErrors(validate(input))} />
             {show && (
         <DateTimePicker
