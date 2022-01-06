@@ -4,16 +4,23 @@ import { TextStyled, ViewStyled, InputStyled, FormStyled, FormError } from '../g
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import {Image} from 'react-native' ; 
+import axios from 'axios';
 
+function createUser(input){
+        axios.post('https://find-spot.herokuapp.com/register',input) //Envia por post la a crear
+        .then((res)=>{console.log("Exito");})
+        .catch((res)=>console.log(res));  
+}
 
 export default function Register() {
   var today = new Date();
   const initialState = { //Estado inicial para usuarios
     name: "",
-    mail: "",
+    email: "",
     password: "",
-    date: today,
-    image:null,
+    dateOfBirth: today,
+    image: null,
+    interests:["deportivo"],
   };
 
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
@@ -28,17 +35,17 @@ export default function Register() {
     let error={};       //Guarda temporalmente los errores encontrados
     if (!input.name) { error.name = "Requerido" }
     else if(!(/^[a-z ,.'-]+$/i).test(input.name)){error.name="Nombre invalido"};
-    if (!input.mail) { error.mail = "Requerido" }
-    else if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/i).test(input.mail)){error.mail="Correo invalido"};
+    if (!input.email) { error.email = "Requerido" }
+    else if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/i).test(input.email)){error.email="Correo invalido"};
     if (!input.password) { error.password = "Requerido" }
     else if (!(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i).test(input.password)) { error.password = "Contraseña insegura" };
-    if(!validateAge()){ error.date = "Debes ser mayor de edad" }
+    if(!validateAge()){ error.dateOfBirth = "Debes ser mayor de edad" }
     return error
   };
   
   function validateAge() {
-    var year = today.getFullYear() - input.date.getFullYear();
-    var month = today.getMonth() - input.date.getMonth();
+    var year = today.getFullYear() - input.dateOfBirth.getFullYear();
+    var month = today.getMonth() - input.dateOfBirth.getMonth();
 
     if (month < 0 || (month === 0 && today.getDate() < input.date.getDate())) {
         year--;
@@ -48,7 +55,7 @@ export default function Register() {
   }
     
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || input.date;
+    const currentDate = selectedDate || input.dateOfBirth;
     setShow(Platform.OS === 'ios');
     setInput(prev => ({ ...prev, "date": currentDate }))
   };
@@ -77,8 +84,8 @@ export default function Register() {
         {errors.name&&(<FormError>{errors.name}</FormError>)}
       </FormStyled>
       <FormStyled>
-        <InputStyled value={input.mail} onChangeText={(ev)=>hadleInputChange("mail",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
-        {errors.mail&&(<FormError>{errors.mail}</FormError>)}
+        <InputStyled value={input.email} onChangeText={(ev)=>hadleInputChange("email",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
+        {errors.email&&(<FormError>{errors.email}</FormError>)}
       </FormStyled>
       <FormStyled>
         <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
@@ -86,12 +93,12 @@ export default function Register() {
       </FormStyled>
       <FormStyled>
       <TextStyled style={{ color: "gray"}} onPress={showDatepicker}>Año de nacimiento</TextStyled>
-        {errors.password&&(<FormError>{errors.date}</FormError>)}
+        {errors.password&&(<FormError>{errors.dateOfBirth}</FormError>)}
       </FormStyled>
       <TextStyled onPress={pickImage} style={{ color: "red"}}>Subir Foto perfil </TextStyled>
       <ButtonGen title="intereses" />
-      <ButtonGen title="Enviar" onPress={() => setErrors(validate(input))} />
-        {show && (<DateTimePicker value={input.date} mode='date' display="default" onChange={onChange} /> )}
+      <ButtonGen title="Enviar" onPress={()=>createUser(input)} />
+        {show && (<DateTimePicker value={input.dateOfBirth} mode='date' display="default" onChange={onChange} /> )}
         {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
     </ViewStyled>
   );
