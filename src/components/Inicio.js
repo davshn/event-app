@@ -1,33 +1,29 @@
-import { Text } from "react-native"
-import {backgroundColor} from "../services/theme.js"
-import styled from "styled-components/native"
-<<<<<<< HEAD
-import data from '../../data'
-import { EventCard } from "./EventCard.js"
-=======
-import ButtonGen from "./ButtonGen.js"
->>>>>>> 168cf48f855a03f966a27a765ee40c94348b21fb
+import React from "react";
 
-const StyledView = styled.ScrollView`
-    background-color: ${backgroundColor};
-`
+import { Text ,} from "react-native";
+import { backgroundColor } from "../services/theme.js";
+import styled from "styled-components/native";
+import SearchInput from '../components/Searchbar';
+import { EventCards } from "./EventCards.js";
+import ButtonGen from "./ButtonGen.js";
 
-function InicioScreen(){
-    return(
-        <StyledView>
-<<<<<<< HEAD
-            {
-                data?.map(p => <EventCard title={p.title} image={p.image} location={p.location} price={p.price}/>)
-            }
-=======
-            <Text>
-                INICIO
-            </Text>
->>>>>>> 168cf48f855a03f966a27a765ee40c94348b21fb
-        </StyledView>
-    )
+// const StyledView = styled.ScrollView`
+//   background-color: ${backgroundColor};
+// `;
+// aqui es el timeline 
+function InicioScreen() {
+  return (
+    <>
+   
+        <SearchInput/>
+        <EventCards/>
+        
+        
+        </>
+
+        
+  );
+    
 }
 
-
-
-export default InicioScreen
+export default InicioScreen;

@@ -20,19 +20,13 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
-<<<<<<< HEAD
-    "react-native-gesture-handler": "~2.1.0",
-    "react-native-reanimated": "~2.3.1",
-    "react-native-safe-area-context": "3.3.2",
-    "react-native-screens": "~3.10.1",
-=======
     "react-native-gesture-handler": "^2.1.0",
+    "react-native-ionicons": "^4.6.5",
     "react-native-paper": "^4.11.1",
     "react-native-reanimated": "^2.3.1",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.1",
     "react-native-tab-view": "^3.1.1",
->>>>>>> 168cf48f855a03f966a27a765ee40c94348b21fb
     "react-native-web": "0.17.1",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
