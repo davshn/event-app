@@ -42,3 +42,21 @@ export const SectionStyled = styled.View`
   margin:15% 0;
   align-items:center;
 `;
+
+
+//Cami's css
+export const StyledView = styled.View`
+  height:550px;
+  padding:15%;
+  align-items:center;
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+`
+
+export const StyledInput = styled.TextInput`
+border-radius: 15px;
+border: 0.5mm solid grey;
+padding: 8px;
+`
