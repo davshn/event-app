@@ -59,4 +59,5 @@ export const StyledInput = styled.TextInput`
 border-radius: 15px;
 border: 0.5mm solid grey;
 padding: 8px;
+width: 300px;
 `

@@ -6,7 +6,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator()
 // aqui van los iconos 
-export function HomeScreen(){
+export default function HomeScreen(){
     return (
       <>
         <Tab.Navigator screenOptions={{ headerShown: false }}>
