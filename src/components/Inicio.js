@@ -4,7 +4,6 @@ import styled from "styled-components/native";
 import SearchInput from '../components/Searchbar';
 import { EventCards } from "./EventCards.js";
 
-
 // const StyledView = styled.ScrollView`
 //   background-color: ${backgroundColor};
 // `;
