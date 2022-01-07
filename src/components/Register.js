@@ -6,11 +6,11 @@ import * as ImagePicker from 'expo-image-picker';
 import {Image} from 'react-native' ; 
 import axios from 'axios';
 
-function createUser(input){
-        axios.post('https://find-spot.herokuapp.com/register',input) //Envia por post la a crear
-        .then((res)=>{console.log("Exito");})
+function createUser(user){
+        axios.post('https://find-spot.herokuapp.com/register',user) //Envia por post la a crear
+        .then((res)=>{console.log("Usuario creado");})
         .catch((res)=>console.log(res));  
-}
+};
 
 export default function Register() {
   var today = new Date();
@@ -20,7 +20,7 @@ export default function Register() {
     password: "",
     dateOfBirth: today,
     image: null,
-    interests:["deportivo"],
+    interests:[],
   };
 
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
@@ -39,15 +39,15 @@ export default function Register() {
     else if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/i).test(input.email)){error.email="Correo invalido"};
     if (!input.password) { error.password = "Requerido" }
     else if (!(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i).test(input.password)) { error.password = "Contraseña insegura" };
-    if(!validateAge()){ error.dateOfBirth = "Debes ser mayor de edad" }
-    return error
+    if (!validateAge()) { error.dateOfBirth = "Debes ser mayor de edad" };
+    if (!(Object.entries(error).length===0)) { setErrors(error) }
+    else { createUser(input) };
   };
   
   function validateAge() {
     var year = today.getFullYear() - input.dateOfBirth.getFullYear();
     var month = today.getMonth() - input.dateOfBirth.getMonth();
-
-    if (month < 0 || (month === 0 && today.getDate() < input.date.getDate())) {
+    if (month < 0 || (month === 0 && today.getDate() < input.dateOfBirth.getDate())) {
         year--;
     }
     if (year < 18) { return false };
@@ -57,7 +57,7 @@ export default function Register() {
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || input.dateOfBirth;
     setShow(Platform.OS === 'ios');
-    setInput(prev => ({ ...prev, "date": currentDate }))
+    setInput(prev => ({ ...prev, "dateOfBirth": currentDate }))
   };
 
   const showDatepicker = () => {
@@ -93,11 +93,11 @@ export default function Register() {
       </FormStyled>
       <FormStyled>
       <TextStyled style={{ color: "gray"}} onPress={showDatepicker}>Año de nacimiento</TextStyled>
-        {errors.password&&(<FormError>{errors.dateOfBirth}</FormError>)}
+        {errors.dateOfBirth&&(<FormError>{errors.dateOfBirth}</FormError>)}
       </FormStyled>
       <TextStyled onPress={pickImage} style={{ color: "red"}}>Subir Foto perfil </TextStyled>
       <ButtonGen title="intereses" />
-      <ButtonGen title="Enviar" onPress={()=>createUser(input)} />
+      <ButtonGen title="Enviar" onPress={()=>validate(input)} />
         {show && (<DateTimePicker value={input.dateOfBirth} mode='date' display="default" onChange={onChange} /> )}
         {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
     </ViewStyled>
