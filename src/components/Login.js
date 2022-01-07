@@ -3,7 +3,8 @@ import ButtonGen from '../generiComponents/ButtonGen';
 import { SectionStyled,TextStyled,ViewStyled,InputStyled,FormStyled,FormError,TitleStyled } from '../generiComponents/GenericStyles';
 import axios from 'axios';
 
-export default function Login() {
+export default function Login({navigation}) {
+  
   const initialState = { //Estado inicial para usuarios
     email: "",
     password: "",
@@ -53,7 +54,7 @@ export default function Login() {
       </SectionStyled>
       <SectionStyled>
         <TextStyled style={{ color: "#999999" }}>¿No tienes una cuenta?</TextStyled>
-        <ButtonGen title="Registrate" onPress={ prueba} />
+        <ButtonGen title="Registrate" onPress={() => navigation.navigate('Register')} />
       </SectionStyled>
     </ViewStyled>
   );

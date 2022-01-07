@@ -4,7 +4,6 @@ import ExplorarScreen from './Explorar'
 import ParaTiScreen from './ParaTi'
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 
-
 const Tab = createBottomTabNavigator()
 // aqui van los iconos 
 export function HomeScreen(){

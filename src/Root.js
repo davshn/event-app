@@ -1,43 +1,17 @@
-import { ThemeProvider } from 'styled-components/native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { useSelector } from 'react-redux';
-import Login from "./components/Login"
-import Register from './components/Register'
-import { HomeScreen } from "./components/Home"
-import { LogoTitle } from './components/LogoTitle'
+import { createStackNavigator } from '@react-navigation/stack';
+import Login from "./components/Login";
+import Register from './components/Register';
+import HomeScreen from "./components/Home";
 
-
-
-const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 export default function Root() {
 
-    const modes = useSelector(state=>state.darkModeReducer.darkMode);
     return (
-      <>
-        <NavigationContainer>
-          <ThemeProvider theme={{ mode: modes ? "dark" : "light" }}>
-            <Drawer.Navigator
-              initialRouteName="Home"
-              screenOptions={{
-                drawerStyle: {
-                  width: 240,
-                },
-              }}
-            >
-              <Drawer.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{ headerTitle: () => <LogoTitle /> }}
-              />
-              <Drawer.Screen name="Log in" component={Login} />
-              <Drawer.Screen name="Register" component={Register} />
-            </Drawer.Navigator>
-          </ThemeProvider>
-        </NavigationContainer>
-      </>
-    );
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register}/>
+        </Stack.Navigator>
+    )
 }
-
-//Renderizado condicional 
