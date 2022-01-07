@@ -5,7 +5,7 @@ import ParaTiScreen from './ParaTi'
 
 const Tab = createBottomTabNavigator()
 
-export function HomeScreen(){
+export default function HomeScreen(){
     return(
         <>
             <Tab.Navigator screenOptions={{headerShown: false}}>
