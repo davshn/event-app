@@ -3,7 +3,7 @@ import {SET_DARK_ACTIVE,SET_DARK_INACTIVE}from '../actions/darkModeActions';
 //Reducer para el modo oscuro
 
 const INITIAL_STATE = {
-    darkMode:false          //Inicializa el modo oscuro apagado
+    darkMode:false         //Inicializa el modo oscuro apagado
 }
 
 const  darkModeReducer = (state=INITIAL_STATE,{type})=>{
