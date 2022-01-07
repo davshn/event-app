@@ -3,6 +3,7 @@ import ButtonGen from '../generiComponents/ButtonGen';
 import { SectionStyled,TextStyled,ViewStyled,InputStyled,FormStyled,FormError,TitleStyled } from '../generiComponents/GenericStyles';
 import axios from 'axios';
 import { setUser } from '../stateManagement/actions/authUserActions';
+import { useSelector } from 'react-redux';
 
 export default function Login({navigation}) {
   
@@ -11,13 +12,12 @@ export default function Login({navigation}) {
     password: "",
   };
   
-  const [token, setToken] = useState("");
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
   const [errors,setErrors] = useState({});  //Crea el estado que contendrá los errores
   
   function loginUser(user){
       axios.post('https://find-spot.herokuapp.com/login',user) //Envia por post la a crear
-        .then((res) => {setUser(res);})
+        .then((res) => {setUser(res.data);})
         .catch((res)=>console.log(res));  
   };
   
@@ -34,6 +34,7 @@ export default function Login({navigation}) {
     setInput(prev => ({ ...prev, [input]: e }))
   };
   
+  const token = useSelector(state => state.authUserReducer);
   function prueba() {
   console.log(token)
   }
@@ -55,8 +56,9 @@ export default function Login({navigation}) {
       </SectionStyled>
       <SectionStyled>
         <TextStyled style={{ color: "#999999" }}>¿No tienes una cuenta?</TextStyled>
-        <ButtonGen title="Registrate" onPress={() => navigation.navigate('Register')} />
+        <ButtonGen title="Registrate" onPress={() => prueba()} />
       </SectionStyled>
     </ViewStyled>
   );
 }
+//navigation.navigate('Register')

@@ -8,9 +8,9 @@ const INITIAL_STATE = {
     logged:false    
 }
 
-const  authUserReducer = (state=INITIAL_STATE,{type,payload})=>{
+const authUserReducer = (state = INITIAL_STATE, { type, payload }) => {
     switch  (type){
-        case SET_USER: return{ 
+        case SET_USER: return {          
             ...state,
             token:payload.token,
             id: payload.id,

@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const SET_USER = 'SET_USER';
 
 //Acciones del estado 
