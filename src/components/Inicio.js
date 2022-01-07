@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Text ,} from "react-native";
 import { backgroundColor } from "../services/theme.js";
 import styled from "styled-components/native";

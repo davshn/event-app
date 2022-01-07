@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { View, TextInput, Text } from "react-native"
-import ButtonGen from "./ButtonGen"
+import ButtonGen from "../generiComponents/ButtonGen"
 
 export function CrearEvento(){
     const [title, setTitle] = useState("")
