@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
 import { SectionStyled,TextStyled,ViewStyled,InputStyled,FormStyled,FormError,TitleStyled } from '../generiComponents/GenericStyles';
 import axios from 'axios';
+import { setUser } from '../stateManagement/actions/authUserActions';
 
 export default function Login({navigation}) {
   
@@ -16,7 +17,7 @@ export default function Login({navigation}) {
   
   function loginUser(user){
       axios.post('https://find-spot.herokuapp.com/login',user) //Envia por post la a crear
-        .then((res) => {setToken(res.data);})
+        .then((res) => {setUser(res);})
         .catch((res)=>console.log(res));  
   };
   
