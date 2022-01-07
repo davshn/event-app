@@ -3,7 +3,7 @@ import { backgroundColor } from "../services/theme.js";
 import styled from "styled-components/native";
 import SearchInput from '../components/Searchbar';
 import { EventCards } from "./EventCards.js";
-import ButtonGen from "./ButtonGen.js";
+import ButtonGen from '../generiComponents/ButtonGen';
 
 // const StyledView = styled.ScrollView`
 //   background-color: ${backgroundColor};
