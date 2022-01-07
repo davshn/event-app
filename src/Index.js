@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import Root from './Root';
+import { CrearEvento } from './components/CrearEvento';
 
 const Drawer = createDrawerNavigator();
 
@@ -18,6 +19,7 @@ export default function Index() {
                     <Drawer.Screen name="Root" component={Root} />
                     <Drawer.Screen name="Log in" component={Login} />
                     <Drawer.Screen name="Register" component={Register} />
+                    <Drawer.Screen name="Crear evento" component={CrearEvento} />
                 </Drawer.Navigator>
             </ThemeProvider>
         </NavigationContainer>
