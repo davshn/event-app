@@ -15,19 +15,29 @@ export default function Root() {
 
     const modes = useSelector(state=>state.darkModeReducer.darkMode);
     return (
-        <>
-            <NavigationContainer >
-                <ThemeProvider theme={{ mode: (modes) ? 'dark' : 'light' }}>
-                    <Drawer.Navigator initialRouteName="Home">
-                        <Drawer.Screen name="Home" component={HomeScreen} 
-                        options={{headerTitle: () => <LogoTitle/>}}/>
-                        <Drawer.Screen name="Log in" component={Login} />
-                        <Drawer.Screen name="Register" component={Register} />
-                    </Drawer.Navigator>
-                </ThemeProvider>
-            </NavigationContainer>
-        </>
-    )
+      <>
+        <NavigationContainer>
+          <ThemeProvider theme={{ mode: modes ? "dark" : "light" }}>
+            <Drawer.Navigator
+              initialRouteName="Home"
+              screenOptions={{
+                drawerStyle: {
+                  width: 240,
+                },
+              }}
+            >
+              <Drawer.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{ headerTitle: () => <LogoTitle /> }}
+              />
+              <Drawer.Screen name="Log in" component={Login} />
+              <Drawer.Screen name="Register" component={Register} />
+            </Drawer.Navigator>
+          </ThemeProvider>
+        </NavigationContainer>
+      </>
+    );
 }
 
 //Renderizado condicional 

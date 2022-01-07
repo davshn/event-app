@@ -10,11 +10,14 @@ import {
 import { FlatList } from "react-native-gesture-handler";
 // import data from "../../data";
 
-
 const DATA = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
     title: "First Event",
+    location: "mi Home",
+    when: "dom ,9 de ene de 2022 12:00 -03+ ",
+    price: "$",
+    who: "Henry Productions ",
   },
   {
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
@@ -32,7 +35,7 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity
       onPress={onPress}
       style={styles.card}
-        // style={[styles.item, backgroundColor]}
+      // style={[styles.item, backgroundColor]}
     >
       <Image
         style={styles.cardImage}
@@ -40,14 +43,16 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
           uri: "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg",
         }}
       />
-      <Text style={[styles.title, textColor]} style={styles.textCard}>
-        {item.title}
-      </Text>
+      <View style={styles.description}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.when}>{item.when}</Text>
+        <Text style={styles.who}>{item.who}</Text>
+        <Text style={styles.price}>{item.price}</Text>
+      </View>
     </TouchableOpacity>
   </View>
 );
-
-
+//location no porque para eso esta
 
 export function EventCards() {
   const [selectedId, setSelectedId] = useState(null);
@@ -66,18 +71,15 @@ export function EventCards() {
     );
   };
 
-
-
-
   let { container } = styles;
   return (
     // <SafeAreaView style={container}>
-      <FlatList
-        data={DATA}
-        renderItem={_renderItem}
-        keyExtractor={(item) => item.id}
-        extraData={selectedId}
-      />
+    <FlatList
+      data={DATA}
+      renderItem={_renderItem}
+      keyExtractor={(item) => item.id}
+      extraData={selectedId}
+    />
     // </SafeAreaView>
   );
 }
@@ -87,18 +89,35 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius:'5px',
+    borderRadius: 5,
   },
-  textCard: {
+  description: {
+ 
+
+  },
+
+  title: {
+    fontSize: 23,
+    padding: 10,
+  },
+  when: {
     fontSize: 20,
-    padding: 20,
+    padding: 5,
+  },
+  who: {
+    fontSize: 18,
+    padding: 2,
+  },
+  price: {
+    fontSize: 20,
+    padding: 5,
   },
   card: {
     backgroundColor: "#ffff",
     marginBottom: 10,
-    marginLeft: "2%",
-    width: "96%",
-    shadowColor: "#121212",
+
+    width: "95%",
+    shadowColor: "#776bc7",
     shadowOpacity: 1,
     shadowOffset: {
       width: 3,
