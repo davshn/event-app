@@ -58,11 +58,9 @@ export const StyledView = styled.View`
   justify-content: space-evenly;
   display: flex;
   flex-direction: column;
-  gap:10px;
 `;
 
 export const StyledInput = styled.TextInput`
 border-radius: 15px;
-border: 0.5mm solid grey;
 padding: 8px;
 `;
