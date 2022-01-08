@@ -14,6 +14,7 @@ export default function Register({ navigation }) {
     name: "",
     email: "",
     password: "",
+    passwordRep:"",
     dateOfBirth: today,
     image: null,
     interests:[],
@@ -23,10 +24,13 @@ export default function Register({ navigation }) {
   const [show, setShow] = useState(false);  //Controla visibilidad del datepicker
   const [modalVisible, setModalVisible] = useState(false); //Controla el modal de error al crear usuario
   
-  function createUser(user){
-        axios.post('https://find-spot.herokuapp.com/register',user) //Envia por post la a crear
-        .then((res)=>{navigation.navigate('Login');})
-        .catch((res)=>setModalVisible(true));  
+  function createUser(user) {
+    user.dateOfBirth=user.dateOfBirth.toISOString().slice(0, -14);    //Convierte la fecha en el formato del back
+    axios.post('https://find-spot.herokuapp.com/register',user) //Envia por post la a crear
+      .then((res) => {
+        setInput(initialState);
+        navigation.navigate('Login');})
+      .catch((res)=>setModalVisible(true));  
   };
   
   function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
@@ -41,6 +45,7 @@ export default function Register({ navigation }) {
     else if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/i).test(input.email)){error.email="Correo invalido"};
     if (!input.password) { error.password = "Requerido" }
     else if (!(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i).test(input.password)) { error.password = "Contraseña insegura" };
+    if(input.password!==input.passwordRep){error.passwordRep = "Contraseña no coincide"}
     if (!validateAge()) { error.dateOfBirth = "Debes ser mayor de edad" };
     if (!(Object.entries(error).length===0)) { setErrors(error) }
     else { createUser(input) };
@@ -94,7 +99,11 @@ export default function Register({ navigation }) {
         {errors.password&&(<FormError>{errors.password}</FormError>)}
       </FormStyled>
       <FormStyled>
-      <TextStyled style={{ color: "gray"}} onPress={showDatepicker}>Año de nacimiento</TextStyled>
+        <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
+        {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
+      </FormStyled>
+      <FormStyled>
+        <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Año de nacimiento:{input.dateOfBirth.toISOString().slice(0, -14)}</TextStyled>
         {errors.dateOfBirth&&(<FormError>{errors.dateOfBirth}</FormError>)}
       </FormStyled>
       <TextStyled onPress={pickImage} style={{ color: "red"}}>Subir Foto perfil </TextStyled>
