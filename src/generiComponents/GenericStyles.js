@@ -3,12 +3,12 @@ import styled from 'styled-components/native';
 export const TextStyled = styled.Text`
   font-size: 14px;
   text-align: center;
-  margin:5% 0;
+  margin:3% 0;
 `;
 
 export const ViewStyled = styled.View`
   height:100%;
-  padding:15%;
+  padding:10%;
   align-items:center;
 `;
 
@@ -19,7 +19,7 @@ export const InputStyled = styled.TextInput`
 export const FormStyled = styled.View`
   border-bottom-width:1px;
   border-bottom-color:#999999;
-  margin:5% 0;
+  margin:3% 0;
   width:100%;
   display:flex;
   flex-direction: row;
@@ -43,6 +43,12 @@ export const SectionStyled = styled.View`
   align-items:center;
 `;
 
+export const ChipStyled = styled.View`
+  display:flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content:center;
+`;
 
 //Cami's css
 export const StyledView = styled.View`
@@ -53,10 +59,10 @@ export const StyledView = styled.View`
   display: flex;
   flex-direction: column;
   gap:10px;
-`
+`;
 
 export const StyledInput = styled.TextInput`
 border-radius: 15px;
 border: 0.5mm solid grey;
 padding: 8px;
-`
+`;
