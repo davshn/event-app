@@ -20,6 +20,8 @@ const userList = {
 function createEvent(evento){
   evento.creators = [evento.creators]
   evento.category = selected
+  evento.id = "22"
+  evento.price = parseInt(evento.price)
   axios.post('https://find-spot.herokuapp.com/events', evento) 
   .then((res)=>{console.log(evento);})
   .catch((res)=>console.log(res));  
@@ -29,7 +31,7 @@ var selected = [];
 export function CrearEvento(){
   var today = new Date();
   const initialState = {
-    name: "",
+    name: "", 
     description: "",
     place: "",
     price: "",
