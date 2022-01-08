@@ -4,7 +4,7 @@ import ButtonGen from "../generiComponents/ButtonGen"
 import { StyledView, StyledInput } from '../generiComponents/GenericStyles';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import axios from 'axios';x
+import axios from 'axios';
 
 
 function  createEvent(evento){
