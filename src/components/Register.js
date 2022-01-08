@@ -1,31 +1,50 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
-import { TextStyled, ViewStyled, InputStyled, FormStyled, FormError } from '../generiComponents/GenericStyles';
+import { TextStyled, ViewStyled, InputStyled, FormStyled, FormError,ChipStyled } from '../generiComponents/GenericStyles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import {Image} from 'react-native' ; 
 import axios from 'axios';
+import { Modal } from 'react-native';
+import { ModalContStyled, ModalText, ModalButtonStyled, ButtonText } from '../generiComponents/ModalGen';
+import { Chip } from 'react-native-paper';
 
-function createUser(user){
-        axios.post('https://find-spot.herokuapp.com/register',user) //Envia por post la a crear
-        .then((res)=>{console.log("Usuario creado");})
-        .catch((res)=>console.log(res));  
-};
+//https://find-spot.herokuapp.com/categories
 
-export default function Register() {
-  var today = new Date();
+export default function Register({ navigation }) {
+  const today = new Date();
+  
   const initialState = { //Estado inicial para usuarios
     name: "",
     email: "",
     password: "",
+    passwordRep:"",
     dateOfBirth: today,
     image: null,
     interests:[],
   };
-
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
   const [errors, setErrors] = useState({});  //Crea el estado que contendrá los errores
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);  //Controla visibilidad del datepicker
+  const [modalVisible, setModalVisible] = useState(false); //Controla el modal de error al crear usuario
+  
+  function getCategories() {
+    axios.get('https://find-spot.herokuapp.com/categories',) //Trae las categorias del endpoint
+    .then((res) => setInput(prev => ({ ...prev, interests: res.data })))
+    .catch((res) => console.log(res));
+  };
+ 
+  useEffect(() => getCategories(), []);     //Cuando se monta el componente pide las categorias al back
+  
+  function createUser(user) {
+    user.dateOfBirth = user.dateOfBirth.toISOString().slice(0, -14);    //Convierte la fecha en el formato del back
+    user.interests = user.interests.map(cat => cat.name);               //Convierte los intereses en el formato del back
+    axios.post('https://find-spot.herokuapp.com/register',user) //Envia por post la a crear
+      .then((res) => {
+        setInput(initialState);
+        navigation.navigate('Login');})
+      .catch((res)=>setModalVisible(true));  
+  };
   
   function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
     setInput(prev => ({ ...prev, [input]: e }))
@@ -39,14 +58,15 @@ export default function Register() {
     else if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/i).test(input.email)){error.email="Correo invalido"};
     if (!input.password) { error.password = "Requerido" }
     else if (!(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i).test(input.password)) { error.password = "Contraseña insegura" };
+    if(input.password!==input.passwordRep){error.passwordRep = "Contraseña no coincide"}
     if (!validateAge()) { error.dateOfBirth = "Debes ser mayor de edad" };
     if (!(Object.entries(error).length===0)) { setErrors(error) }
     else { createUser(input) };
   };
   
-  function validateAge() {
-    var year = today.getFullYear() - input.dateOfBirth.getFullYear();
-    var month = today.getMonth() - input.dateOfBirth.getMonth();
+  function validateAge() {          //Valida que la edad sea 18 o mas
+    let year = today.getFullYear() - input.dateOfBirth.getFullYear();
+    let month = today.getMonth() - input.dateOfBirth.getMonth();
     if (month < 0 || (month === 0 && today.getDate() < input.dateOfBirth.getDate())) {
         year--;
     }
@@ -54,7 +74,7 @@ export default function Register() {
     return true;
   }
     
-  const onChange = (event, selectedDate) => {
+  const onChange = (event, selectedDate) => {             //Guarda la fecha seleccionada
     const currentDate = selectedDate || input.dateOfBirth;
     setShow(Platform.OS === 'ios');
     setInput(prev => ({ ...prev, "dateOfBirth": currentDate }))
@@ -92,12 +112,27 @@ export default function Register() {
         {errors.password&&(<FormError>{errors.password}</FormError>)}
       </FormStyled>
       <FormStyled>
-      <TextStyled style={{ color: "gray"}} onPress={showDatepicker}>Año de nacimiento</TextStyled>
+        <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
+        {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
+      </FormStyled>
+      <FormStyled>
+        <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Año de nacimiento:{input.dateOfBirth.toISOString().slice(0, -14)}</TextStyled>
         {errors.dateOfBirth&&(<FormError>{errors.dateOfBirth}</FormError>)}
       </FormStyled>
-      <TextStyled onPress={pickImage} style={{ color: "red"}}>Subir Foto perfil </TextStyled>
-      <ButtonGen title="intereses" />
-      <ButtonGen title="Enviar" onPress={()=>validate(input)} />
+      <TextStyled onPress={pickImage} style={{ color: "red" }}>Agregar foto de perfil </TextStyled>
+      <TextStyled onPress={pickImage} style={{ color: "black" }}>Elimina las categorias que no sean de tu interés </TextStyled>
+      <ChipStyled>
+        {input.interests.map((cat)=><Chip key={cat.id} style={{ height: 50,width: 110 }} onClose={() => setInput(prev => ({ ...prev, interests: prev.interests.filter((e)=>e.name!==cat.name) }))}>{cat.name}</Chip>)}        
+      </ChipStyled>
+      <ButtonGen title="Enviar" onPress={() => validate(input)} />
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <ModalContStyled>
+          <ModalText>Verifica tus datos</ModalText>
+          <ModalButtonStyled onPress={() => setModalVisible(false)}>
+            <ButtonText>Aceptar</ButtonText>
+          </ModalButtonStyled>
+        </ModalContStyled>
+      </Modal>
         {show && (<DateTimePicker value={input.dateOfBirth} mode='date' display="default" onChange={onChange} /> )}
         {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
     </ViewStyled>
