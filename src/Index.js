@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import Root from './Root';
 import { CrearEvento } from './components/CrearEvento';
+import { LogoTitle } from "./components/LogoTitle"
 
 const Drawer = createDrawerNavigator();
 
@@ -15,7 +16,7 @@ export default function Index() {
     return (
         <NavigationContainer >
             <ThemeProvider theme={{ mode: (modes) ? 'dark' : 'light' }}>
-                <Drawer.Navigator initialRouteName="Home">
+                <Drawer.Navigator initialRouteName="Home" screenOptions={{headerTitle: () => <LogoTitle />}} >
                     <Drawer.Screen name="Root" component={Root} />
                     <Drawer.Screen name="Log in" component={Login} />
                     <Drawer.Screen name="Register" component={Register} />
