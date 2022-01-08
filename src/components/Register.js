@@ -5,15 +5,11 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import {Image} from 'react-native' ; 
 import axios from 'axios';
+import { Modal } from 'react-native';
+import { ModalContStyled,ModalText,ModalButtonStyled,ButtonText } from '../generiComponents/ModalGen';
 
-function createUser(user){
-        axios.post('https://find-spot.herokuapp.com/register',user) //Envia por post la a crear
-        .then((res)=>{console.log("Usuario creado");})
-        .catch((res)=>console.log(res));  
-};
-
-export default function Register() {
-  var today = new Date();
+export default function Register({ navigation }) {
+  const today = new Date();
   const initialState = { //Estado inicial para usuarios
     name: "",
     email: "",
@@ -22,10 +18,16 @@ export default function Register() {
     image: null,
     interests:[],
   };
-
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
   const [errors, setErrors] = useState({});  //Crea el estado que contendrá los errores
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);  //Controla visibilidad del datepicker
+  const [modalVisible, setModalVisible] = useState(false); //Controla el modal de error al crear usuario
+  
+  function createUser(user){
+        axios.post('https://find-spot.herokuapp.com/register',user) //Envia por post la a crear
+        .then((res)=>{navigation.navigate('Login');})
+        .catch((res)=>setModalVisible(true));  
+  };
   
   function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
     setInput(prev => ({ ...prev, [input]: e }))
@@ -45,8 +47,8 @@ export default function Register() {
   };
   
   function validateAge() {
-    var year = today.getFullYear() - input.dateOfBirth.getFullYear();
-    var month = today.getMonth() - input.dateOfBirth.getMonth();
+    let year = today.getFullYear() - input.dateOfBirth.getFullYear();
+    let month = today.getMonth() - input.dateOfBirth.getMonth();
     if (month < 0 || (month === 0 && today.getDate() < input.dateOfBirth.getDate())) {
         year--;
     }
@@ -97,7 +99,15 @@ export default function Register() {
       </FormStyled>
       <TextStyled onPress={pickImage} style={{ color: "red"}}>Subir Foto perfil </TextStyled>
       <ButtonGen title="intereses" />
-      <ButtonGen title="Enviar" onPress={()=>validate(input)} />
+      <ButtonGen title="Enviar" onPress={() => validate(input)} />
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <ModalContStyled>
+          <ModalText>Verifica tus datos</ModalText>
+          <ModalButtonStyled onPress={() => setModalVisible(false)}>
+            <ButtonText>Aceptar</ButtonText>
+          </ModalButtonStyled>
+        </ModalContStyled>
+      </Modal>
         {show && (<DateTimePicker value={input.dateOfBirth} mode='date' display="default" onChange={onChange} /> )}
         {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
     </ViewStyled>

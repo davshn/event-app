@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     id: null,
     name: "",
     interests: [],
-    logged:false    
+    logged:false    //Guarda si el usuario esta o no logueado
 }
 
 const authUserReducer = (state = INITIAL_STATE, { type, payload }) => {
