@@ -2,22 +2,30 @@ import { useState } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
 import { SectionStyled,TextStyled,ViewStyled,InputStyled,FormStyled,FormError,TitleStyled } from '../generiComponents/GenericStyles';
 import axios from 'axios';
+import { setUser } from '../stateManagement/actions/authUserActions';
+import { useDispatch } from "react-redux";
+import { Modal } from 'react-native';
+import { ModalContStyled,ModalText,ModalButtonStyled,ButtonText } from '../generiComponents/ModalGen';
 
 export default function Login({navigation}) {
+  const dispatch = useDispatch();
   
   const initialState = { //Estado inicial para usuarios
     email: "",
     password: "",
   };
   
-  const [token, setToken] = useState("");
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
   const [errors,setErrors] = useState({});  //Crea el estado que contendrá los errores
+  const [modalVisible, setModalVisible] = useState(false); //Controla el modal de error al loguear
   
   function loginUser(user){
       axios.post('https://find-spot.herokuapp.com/login',user) //Envia por post la a crear
-        .then((res) => {setToken(res.data);})
-        .catch((res)=>console.log(res));  
+        .then((res) => {
+          dispatch(setUser(res.data));
+          navigation.navigate('Home');
+        })
+        .catch((res)=>setModalVisible(true));  
   };
   
   function validate(input) {
@@ -32,10 +40,6 @@ export default function Login({navigation}) {
   function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
     setInput(prev => ({ ...prev, [input]: e }))
   };
-  
-  function prueba() {
-  console.log(token)
-  }
   
   return (
     <ViewStyled>
@@ -56,6 +60,14 @@ export default function Login({navigation}) {
         <TextStyled style={{ color: "#999999" }}>¿No tienes una cuenta?</TextStyled>
         <ButtonGen title="Registrate" onPress={() => navigation.navigate('Register')} />
       </SectionStyled>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <ModalContStyled>
+          <ModalText>Usuario o contraseña incorrectos</ModalText>
+          <ModalButtonStyled onPress={() => setModalVisible(false)}>
+            <ButtonText>Aceptar</ButtonText>
+          </ModalButtonStyled>
+        </ModalContStyled>
+      </Modal>
     </ViewStyled>
   );
 }
