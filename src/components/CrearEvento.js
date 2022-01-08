@@ -5,6 +5,7 @@ import { StyledView, StyledInput } from '../generiComponents/GenericStyles';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
+
 import CustomMultiPicker from "react-native-multiple-select-list";
 
 const userList = {
