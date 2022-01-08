@@ -6,13 +6,27 @@ import * as ImagePicker from 'expo-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
 
+import CustomMultiPicker from "react-native-multiple-select-list";
 
-function  createEvent(evento){
+const userList = {
+  "123":"Fiestas",
+  "124":"Karaoke",
+  "125":"After",
+  "126":"Conciertos",
+  "127":"Eventos culturales",
+  "128":"Deportivo",
+  "129":"Gastronomia"
+}
+
+function createEvent(evento){
+  evento.creators = [evento.creators]
+  evento.category = selected
   axios.post('https://find-spot.herokuapp.com/events', evento) 
-  .then((res)=>{console.log("Exito");})
+  .then((res)=>{console.log(evento);})
   .catch((res)=>console.log(res));  
 } 
 
+var selected = []; 
 export function CrearEvento(){
   var today = new Date();
   const initialState = {
@@ -24,7 +38,6 @@ export function CrearEvento(){
     time: "",
     creators: [],
     image: null,
-    category : ["Karaoke", "Fiesta"]
   }
   const [input, setInput] = useState(initialState);
   const [errors, setErrors] = useState({});
@@ -45,17 +58,17 @@ export function CrearEvento(){
   //   setShow(true);
   // };
   
-  // const pickImage = async () => {
-  //       let result = await ImagePicker.launchImageLibraryAsync({
-  //         mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //         allowsEditing: true,
-  //         aspect: [4, 3],
-  //         quality: 1,
-  //       });
-  //       if (!result.cancelled) {
-  //         setInput(prev => ({ ...prev, "image": result.uri }))
-  //       };
-  //   };
+  const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+        if (!result.cancelled) {
+          setInput(prev => ({ ...prev, "image": result.uri }))
+        };
+    };
 
     return( 
             <StyledView>
@@ -67,11 +80,32 @@ export function CrearEvento(){
                 <StyledInput value={input.description} onChangeText={(ev)=>hadleInputChange("description",ev)} placeholder="Descripción"/>
                 <StyledInput value={input.price} onChangeText={(ev)=>hadleInputChange("price",ev)} placeholder="Precio de la entrada"/>
                 <StyledInput value={input.place} onChangeText={(ev)=>hadleInputChange("place",ev)} placeholder="Ubicación"/> 
+                <CustomMultiPicker
+                  options={userList}
+                  search={true} // should show search bar?
+                  multiple={true} //
+                  placeholder={"Search"}
+                  placeholderTextColor={'#757575'}
+                  returnValue={"label"} // label or value
+                  callback={(res)=>{ selected = res }} // callback, array of selected items
+                  rowBackgroundColor={"#eee"}
+                  rowHeight={40}
+                  rowRadius={5}
+                  searchIconName="ios-checkmark"
+                  searchIconColor="red"
+                  searchIconSize={30}
+                  iconColor={"#00a2dd"}
+                  iconSize={30}
+                  selectedIconName={"ios-checkmark-circle-outline"}
+                  unselectedIconName={"ios-radio-button-off-outline"}
+                  scrollViewHeight={130}
+                  selected={[]} // list of options which are selected by default
+                />                
                 {/* <Text onPress={showDatepicker}>Seleccionar fecha</Text> */}
-                {/* <ButtonGen title="Subir foto" onPress={pickImage}/> */}
+                <ButtonGen title="Subir foto" onPress={pickImage}/>
                 <ButtonGen title="Enviar" onPress={() => createEvent(input)}/>
-                {show && (<DateTimePicker value={input.date} mode='date' display="default" onChange={onChange} /> )}
-                {/* {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />} */}
+                {/* {show && (<DateTimePicker value={input.date} mode='date' display="default" onChange={onChange} /> )} */}
+                {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
             </StyledView>
     )
 } 
