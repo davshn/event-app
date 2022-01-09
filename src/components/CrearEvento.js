@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Image, Text } from "react-native"
 import ButtonGen from "../generiComponents/ButtonGen"
-import { StyledView, StyledInput, StyledTitle, SmallerText, UploadPic } from '../generiComponents/GenericStyles';
+import { StyledView, StyledInput, StyledTitle, SmallerText, UploadPic, StyledButton, TextButton, SelectedDate } from '../generiComponents/GenericStyles';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
@@ -10,10 +10,11 @@ import CustomMultiPicker from "react-native-multiple-select-list";
 function createEvent(evento){
   // evento.creators = [evento.creators]
   evento.category = selected
+  evento.date = evento.date.toISOString().slice(0, -14);
   // evento.price = parseInt(evento.price)
-  // axios.post('https://find-spot.herokuapp.com/events', evento) 
-  // .then((res)=>{console.log(evento);})
-  // .catch((res)=>console.log(res));  
+  axios.post('https://find-spot.herokuapp.com/events', evento) 
+  .then((res)=>{console.log(evento);})
+  .catch((res)=>console.log(res));  
   console.log(evento)
 } 
 
@@ -36,7 +37,7 @@ export function CrearEvento(){
     description: "",
     place: "",
     price: "",
-    date: "",
+    date: today,
     time: "",
     creators: [],
     image: null,
@@ -57,9 +58,9 @@ export function CrearEvento(){
     setInput(prev => ({ ...prev, "date": currentDate }))
   };
 
-  // const showDatepicker = () => {
-  //   setShow(true);
-  // };
+  const showDatepicker = () => {
+    setShow(true);
+  };
   
   const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -105,10 +106,12 @@ export function CrearEvento(){
                   scrollViewHeight={340}
                   selected={[]} // list of options which are selected by default
                 />                
-                {/* <Text onPress={showDatepicker}>Seleccionar fecha</Text> */}
+                <SelectedDate onPress={showDatepicker}>Fecha : {input.date.toISOString().slice(0, -14)}</SelectedDate>
                 <UploadPic onPress={pickImage}>Subir foto</UploadPic>
-                <ButtonGen title="Enviar" onPress={() => createEvent(input)}/>
-                {/* {show && (<DateTimePicker value={input.date} mode='date' display="default" onChange={onChange} /> )} */}
+                <StyledButton onPress={() => createEvent(input)}>
+                  <TextButton>Enviar</TextButton>
+                </StyledButton>
+                {show && (<DateTimePicker value={input.date} mode='date' display="default" onChange={onChange} /> )}
                 {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
             </StyledView>
     )
