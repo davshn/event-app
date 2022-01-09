@@ -3,10 +3,12 @@ import InicioScreen from './Inicio'
 import ExplorarScreen from './Explorar'
 import ParaTiScreen from './ParaTi'
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator()
 // aqui van los iconos 
-export default function HomeScreen(){
+export default function HomeScreen() {
+  const logged = useSelector(state => state.authUserReducer.logged);
     return (
       <>
         <Tab.Navigator screenOptions={{ headerShown: false }}>
@@ -36,7 +38,7 @@ export default function HomeScreen(){
               ),
             }}
           />
-          <Tab.Screen
+          {logged ? <Tab.Screen
             name="Para ti"
             component={ParaTiScreen}
             options={{
@@ -48,7 +50,7 @@ export default function HomeScreen(){
                 />
               ),
             }}
-          />
+          /> : <></>}
         </Tab.Navigator>
       </>
     );
