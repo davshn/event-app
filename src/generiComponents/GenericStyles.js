@@ -70,17 +70,17 @@ margin: 5px;
 
 export const StyledTitle = styled.Text`
 font-weight: bold;
-font-size: 23;
+font-size: 23px;
 margin: auto;
-margin-bottom: 10;
+margin-bottom: 10px;
 `
 
 export const SmallerText = styled.Text`
 font-weight: bold;
-font-size: 16;
+font-size: 17px;
 margin: auto;
-margin-top: 5px;
-margin-bottom: 5px;
+margin-top: 9px;
+margin-bottom: 9px;
 `
 
 export const UploadPic = styled.Text`
@@ -88,12 +88,37 @@ color: #00a2dd
 text-decoration: underline;
 margin: auto;
 margin-top: 5px;
-margin-bottom: 5px;
+margin-bottom: 15px;
+font-size: 17px;
+`
+export const StyledButton = styled.TouchableOpacity`
+  margin-bottom: 50px;
+  background-color: #00a2dd;
+  margin: auto;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  width: 260px;
+  `
+
+export const TextButton = styled.Text`
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  padding: 9px;
 `
 
-//  height:550px;
-//   padding:15%;
-//   align-items:center;
-//   justify-content: space-evenly;
-//   display: flex;
-//   flex-direction: column;
+export const Logo = styled.View`
+  margin: auto;
+  flex-direction: row;
+  align-items: center; 
+  margin-left: 58px;
+`
+
+export const SelectedDate = styled.Text`
+border-radius: 15px;
+border: 0.5px solid grey;
+padding: 10px;
+margin: 5px;
+color: grey
+`
