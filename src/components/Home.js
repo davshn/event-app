@@ -2,6 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import InicioScreen from './Inicio'
 import ExplorarScreen from './Explorar'
 import ParaTiScreen from './ParaTi'
+
+import EventDetail from '../components/EventDetail';
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 import { useSelector } from 'react-redux';
 
@@ -21,9 +23,11 @@ export default function HomeScreen() {
                   name="home-outline"
                   color={"#5302de"}
                   size={size}
+                  
                 />
               ),
             }}
+            
           />
           <Tab.Screen
             name="Explorar"
