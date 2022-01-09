@@ -1,4 +1,4 @@
-import {SET_USER}from '../actions/authUserActions';
+import {SET_USER,ERASE_USER}from '../actions/authUserActions';
 
 const INITIAL_STATE = {
     token: "",
@@ -17,7 +17,12 @@ const authUserReducer = (state = INITIAL_STATE, { type, payload }) => {
             name: payload.name,
             interests: payload.interests,
             logged:true,
-            }
+        }
+        
+        case ERASE_USER: return {          
+            ...INITIAL_STATE
+        }
+        
         default: return state;
     }
 }
