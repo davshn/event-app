@@ -1,14 +1,24 @@
 import { useState } from "react"
 import { Image, Text } from "react-native"
 import ButtonGen from "../generiComponents/ButtonGen"
-import { StyledView, StyledInput } from '../generiComponents/GenericStyles';
+import { StyledView, StyledInput, StyledTitle, SmallerText, UploadPic } from '../generiComponents/GenericStyles';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
-
 import CustomMultiPicker from "react-native-multiple-select-list";
 
-const userList = {
+function createEvent(evento){
+  // evento.creators = [evento.creators]
+  evento.category = selected
+  // evento.price = parseInt(evento.price)
+  // axios.post('https://find-spot.herokuapp.com/events', evento) 
+  // .then((res)=>{console.log(evento);})
+  // .catch((res)=>console.log(res));  
+  console.log(evento)
+} 
+
+var selected = []; 
+const categories = {
   "123":"Fiestas",
   "124":"Karaoke",
   "125":"After",
@@ -18,19 +28,9 @@ const userList = {
   "129":"Gastronomia"
 }
 
-function createEvent(evento){
-  evento.creators = [evento.creators]
-  evento.category = selected
-  evento.id = "22"
-  evento.price = parseInt(evento.price)
-  axios.post('https://find-spot.herokuapp.com/events', evento) 
-  .then((res)=>{console.log(evento);})
-  .catch((res)=>console.log(res));  
-} 
-
-var selected = []; 
 export function CrearEvento(){
   var today = new Date();
+
   const initialState = {
     name: "", 
     description: "",
@@ -46,8 +46,9 @@ export function CrearEvento(){
   const [show, setShow] = useState(false);
 
   function hadleInputChange(input,e) {
-    input === "creators"? setInput(prev => ({ ...prev, [input]: [e]}))
-    : setInput(prev => ({ ...prev, [input]: e }))
+    if (input === "price") setInput(prev => ({ ...prev,"price": parseInt(e)})) 
+    else if (input === "creators") setInput(prev => ({ ...prev, [input]: [e]}))
+    else setInput(prev => ({ ...prev, [input]: e }))
   };  
 
   const onChange = (event, selectedDate) => {
@@ -74,7 +75,7 @@ export function CrearEvento(){
 
     return( 
             <StyledView>
-                <Text>Crear Evento</Text>
+                <StyledTitle> Crear Evento.</StyledTitle>
                 <StyledInput value={input.creators} onChangeText={(ev)=>hadleInputChange("creators",ev)} placeholder="Organizador"/>
                 <StyledInput value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre del evento"/>
                 <StyledInput value={input.date} onChangeText={(ev)=>hadleInputChange("date",ev)} placeholder="AAAA-MM-DD"/>
@@ -82,9 +83,10 @@ export function CrearEvento(){
                 <StyledInput value={input.description} onChangeText={(ev)=>hadleInputChange("description",ev)} placeholder="Descripción"/>
                 <StyledInput value={input.price} onChangeText={(ev)=>hadleInputChange("price",ev)} placeholder="Precio de la entrada"/>
                 <StyledInput value={input.place} onChangeText={(ev)=>hadleInputChange("place",ev)} placeholder="Ubicación"/> 
+                <SmallerText>Categorías:</SmallerText>
                 <CustomMultiPicker
-                  options={userList}
-                  search={true} // should show search bar?
+                  options={categories}
+                  search={false} // should show search bar?
                   multiple={true} //
                   placeholder={"Search"}
                   placeholderTextColor={'#757575'}
@@ -97,14 +99,14 @@ export function CrearEvento(){
                   searchIconColor="red"
                   searchIconSize={30}
                   iconColor={"#00a2dd"}
-                  iconSize={30}
+                  iconSize={28}
                   selectedIconName={"ios-checkmark-circle-outline"}
                   unselectedIconName={"ios-radio-button-off-outline"}
-                  scrollViewHeight={130}
+                  scrollViewHeight={340}
                   selected={[]} // list of options which are selected by default
                 />                
                 {/* <Text onPress={showDatepicker}>Seleccionar fecha</Text> */}
-                <ButtonGen title="Subir foto" onPress={pickImage}/>
+                <UploadPic onPress={pickImage}>Subir foto</UploadPic>
                 <ButtonGen title="Enviar" onPress={() => createEvent(input)}/>
                 {/* {show && (<DateTimePicker value={input.date} mode='date' display="default" onChange={onChange} /> )} */}
                 {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
