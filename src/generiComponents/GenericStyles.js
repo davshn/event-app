@@ -53,16 +53,47 @@ export const ChipStyled = styled.View`
 `;
 
 //Cami's css
-export const StyledView = styled.View`
-  height:550px;
-  padding:15%;
-  align-items:center;
-  justify-content: space-evenly;
-  display: flex;
-  flex-direction: column;
+export const StyledView = styled.ScrollView`
+  margin: 25px;
+  border: 0.5px solid grey;
+  padding: 15px;
+  border-radius: 10px;
+  padding-bottom: 10px;
 `;
 
 export const StyledInput = styled.TextInput`
 border-radius: 15px;
+border: 0.5px solid grey;
 padding: 8px;
+margin: 5px;
 `;
+
+export const StyledTitle = styled.Text`
+font-weight: bold;
+font-size: 23;
+margin: auto;
+margin-bottom: 10;
+`
+
+export const SmallerText = styled.Text`
+font-weight: bold;
+font-size: 16;
+margin: auto;
+margin-top: 5px;
+margin-bottom: 5px;
+`
+
+export const UploadPic = styled.Text`
+color: #00a2dd
+text-decoration: underline;
+margin: auto;
+margin-top: 5px;
+margin-bottom: 5px;
+`
+
+//  height:550px;
+//   padding:15%;
+//   align-items:center;
+//   justify-content: space-evenly;
+//   display: flex;
+//   flex-direction: column;
