@@ -1,41 +1,26 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  Button,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 
-
-
-
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
+const Item = ({ item }) => (
   //    let { textCard , card ,cardImage} = styles
-  <View style={styles.container}>
-    <TouchableOpacity
-      onPress={onPress}
-      style={styles.card}
-      // style={[styles.item, backgroundColor]}
-    >
-      <Image
-        style={styles.cardImage}
-        source={{
-          uri: "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg",
-        }}
-      />
-      <View style={styles.description}>
-        <Text style={styles.title}>{item.name}</Text>
-        <Text style={styles.when}>{item.date}</Text>
-        {/* <Text style={styles.who}>{item.who}</Text> */}
-        <Text style={styles.price}>{item.price}</Text>
-        <Text style={styles.price}>{item.time}</Text>
 
-      </View>
-    </TouchableOpacity>
+  <View style={styles.container}>
+    <Image
+      style={styles.cardImage}
+      source={{
+        uri: "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg",
+      }}
+    />
+    <View style={styles.description}>
+      <Text style={styles.title}>{item.name}</Text>
+      <Text style={styles.when}>{item.date}</Text>
+      {/* <Text style={styles.who}>{item.who}</Text> */}
+      <Text style={styles.price}>{item.price}</Text>
+      <Text style={styles.price}>{item.time}</Text>
+    </View>
   </View>
 
   // "date": "2022-10-15",
@@ -44,53 +29,45 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
   //     "name": "Baile ",
   //     "price": 305.3,
   //     "time": "12:00",
-
 );
 
-
 export function EventCards() {
-  const [selectedId, setSelectedId] = useState(null);
   const [events, setEvents] = useState([]);
 
-  useEffect(() => getEvents(), [])
+  useEffect(() => getEvents(), []);
 
-  
-const getEvents = () => {
-  axios
-    .get("https://find-spot.herokuapp.com/events")
-    .then((res) => {
-      return setEvents(res.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
+  const getEvents = () => {
+    axios
+      .get("https://find-spot.herokuapp.com/events")
+      .then((res) => {
+        return setEvents(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
-
+  const navigation = useNavigation();
 
   const _renderItem = ({ item }) => {
-    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
-    const color = item.id === selectedId ? "white" : "black";
-
     return (
-      <Item
-        item={item}
-        onPress={() => setSelectedId(item.id)}
-        backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
-      />
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Detail",{item:item})}
+        style={styles.card}
+      >
+        <Item item={item}  />
+      </TouchableOpacity>
     );
   };
 
   return (
-    // <SafeAreaView style={container}>
     <FlatList
       data={events}
       renderItem={_renderItem}
       keyExtractor={(item) => item.id}
-      extraData={selectedId}
+      extraData={(item) => item.id}
+      navigation={navigation}
     />
-    // </SafeAreaView>
   );
 }
 
@@ -142,5 +119,3 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
 });
-
-
