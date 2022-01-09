@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -49,6 +49,8 @@ export function EventCards() {
 
   const navigation = useNavigation();
 
+
+  
   const _renderItem = ({ item }) => {
     return (
       <TouchableOpacity
@@ -60,12 +62,14 @@ export function EventCards() {
     );
   };
 
+
+
   return (
     <FlatList
       data={events}
       renderItem={_renderItem}
       keyExtractor={(item) => item.id}
-      extraData={(item) => item.id}
+      // extraData={(item) => item.id}
       navigation={navigation}
     />
   );
