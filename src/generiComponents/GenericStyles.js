@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { backgroundColor } from '../services/theme';
 
 export const TextStyled = styled.Text`
   font-size: 14px;
@@ -10,6 +11,7 @@ export const ViewStyled = styled.View`
   height:100%;
   padding:10%;
   align-items:center;
+  background-color:${backgroundColor};
 `;
 
 export const InputStyled = styled.TextInput`
