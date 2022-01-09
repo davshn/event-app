@@ -10,7 +10,7 @@ function ExplorarScreen(){
     return(
         <StyledView>
             <Text>
-                EXPLORAR
+                PRÓXIMAMENTE
             </Text>
         </StyledView>
     )
