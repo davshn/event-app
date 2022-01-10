@@ -92,7 +92,7 @@ export function CrearEvento() {
     <StyledView>
       <StyledTitle> Crear Evento.</StyledTitle>
       <StyledInput
-        value={input.creators}
+        value={input.creators.toString()}
         onChangeText={(ev) => hadleInputChange("creators", ev)}
         placeholder="Organizador"
       />
@@ -100,11 +100,6 @@ export function CrearEvento() {
         value={input.name}
         onChangeText={(ev) => hadleInputChange("name", ev)}
         placeholder="Nombre del evento"
-      />
-      <StyledInput
-        value={input.date}
-        onChangeText={(ev) => hadleInputChange("date", ev)}
-        placeholder="AAAA-MM-DD"
       />
       <StyledInput
         value={input.time}
@@ -117,7 +112,7 @@ export function CrearEvento() {
         placeholder="Descripción"
       />
       <StyledInput
-        value={input.price}
+        value={input.price.toString()}
         onChangeText={(ev) => hadleInputChange("price", ev)}
         placeholder="Precio de la entrada"
       />

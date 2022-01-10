@@ -30,7 +30,6 @@ export default function Index() {
         props.navigation.navigate("Inicio");
         dispatch(eraseUser());
     };
-    console.log(logged)
     return (
         <NavigationContainer >
             <ThemeProvider theme={{ mode: (modes) ? 'dark' : 'light' }}>
