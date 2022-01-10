@@ -158,12 +158,16 @@ export const TextButton = styled.Text`
   padding: 9px;
 `;
 
+
+
+//Logo CSS -- NO CAMBIAR
 export const Logo = styled.View`
   margin: auto;
   flex-direction: row;
   align-items: center;
-  margin-left: 58px;
 `;
+
+
 
 export const SelectedDate = styled.Text`
   border-radius: 15px;
