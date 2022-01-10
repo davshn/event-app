@@ -39,7 +39,7 @@ export const DetailView = styled.View`
 
 export const DetailInfo = styled.View`
  margin: 20px;
-
+`
 
 export const TextStyled = styled.Text`
   font-size: 14px;
