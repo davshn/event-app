@@ -1,5 +1,5 @@
-import styled from 'styled-components/native';
-import { backgroundColor } from '../services/theme';
+import styled from "styled-components/native";
+import { backgroundColor } from "../services/theme";
 // import * as Font from "expo-font";
 
 // export default useFonts = async () =>
@@ -12,34 +12,44 @@ import { backgroundColor } from '../services/theme';
 // --plump-purple: #5641abff;
 // --lavender-web: #e6e3f3ff;
 
+//Event detail CSS
 export const TextCardBig = styled.Text`
-textShadowColor:#776bc7ff;
-textShadowRadius: 2;
-  fontWeight:bold;
+  font-weight: bold;
+  text-decoration: underline;
   font-size: 23px;
   text-align: center;
-  margin:3% 0;
+  margin-top: 15px;
+  margin-bottom: 2.5px;
 `;
 
 export const TextCardMedium = styled.Text`
-includeFontPadding:true;
-text-align: auto;
+  text-align: auto;
   font-size: 14px;
   text-align: left;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
 `;
 
 export const TextCardSmall = styled.Text`
-fontWeight:600;
+  font-weight: 600;
   font-size: 14px;
   text-align: left;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
 `;
+
 export const DetailView = styled.View`
-  borderColor: #5302deff;
+  margin: 20px;
+  border: 1px solid #5302deff;
+  border-radius: 20px;
+  padding: 10px;
+  height: 100%;
 `;
 
 export const DetailInfo = styled.View`
- margin: 20px;
-`
+  margin: 20px;
+  height: 130px;
+`;
 
 export const TextStyled = styled.Text`
   font-size: 14px;
@@ -91,7 +101,7 @@ export const ChipStyled = styled.View`
   justify-content: center;
 `;
 
-//Cami's css
+//Form CSS
 export const StyledView = styled.ScrollView`
   margin: 25px;
   border: 0.5px solid grey;
@@ -123,16 +133,17 @@ export const SmallerText = styled.Text`
 `;
 
 export const UploadPic = styled.Text`
-color: #00a2dd
+color: #5641abff
 text-decoration: underline;
 margin: auto;
 margin-top: 5px;
 margin-bottom: 15px;
 font-size: 17px;
 `;
+
 export const StyledButton = styled.TouchableOpacity`
   margin-bottom: 50px;
-  background-color: #00a2dd;
+  background-color: #5641abff;
   margin: auto;
   margin-bottom: 30px;
   border-radius: 10px;
@@ -168,7 +179,7 @@ export const Container = styled.View`
   justify-content: center;
 
   margin: 10px;
-`;// background-color: ${backgroundColor};
+`; // background-color: ${backgroundColor};
 
 export const Input = styled.TextInput`
   border-radius: 15px;
@@ -203,10 +214,10 @@ export const EventImage = styled.Image`
 export const CardInfo = styled.View`
   margin: 5px
   height: 100px;
-`
+`;
 
 export const CardInfoText = styled.Text`
   font-size: 17px;
   margin-left: 15px;
   font-weight: bold;
-`
+`;

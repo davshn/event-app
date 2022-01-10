@@ -74,45 +74,89 @@ export function CrearEvento(){
         };
     };
 
-    return( 
-            <StyledView>
-                <StyledTitle> Crear Evento.</StyledTitle>
-                <StyledInput value={input.creators} onChangeText={(ev)=>hadleInputChange("creators",ev)} placeholder="Organizador"/>
-                <StyledInput value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre del evento"/>
-                <StyledInput value={input.date} onChangeText={(ev)=>hadleInputChange("date",ev)} placeholder="AAAA-MM-DD"/>
-                <StyledInput value={input.time} onChangeText={(ev)=>hadleInputChange("time",ev)} placeholder="HH:MM"/>
-                <StyledInput value={input.description} onChangeText={(ev)=>hadleInputChange("description",ev)} placeholder="Descripción"/>
-                <StyledInput value={input.price} onChangeText={(ev)=>hadleInputChange("price",ev)} placeholder="Precio de la entrada"/>
-                <StyledInput value={input.place} onChangeText={(ev)=>hadleInputChange("place",ev)} placeholder="Ubicación"/> 
-                <SmallerText>Categorías:</SmallerText>
-                <CustomMultiPicker
-                  options={categories}
-                  search={false} // should show search bar?
-                  multiple={true} //
-                  placeholder={"Search"}
-                  placeholderTextColor={'#757575'}
-                  returnValue={"label"} // label or value
-                  callback={(res)=>{ selected = res }} // callback, array of selected items
-                  rowBackgroundColor={"#eee"}
-                  rowHeight={40}
-                  rowRadius={5}
-                  searchIconName="ios-checkmark"
-                  searchIconColor="red"
-                  searchIconSize={30}
-                  iconColor={"#00a2dd"}
-                  iconSize={28}
-                  selectedIconName={"ios-checkmark-circle-outline"}
-                  unselectedIconName={"ios-radio-button-off-outline"}
-                  scrollViewHeight={340}
-                  selected={[]} // list of options which are selected by default
-                />                
-                <SelectedDate onPress={showDatepicker}>Fecha : {input.date.toISOString().slice(0, -14)}</SelectedDate>
-                <UploadPic onPress={pickImage}>Subir foto</UploadPic>
-                <StyledButton onPress={() => createEvent(input)}>
-                  <TextButton>Enviar</TextButton>
-                </StyledButton>
-                {show && (<DateTimePicker value={input.date} mode='date' display="default" onChange={onChange} /> )}
-                {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
-            </StyledView>
-    )
+    return (
+      <StyledView>
+        <StyledTitle> Crear Evento.</StyledTitle>
+        <StyledInput
+          value={input.creators}
+          onChangeText={(ev) => hadleInputChange("creators", ev)}
+          placeholder="Organizador"
+        />
+        <StyledInput
+          value={input.name}
+          onChangeText={(ev) => hadleInputChange("name", ev)}
+          placeholder="Nombre del evento"
+        />
+        <StyledInput
+          value={input.date}
+          onChangeText={(ev) => hadleInputChange("date", ev)}
+          placeholder="AAAA-MM-DD"
+        />
+        <StyledInput
+          value={input.time}
+          onChangeText={(ev) => hadleInputChange("time", ev)}
+          placeholder="HH:MM"
+        />
+        <StyledInput
+          value={input.description}
+          onChangeText={(ev) => hadleInputChange("description", ev)}
+          placeholder="Descripción"
+        />
+        <StyledInput
+          value={input.price}
+          onChangeText={(ev) => hadleInputChange("price", ev)}
+          placeholder="Precio de la entrada"
+        />
+        <StyledInput
+          value={input.place}
+          onChangeText={(ev) => hadleInputChange("place", ev)}
+          placeholder="Ubicación"
+        />
+        <SmallerText>Categorías:</SmallerText>
+        <CustomMultiPicker
+          options={categories}
+          search={false} // should show search bar?
+          multiple={true} //
+          placeholder={"Search"}
+          placeholderTextColor={"#757575"}
+          returnValue={"label"} // label or value
+          callback={(res) => {
+            selected = res;
+          }} // callback, array of selected items
+          rowBackgroundColor={"#eee"}
+          rowHeight={40}
+          rowRadius={5}
+          searchIconName="ios-checkmark"
+          searchIconColor="red"
+          searchIconSize={30}
+          iconColor={"#5641abff"}
+          iconSize={28}
+          selectedIconName={"ios-checkmark-circle-outline"}
+          unselectedIconName={"ios-radio-button-off-outline"}
+          scrollViewHeight={340}
+          selected={[]} // list of options which are selected by default
+        />
+        <SelectedDate onPress={showDatepicker}>
+          Fecha : {input.date.toISOString().slice(0, -14)}
+        </SelectedDate>
+        <UploadPic onPress={pickImage}>Subir foto</UploadPic>
+        <StyledButton onPress={() => createEvent(input)}>
+          <TextButton>Enviar</TextButton>
+        </StyledButton>
+        {show && (
+          <DateTimePicker
+            value={input.date}
+            mode="date"
+            display="default"
+            onChange={onChange}
+          />
+        )}
+        {input.image && (
+          <Image
+            source={{ uri: input.image }}
+            style={{ width: 200, height: 200 }}
+          />
+        )}
+      </StyledView>
+    );
 } 

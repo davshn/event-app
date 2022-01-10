@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
-import { View, Text, Button,Image } from "react-native";
+import { Text, Button} from "react-native";
 import axios from "axios";
 import styled from "styled-components/native";
 import { backgroundColor } from "../services/theme.js";
-import {TextStyled} from '../generiComponents/GenericStyles';
+import {
+  TextCardBig,
+  TextCardMedium,
+  TextCardSmall,
+  DetailView,
+  DetailInfo,
+  StyledButton,
+  TextButton
+} from "../generiComponents/GenericStyles";
 
 const StyledView = styled.ScrollView`
-  background-color: ${backgroundColor};
 `;
 
 const EventDetail = ({ navigation: { goBack }, route }) => {
@@ -30,22 +37,26 @@ const EventDetail = ({ navigation: { goBack }, route }) => {
   return (
     <>
       <StyledView>
-        <View>
+        <DetailView>
           <ImageDetail
             source={{
               uri: "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg",
             }}
           />
-         
-          <Text>Descripción : {event.description}</Text>
-           <Text>{event.place}</Text>
-          <Text>{event.time}</Text>
-          <Text>{event.date}</Text>
-          <Text>{event.rating}</Text>
-          <Text>{event.price}</Text>
-          <Text>{event.creators}</Text>
-        </View>
-        <Button onPress={() => goBack()} title="Volver" />
+          <TextCardBig>{event.name}</TextCardBig>
+          <DetailInfo>
+            <TextCardSmall>Descripción : {event.description}</TextCardSmall>
+            <TextCardMedium>Lugar: {event.place}</TextCardMedium>
+            <TextCardSmall>Hora: {event.time}</TextCardSmall>
+            <TextCardSmall>Fecha: {event.date}</TextCardSmall>
+            <TextCardMedium>Rating : {event.rating}</TextCardMedium>
+            <TextCardMedium>$ {event.price}</TextCardMedium>
+            <TextCardMedium>Creado por : {event.creators}</TextCardMedium>
+          </DetailInfo>
+          <StyledButton onPress={() => goBack()}>
+            <TextButton>Volver</TextButton>
+          </StyledButton>
+        </DetailView>
       </StyledView>
     </>
   );
@@ -54,15 +65,11 @@ const EventDetail = ({ navigation: { goBack }, route }) => {
 const ImageDetail = styled.Image`
   width: 100%;
   height: 200;
+  border-radius: 15px;
 `;
 
 const NameDetail = styled.Text`
-   font-weight: bold;
-`
+  font-weight: bold;
+`;
 
-export default EventDetail
-
-
-
-
-
+export default EventDetail;
