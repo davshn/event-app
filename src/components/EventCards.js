@@ -1,27 +1,26 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
+import { EventItem, EventImage, CardInfo, CardInfoText } from "../generiComponents/GenericStyles";
 
 const Item = ({ item }) => (
   //    let { textCard , card ,cardImage} = styles
-
-  <View style={styles.container}>
-    <Image
-      style={styles.cardImage}
+  <EventItem>
+    <EventImage
       source={{
         uri: "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg",
       }}
     />
-    <View style={styles.description}>
-      <Text style={styles.title}>{item.name}</Text>
-      <Text style={styles.when}>{item.date}</Text>
-      {/* <Text style={styles.who}>{item.who}</Text> */}
-      <Text style={styles.price}>{item.price}</Text>
-      <Text style={styles.price}>{item.time}</Text>
-    </View>
-  </View>
+    <CardInfo>
+      <CardInfoText>{item.name}</CardInfoText>
+      <CardInfoText>{item.date}</CardInfoText>
+      {/* <CardInfoText style={styles.who}>{item.who}</CardInfoText> */}
+      <CardInfoText>${item.price}</CardInfoText>
+      <CardInfoText>{item.time} hs.</CardInfoText>
+    </CardInfo>
+  </EventItem>
 
   // "date": "2022-10-15",
   //     "eventPic": null,
@@ -49,20 +48,16 @@ export function EventCards() {
 
   const navigation = useNavigation();
 
-
-  
   const _renderItem = ({ item }) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("Detail",{item:item})}
+        onPress={() => navigation.navigate("Detail", { item: item })}
         style={styles.card}
       >
-        <Item item={item}  />
+        <Item item={item} />
       </TouchableOpacity>
     );
   };
-
-
 
   return (
     <FlatList

@@ -1,21 +1,15 @@
-import { Text } from "react-native"
-import {backgroundColor} from "../services/theme.js"
-import styled from "styled-components/native"
+import { StyledTitle, StyledView } from "../generiComponents/GenericStyles";
+import Searchbar from "./Searchbar";
 
-const StyledView = styled.ScrollView`
-    background-color: ${backgroundColor};
-`
-
-function ExplorarScreen(){
-    return(
-        <StyledView>
-            <Text>
-                PRÓXIMAMENTE
-            </Text>
-        </StyledView>
-    )
+function ExplorarScreen() {
+  return (
+    <>
+      <Searchbar />
+      <StyledView>
+        <StyledTitle>PRÓXIMAMENTE</StyledTitle>
+      </StyledView>
+    </>
+  );
 }
 
-
-
-export default ExplorarScreen
+export default ExplorarScreen;
