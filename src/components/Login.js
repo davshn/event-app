@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
-import { SectionStyled,TextStyled,ViewStyled,InputStyled,FormStyled,FormError,TitleStyled } from '../generiComponents/GenericStyles';
+import { SectionStyled,TextStyled,ViewStyled,InputStyled,FormStyled,FormError,TitleStyled, StyledInput } from '../generiComponents/GenericStyles';
 import axios from 'axios';
 import { setUser } from '../stateManagement/actions/authUserActions';
 import { useDispatch } from "react-redux";
@@ -43,15 +43,11 @@ export default function Login({navigation}) {
   
   return (
     <ViewStyled>
-      <TitleStyled>FindSpot</TitleStyled>
-      <FormStyled>
-        <InputStyled value={input.email} onChangeText={(ev)=>hadleInputChange("email",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
+      <TitleStyled>findSpot</TitleStyled>
+     <InputStyled value={input.email} onChangeText={(ev)=>hadleInputChange("email",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
         {errors.email&&(<FormError>{errors.email}</FormError>)}
-      </FormStyled>
-      <FormStyled>
-        <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
+      <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
         {errors.password&&(<FormError>{errors.password}</FormError>)}
-      </FormStyled>
       <SectionStyled>
         <ButtonGen title="Acceder" onPress={()=>validate(input)}/>
         <TextStyled style={{ color: "red" }} >Olvidaste tu contraseña</TextStyled>
