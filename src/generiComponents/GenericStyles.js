@@ -144,7 +144,7 @@ export const SmallerText = styled.Text`
 `;
 
 export const UploadPic = styled.Text`
-color: #5641abff
+color: #5641abff;
 text-decoration: underline;
 margin: auto;
 margin-top: 5px;
@@ -227,7 +227,7 @@ export const EventImage = styled.Image`
 `;
 
 export const CardInfo = styled.View`
-  margin: 5px
+  margin: 5px;
   height: 100px;
 `;
 

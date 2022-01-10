@@ -10,7 +10,6 @@ import {
   StyledButton,
   TextButton,
   SelectedDate,
-  StyledView2,
 } from "../generiComponents/GenericStyles";
 import * as ImagePicker from "expo-image-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -92,9 +91,8 @@ export function CrearEvento() {
   return (
     <StyledView>
       <StyledTitle> Crear Evento.</StyledTitle>
-      <StyledView2>
-        <StyledInput
-        value={input.creators}
+      <StyledInput
+        value={input.creators.toString()}
         onChangeText={(ev) => hadleInputChange("creators", ev)}
         placeholder="Organizador"
       />
@@ -102,11 +100,6 @@ export function CrearEvento() {
         value={input.name}
         onChangeText={(ev) => hadleInputChange("name", ev)}
         placeholder="Nombre del evento"
-      />
-      <StyledInput
-        value={input.date}
-        onChangeText={(ev) => hadleInputChange("date", ev)}
-        placeholder="AAAA-MM-DD"
       />
       <StyledInput
         value={input.time}
@@ -119,7 +112,7 @@ export function CrearEvento() {
         placeholder="Descripción"
       />
       <StyledInput
-        value={input.price}
+        value={input.price.toString()}
         onChangeText={(ev) => hadleInputChange("price", ev)}
         placeholder="Precio de la entrada"
       />
@@ -128,8 +121,6 @@ export function CrearEvento() {
         onChangeText={(ev) => hadleInputChange("place", ev)}
         placeholder="Ubicación"
       />
-      </StyledView2>
-      
       <SmallerText>Categorías:</SmallerText>
       <CustomMultiPicker
         options={categories}
@@ -154,9 +145,9 @@ export function CrearEvento() {
         scrollViewHeight={340}
         selected={[]} // list of options which are selected by default
       />
-      {/* <SelectedDate onPress={showDatepicker}>
+      <SelectedDate onPress={showDatepicker}>
         Fecha : {input.date.toISOString().slice(0, -14)}
-      </SelectedDate> */}
+      </SelectedDate>
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <StyledButton onPress={() => createEvent(input)}>
         <TextButton>Enviar</TextButton>
