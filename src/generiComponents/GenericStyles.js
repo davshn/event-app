@@ -57,25 +57,29 @@ export const TextStyled = styled.Text`
   margin: 3% 0;
 `;
 
-export const ViewStyled = styled.View`
-  height: 100%;
+export const ViewStyled = styled.ScrollView`
   padding: 10%;
-  align-items: center;
+  padding-bottom:20px;
 `; // background-color:${backgroundColor};
 
 export const InputStyled = styled.TextInput`
-  width: 80%;
+  border-radius: 15px;
+  border: 0.5px solid grey;
+  padding: 8px;
+  margin: 5px;
+  width: 90%;
 `;
 
 export const FormStyled = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: #999999;
-  margin: 3% 0;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
+  
+// `;
+// border-bottom-width: 1px;
+//   border-bottom-color: #999999;
+//   margin: 3% 0;
+//   width: 100%;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
 
 export const FormError = styled.Text`
   color: red;
@@ -87,6 +91,7 @@ export const TitleStyled = styled.Text`
   font-size: 40px;
   font-weight: bold;
   text-align: center;
+  margin-bottom: 20px;
 `;
 
 export const SectionStyled = styled.View`
@@ -99,6 +104,7 @@ export const ChipStyled = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 10px;
 `;
 
 //Form CSS
@@ -110,11 +116,16 @@ export const StyledView = styled.ScrollView`
   padding-bottom: 10px;
 `;
 
+export const StyledView2 = styled.View`
+  align-items: center;
+`
+
 export const StyledInput = styled.TextInput`
   border-radius: 15px;
   border: 0.5px solid grey;
   padding: 8px;
   margin: 5px;
+  width: 80%;
 `;
 
 export const StyledTitle = styled.Text`
@@ -205,7 +216,7 @@ export const FilterButton = styled.TouchableOpacity`
 export const EventItem = styled.View`
   border-radius: 30px;
   margin-left: 6px;
-  border: 2px solid grey;
+  border: 2px solid #5641ab;
 `;
 
 export const EventImage = styled.Image`

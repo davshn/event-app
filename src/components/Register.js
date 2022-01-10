@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
-import { TextStyled, ViewStyled, InputStyled, FormStyled, FormError,ChipStyled } from '../generiComponents/GenericStyles';
+import { TextStyled, ViewStyled, InputStyled, FormStyled, FormError,ChipStyled, StyledTitle } from '../generiComponents/GenericStyles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import {Image} from 'react-native' ; 
@@ -99,26 +99,17 @@ export default function Register({ navigation }) {
 
   return (
     <ViewStyled>
-      <FormStyled>
+       <StyledTitle> Registrarse</StyledTitle>
         <InputStyled value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre completo" placeholderTextColor='gray' />
         {errors.name&&(<FormError>{errors.name}</FormError>)}
-      </FormStyled>
-      <FormStyled>
         <InputStyled value={input.email} onChangeText={(ev)=>hadleInputChange("email",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
         {errors.email&&(<FormError>{errors.email}</FormError>)}
-      </FormStyled>
-      <FormStyled>
         <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
         {errors.password&&(<FormError>{errors.password}</FormError>)}
-      </FormStyled>
-      <FormStyled>
         <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
         {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
-      </FormStyled>
-      <FormStyled>
         <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Año de nacimiento:{input.dateOfBirth.toISOString().slice(0, -14)}</TextStyled>
         {errors.dateOfBirth&&(<FormError>{errors.dateOfBirth}</FormError>)}
-      </FormStyled>
       <TextStyled onPress={pickImage} style={{ color: "red" }}>Agregar foto de perfil </TextStyled>
       <TextStyled onPress={pickImage} style={{ color: "black" }}>Elimina las categorias que no sean de tu interés </TextStyled>
       <ChipStyled>

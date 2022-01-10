@@ -10,6 +10,7 @@ import {
   StyledButton,
   TextButton,
   SelectedDate,
+  StyledView2,
 } from "../generiComponents/GenericStyles";
 import * as ImagePicker from "expo-image-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -91,7 +92,8 @@ export function CrearEvento() {
   return (
     <StyledView>
       <StyledTitle> Crear Evento.</StyledTitle>
-      <StyledInput
+      <StyledView2>
+        <StyledInput
         value={input.creators}
         onChangeText={(ev) => hadleInputChange("creators", ev)}
         placeholder="Organizador"
@@ -126,6 +128,8 @@ export function CrearEvento() {
         onChangeText={(ev) => hadleInputChange("place", ev)}
         placeholder="Ubicación"
       />
+      </StyledView2>
+      
       <SmallerText>Categorías:</SmallerText>
       <CustomMultiPicker
         options={categories}
@@ -150,9 +154,9 @@ export function CrearEvento() {
         scrollViewHeight={340}
         selected={[]} // list of options which are selected by default
       />
-      <SelectedDate onPress={showDatepicker}>
+      {/* <SelectedDate onPress={showDatepicker}>
         Fecha : {input.date.toISOString().slice(0, -14)}
-      </SelectedDate>
+      </SelectedDate> */}
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <StyledButton onPress={() => createEvent(input)}>
         <TextButton>Enviar</TextButton>
