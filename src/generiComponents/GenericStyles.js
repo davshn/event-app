@@ -1,5 +1,45 @@
-import styled from "styled-components/native";
-import { backgroundColor } from "../services/theme";
+import styled from 'styled-components/native';
+import { backgroundColor } from '../services/theme';
+// import * as Font from "expo-font";
+
+// export default useFonts = async () =>
+//   await Font.loadAsync({
+//     "ProximaNova": require('../../assets/Fonts/Proxima_Nova'),
+//   });
+
+// --violet-blue-crayola: #776bc7ff;
+// --ultramarine: #5302deff;
+// --plump-purple: #5641abff;
+// --lavender-web: #e6e3f3ff;
+
+export const TextCardBig = styled.Text`
+textShadowColor:#776bc7ff;
+textShadowRadius: 2;
+  fontWeight:bold;
+  font-size: 23px;
+  text-align: center;
+  margin:3% 0;
+`;
+
+export const TextCardMedium = styled.Text`
+includeFontPadding:true;
+text-align: auto;
+  font-size: 14px;
+  text-align: left;
+`;
+
+export const TextCardSmall = styled.Text`
+fontWeight:600;
+  font-size: 14px;
+  text-align: left;
+`;
+export const DetailView = styled.View`
+  borderColor: #5302deff;
+`;
+
+export const DetailInfo = styled.View`
+ margin: 20px;
+
 
 export const TextStyled = styled.Text`
   font-size: 14px;
