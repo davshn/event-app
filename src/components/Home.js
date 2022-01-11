@@ -1,9 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import InicioScreen from './Inicio'
-import ExplorarScreen from './Explorar'
-import ParaTiScreen from './ParaTi'
-
-import EventDetail from '../components/EventDetail';
+import InicioScreen from './Inicio';
+import Explore from './Explore';
+import ParaTiScreen from './ParaTi';
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 import { useSelector } from 'react-redux';
 
@@ -31,7 +29,7 @@ export default function HomeScreen() {
           />
           <Tab.Screen
             name="Explorar"
-            component={ExplorarScreen}
+            component={Explore}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
