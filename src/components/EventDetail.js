@@ -13,6 +13,8 @@ import {
   TextButton
 } from "../generiComponents/GenericStyles";
 
+import Checkout from '../components/MercadoPago/checkOut';
+
 const StyledView = styled.ScrollView`
 `;
 
@@ -53,9 +55,11 @@ const EventDetail = ({ navigation: { goBack }, route }) => {
             <TextCardMedium>$ {event.price}</TextCardMedium>
             <TextCardMedium>Creado por : {event.creators}</TextCardMedium>
           </DetailInfo>
+          <Checkout/>
           <StyledButton onPress={() => goBack()}>
             <TextButton>Volver</TextButton>
           </StyledButton>
+
         </DetailView>
       </StyledView>
     </>
