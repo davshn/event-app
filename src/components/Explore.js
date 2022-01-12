@@ -1,6 +1,6 @@
 import { StyledTitle, StyledView } from "../generiComponents/GenericStyles";
 import Searchbar from "./Searchbar";
-import MapView from 'react-native-maps';
+import { MapView, PROVIDER_GOOGLE } from 'react-native-maps';
 import { StyleSheet, Dimensions } from 'react-native';
 import styled from "styled-components/native";
 
