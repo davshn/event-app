@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Text, Button} from "react-native";
+import { Text, Button ,View} from "react-native";
 import axios from "axios";
 import styled from "styled-components/native";
 import { backgroundColor } from "../services/theme.js";
+import Payment from '../components/Payments';
 import {
   TextCardBig,
   TextCardMedium,
@@ -12,6 +13,7 @@ import {
   StyledButton,
   TextButton
 } from "../generiComponents/GenericStyles";
+
 
 
 
@@ -55,11 +57,19 @@ const EventDetail = ({ navigation: { goBack }, route }) => {
             <TextCardMedium>$ {event.price}</TextCardMedium>
             <TextCardMedium>Creado por : {event.creators}</TextCardMedium>
           </DetailInfo>
-      
+
+          <View
+            style={{
+              margin: '20%',
+              backgroundColor: "purple",
+            }}
+          >
+            <Payment />
+          </View>
+
           <StyledButton onPress={() => goBack()}>
             <TextButton>Volver</TextButton>
           </StyledButton>
-
         </DetailView>
       </StyledView>
     </>
