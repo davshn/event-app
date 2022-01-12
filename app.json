@@ -25,13 +25,32 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "The app accesses your photos to let you share them with your friends.",
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#121212"
-      }
+        "backgroundColor": "#121212",
+        "package": "com.eventapp.eventapp",
+        "versionCode": 1,
+        "config": {
+          "googleMaps": {
+            "apiKey": "AIzaSyBU6LeCRFHT-mlPIWbeUW7tLcT3oDQhIWg"
+          }
+        }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.eventapp.eventapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
