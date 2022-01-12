@@ -30,24 +30,24 @@ function Explore() {
     <>
       <Searchbar />
       <StyledView>
-        <StyledMap showsUserLocation loadingEnabled
+        <StyledMap showsUserLocation loadingEnabled 
           provider={PROVIDER_GOOGLE} // remove if not using Google Maps
           region={{
             latitude: location?location.coords.latitude:0,
             longitude: location?location.coords.longitude:0,
-            latitudeDelta: 0.0043,
-            longitudeDelta: 0.0034,
+            latitudeDelta: 0.00049,
+            longitudeDelta: 0.00054,
           }}
         >
           <Marker
             // Reemplazar coordinate con variable auto de location para el usuario
-            coordinate={{latitude: 37.7825259, longitude: -122.4351431}}
+            coordinate={{latitude: location?location.coords.latitude:0, longitude: location?location.coords.longitude:0}}
             title={"Ubicación actual"}
           >
           </Marker>
           <Circle
-            center={{latitude: 37.7825259, longitude: -122.4351431}}
-            radius={1000}
+            center={{latitude: location?location.coords.latitude:0, longitude: location?location.coords.longitude:0}}
+            radius={10}
             fillColor={'rgba(200, 300, 200, 05)'}
           />
         </StyledMap>
@@ -57,4 +57,3 @@ function Explore() {
 }
 
 export default Explore;
-
