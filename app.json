@@ -35,14 +35,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#121212",
-        "package": "com.eventapp.eventapp",
-        "versionCode": 1,
-        "config": {
-          "googleMaps": {
-            "apiKey": "AIzaSyBU6LeCRFHT-mlPIWbeUW7tLcT3oDQhIWg"
-          }
-        }
+        "backgroundColor": "#121212"
       },
       "permissions": [
         "android.permission.CAMERA",
@@ -50,7 +43,13 @@
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.eventapp.eventapp"
+      "package": "com.eventapp.eventapp",
+      "versionCode": 1,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBU6LeCRFHT-mlPIWbeUW7tLcT3oDQhIWg"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
