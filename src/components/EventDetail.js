@@ -61,7 +61,7 @@ const EventDetail = ({ navigation: { goBack }, route }) => {
           <View
             style={{
               margin: '20%',
-              backgroundColor: "purple",
+             fontWeight: 'bold',
             }}
           >
             <Payment />

@@ -9,11 +9,11 @@ export default function App() {
   return (
     <>
       <Provider store={store}>
-      <StripeProvider publishableKey=''>
-        <PaperProvider>
-          <Index />
-        </PaperProvider>
-      </StripeProvider>
+        <StripeProvider publishableKey="pk_test_51KHAP5LIn0UuDGLfU55zd6ikHNqTr28CKWnmaIWQNakzbMYAzXJxApeizgsbyuJGThrTusYIid4A52vtTlrJCdre00YR7QAAe4">
+          <PaperProvider>
+            <Index />
+          </PaperProvider>
+        </StripeProvider>
       </Provider>
     </>
   );
