@@ -3,18 +3,18 @@ import {backgroundColor} from "../services/theme.js"
 import styled from "styled-components/native"
 
 const StyledView = styled.ScrollView`
-    background-color: ${backgroundColor};
-`
+     background-color: ${backgroundColor};
+ `
 
-function ParaTiScreen(){
-    return(
-        <StyledView>
-            <Text>
-                PARA TI
-            </Text>
+ function ParaTiScreen(){
+     return(
+         <StyledView>
+             <Text>
+                 PARA TI
+             </Text>
         </StyledView>
-    )
-}
+     )
+ }
 
 
 
