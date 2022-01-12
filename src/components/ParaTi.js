@@ -50,8 +50,8 @@ export default function ParaTiScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.paragraph}>{text}</Text>
+    <View >
+      <Text >{text}</Text>
     </View>
   );
 }
