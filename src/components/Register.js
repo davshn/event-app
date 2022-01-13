@@ -111,7 +111,7 @@ export default function Register({ navigation }) {
         <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Año de nacimiento:{input.dateOfBirth.toISOString().slice(0, -14)}</TextStyled>
         {errors.dateOfBirth&&(<FormError>{errors.dateOfBirth}</FormError>)}
       <TextStyled onPress={pickImage} style={{ color: "red" }}>Agregar foto de perfil </TextStyled>
-      <TextStyled onPress={pickImage}>Elimina las categorias que no sean de tu interés </TextStyled>
+      <TextStyled >Elimina las categorias que no sean de tu interés </TextStyled>
       <ChipStyled>
         {input.interests.map((cat)=><Chip key={cat.id} style={{ height: 50,width: 110 }} onClose={() => setInput(prev => ({ ...prev, interests: prev.interests.filter((e)=>e.name!==cat.name) }))}>{cat.name}</Chip>)}        
       </ChipStyled>
