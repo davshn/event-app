@@ -42,7 +42,9 @@
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.3",
     "styled-theming": "^2.2.0",
-    "@stripe/stripe-react-native": "0.2.3"
+    "@stripe/stripe-react-native": "0.2.3",
+    "react-native-maps": "0.29.4",
+    "expo-location": "~14.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

@@ -71,7 +71,7 @@ export const InputStyled = styled.TextInput`
 `;
 
 export const FormStyled = styled.View`
-  
+  `
 // `;
 // border-bottom-width: 1px;
 //   border-bottom-color: #999999;
