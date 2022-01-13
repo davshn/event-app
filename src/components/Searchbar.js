@@ -1,11 +1,10 @@
 import React from "react";
-import { FilterButton } from "../generiComponents/GenericStyles";
+import { StyledButton, TextButton } from "../generiComponents/GenericStyles";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { InputStyled , TextStyled,ViewStyled} from "../generiComponents/GenericStyles";
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
-import { Text } from "react-native";
 
 export default function Searchbar() {
   const dispatch = useDispatch();
@@ -54,16 +53,15 @@ export default function Searchbar() {
   
   return (
     <ViewStyled>
-      <InputStyled value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" />
-      <InputStyled value={filters.initialPrice} onChangeText={(ev) => hadleInputChange("initialPrice", ev)} placeholder="Precio inicial" />
-      <InputStyled value={filters.finalPrice} onChangeText={(ev) => hadleInputChange("finalPrice", ev)} placeholder="Precio final" />
-      <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion" />
+      <InputStyled value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" placeholderTextColor='gray'/>
+      <InputStyled value={filters.initialPrice} onChangeText={(ev) => hadleInputChange("initialPrice", ev)} placeholder="Precio inicial" placeholderTextColor='gray'/>
+      <InputStyled value={filters.finalPrice} onChangeText={(ev) => hadleInputChange("finalPrice", ev)} placeholder="Precio final"  placeholderTextColor='gray'/>
+      <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion"  placeholderTextColor='gray'/>
       <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Fecha inicial:{filters.initialDate}</TextStyled>
       <TextStyled style={{ color: "gray" }} onPress={showDatepicker2}>Fecha final:{filters.finalDate}</TextStyled>
-      <FilterButton onPress={filterAndSearch}>
-        <Text>Filtrar</Text>
-      </FilterButton>
-      <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion" />
+      <StyledButton onPress={filterAndSearch}>
+        <TextButton>Filtrar</TextButton>
+      </StyledButton>
       {show && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange} />)}
       {show2 && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange2} /> )}
     </ViewStyled>

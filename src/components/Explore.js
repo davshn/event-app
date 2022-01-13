@@ -1,14 +1,10 @@
-import { StyledView } from "../generiComponents/GenericStyles";
+import { StyledView, StyledMap, MapViewContainer } from "../generiComponents/GenericStyles";
 import Searchbar from "./Searchbar";
-import MapView, { PROVIDER_GOOGLE, Marker, Callout, Circle } from 'react-native-maps';
+import { PROVIDER_GOOGLE, Marker, Callout, Circle } from 'react-native-maps';
 import { useState,useEffect } from "react";
 import styled from "styled-components/native";
 import * as Location from 'expo-location';
-
-const StyledMap = styled(MapView)`
-width:900px;
-height:670px;
-`;
+import { ScrollView } from "react-native";
 
 function Explore() {
   const [location, setLocation] = useState(null);
@@ -27,7 +23,7 @@ function Explore() {
   }, []);
   
   return (
-    <>
+    <MapViewContainer>
       <Searchbar />
       <StyledView>
         <StyledMap showsUserLocation loadingEnabled 
@@ -52,7 +48,7 @@ function Explore() {
           />
         </StyledMap>
       </StyledView>
-    </>
+    </MapViewContainer>
   );
 }
 

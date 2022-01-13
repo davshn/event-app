@@ -4,14 +4,25 @@ import Explore from './Explore';
 import ParaTiScreen from './ParaTi';
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 import { useSelector } from 'react-redux';
+import { backgroundColor } from '../services/theme';
 
 const Tab = createBottomTabNavigator()
 // aqui van los iconos 
 export default function HomeScreen() {
+  const modes = useSelector(state => state.darkModeReducer.darkMode);
+
+  const TabOptions = { //Tab styles
+    headerShown: false,
+    tabBarInactiveBackgroundColor: modes? '#292929' : '#EDEDED',
+    tabBarActiveBackgroundColor: modes? '#292929' : '#EDEDED',
+    tabBarActiveTintColor: modes? "#776BC7" : "#5302de",
+    tabBarInactiveTintColor: modes? "#776BC7" : "#5302de"
+  }
+
   const logged = useSelector(state => state.authUserReducer.logged);
     return (
       <>
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Navigator screenOptions={TabOptions}>
           <Tab.Screen
             name="Inicio"
             component={InicioScreen}
@@ -19,9 +30,8 @@ export default function HomeScreen() {
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                   name="home-outline"
-                  color={"#5302de"}
+                  color={modes? "#776BC7" : "#5302de"}
                   size={size}
-                  
                 />
               ),
             }}
@@ -34,7 +44,7 @@ export default function HomeScreen() {
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                   name="map-outline"
-                  color={"#5302de"}
+                  color={modes? "#776BC7" : "#5302de"}
                   size={size}
                 />
               ),

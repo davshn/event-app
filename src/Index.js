@@ -21,6 +21,16 @@ export default function Index() {
     const dispatch = useDispatch();
     const [isSwitchOn, setIsSwitchOn] = useState(false);
     
+    const DrawerOptions = {   // drawer styles
+        headerTitle: () => <LogoTitle />,
+        drawerInactiveTintColor: modes? '#EDEDED' : '#292929',
+        drawerInactiveBackgroundColor: modes? '#292929' : '#EDEDED',
+        drawerActiveTintColor: modes? '#EDEDED' : '#EDEDED',
+        drawerActiveBackgroundColor: "#776BC7",
+        drawerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'},
+        headerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'}
+    }
+
     const onToggleSwitch = () => {
         setIsSwitchOn(!isSwitchOn);
         dispatch(isSwitchOn ? setDarkModeOff() : setDarkModeOn());
@@ -33,16 +43,20 @@ export default function Index() {
     return (
         <NavigationContainer >
             <ThemeProvider theme={{ mode: (modes) ? 'dark' : 'light' }}>
-                <Drawer.Navigator initialRouteName="Home" screenOptions={{headerTitle: () => <LogoTitle />}} drawerContent={props => {
-                    return (
-                        <DrawerContentScrollView {...props}>
-                            <DrawerItemList {...props} />
-                            {logged?<DrawerItem label="Cerrar sesion" onPress={() => endSession(props)} />: <></>}
-                            <Switch style={{ alignSelf: "center" }} color={ "darkslateblue"} value={isSwitchOn} onValueChange={onToggleSwitch} />
-                        </DrawerContentScrollView>
-                    )}}>
+                <Drawer.Navigator 
+                    initialRouteName="Home"
+                    screenOptions={DrawerOptions}
+                    drawerContent={ props => {
+                        return (
+                            <DrawerContentScrollView {...props}>
+                                <DrawerItemList {...props} />
+                                {logged?<DrawerItem label="Cerrar sesion" onPress={() => endSession(props)} />: <></>}
+                                <Switch style={{ alignSelf: "center" }} color={ "#776BC7"} value={isSwitchOn} onValueChange={onToggleSwitch} />
+                            </DrawerContentScrollView>
+                        )
+                    }}>
                     <Drawer.Screen name="Inicio" component={Root} />
-                    {!logged?<Drawer.Screen name="Ingresar" component={Login} />:<></>}
+                    {!logged?<Drawer.Screen name="Ingresar" component={Login}/>:<></>}
                     {!logged?<Drawer.Screen name="Registrarse" component={Register} />:<></>}
                     {logged ? <Drawer.Screen name="Crear evento" component={CrearEvento} /> : <></>}
                 </Drawer.Navigator>
