@@ -13,38 +13,26 @@ import {
   TextButton,
   SelectedDate,
   StyledView2,
+  FormError,
+  EventFormImage,
 } from "../generiComponents/GenericStyles";
+import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import axios from "axios";
 import CustomMultiPicker from "react-native-multiple-select-list";
 import { Modal } from 'react-native';
 
 function createEvent(evento) {
-  // evento.creators = [evento.creators]
   evento.category = selected;
   evento.date = evento.date.toISOString().slice(0, -14);
-  // evento.price = parseInt(evento.price)
   axios
     .post("https://find-spot.herokuapp.com/events", evento)
-    .then((res) => {
-      console.log(evento);
-    })
+    .then((res) => console.log("Success"))
     .catch((res) => console.log(res));
-  console.log(evento);
+  // console.log(evento)
 }
 
 var selected = [];
-const categories = {
-  123: "Fiestas",
-  124: "Karaoke",
-  125: "After",
-  126: "Conciertos",
-  127: "Eventos culturales",
-  128: "Deportivo",
-  129: "Gastronomia",
-};
-
 export function CrearEvento() {
 
   //Logica modal mapas no tocar
@@ -53,7 +41,6 @@ export function CrearEvento() {
   //Fin
   
   var today = new Date();
-
   const initialState = {
     name: "",
     description: "",
@@ -69,6 +56,73 @@ export function CrearEvento() {
   const [input, setInput] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [show, setShow] = useState(false);
+  const [categories, setCategories] = useState([])
+  
+  function getCategories() {
+    axios
+      .get("https://find-spot.herokuapp.com/categories")
+      .then((res) => {
+        let formatted = {}
+        res.data.map(category => {
+          formatted[category.id] = category.name
+        })
+        setCategories(formatted);
+      })
+      .catch((res) => console.log(res))
+  }
+
+  useEffect(() => getCategories(), []);
+
+  // function validateDate() {
+  //   let year =  input.date.getFullYear();
+  //   let month = input.date.getMonth();
+  //   if (
+  //     month < 0 ||
+  //     (month === 0 && today.getDate() < input.date.getDate())
+  //   ) {
+  //     year--;
+  //   }
+  //   if (year < 18) {
+  //     return false;
+  //   }
+  //   return true;
+  // } validar fecha
+
+  function validate(input) {
+    setErrors({})
+    let error = {};
+    if (!input.name) {
+      error.name = "Campo requerido";
+    }
+    if (!input.place) {
+      error.place = "Campo requerido";
+    }
+    if (!input.time) {
+      error.time = "Campo requerido";
+    }
+    if (!input.creators.toString()) {
+      error.creators = "Campo requerido";
+    }
+    if (!input.description) {
+      error.description = "Campo requerido";
+    }
+    if (!input.price) {
+      error.price = "Campo requerido";
+    }
+    else if(isNaN(parseInt(input.price))){
+      error.price = "El valor ingresado no es valido";
+      console.log(typeof(parseInt(input.price)))
+      console.log(input.price)
+    }
+    // if (!validateDate()) {
+    //   error.date = "Ingrese una fecha correcta";
+    // }
+    if (!(Object.entries(error).length === 0)) {
+      setErrors(error);
+    } else {
+      createEvent(input);
+    }
+  }
 
   //Logica modal mapas no tocar
     useEffect(() => {
@@ -95,14 +149,14 @@ export function CrearEvento() {
   
   
   function hadleInputChange(input, e) {
-    if (input === "price")
-      setInput((prev) => ({ ...prev, price: parseInt(e) }));
-    else if (input === "creators")
-      setInput((prev) => ({ ...prev, [input]: [e] }));
+    // if (input === "price"){
+    //    setInput((prev) => ({...prev, price: parseInt(e)}));
+    // } 
+    if (input === "creators") setInput((prev) => ({ ...prev, [input]: [e] }));
     else setInput((prev) => ({ ...prev, [input]: e }));
   }
 
-  const onChange = (event, selectedDate) => {
+  const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || input.date;
     setShow(Platform.OS === "ios");
     setInput((prev) => ({ ...prev, date: currentDate }));
@@ -133,44 +187,54 @@ export function CrearEvento() {
         onChangeText={(ev) => hadleInputChange("creators", ev)}
         placeholder="Organizador"
       />
+      {errors.creators && <FormError>{errors.creators}</FormError>}
       <StyledInput
         value={input.name}
         onChangeText={(ev) => hadleInputChange("name", ev)}
         placeholder="Nombre del evento"
       />
+      {errors.name && <FormError>{errors.name}</FormError>}
       <StyledInput
         value={input.time}
         onChangeText={(ev) => hadleInputChange("time", ev)}
         placeholder="HH:MM"
       />
+      {errors.time && <FormError>{errors.time}</FormError>}
       <StyledInput
+        multiline = {true}
         value={input.description}
         onChangeText={(ev) => hadleInputChange("description", ev)}
         placeholder="Descripción"
       />
+      {errors.description && <FormError>{errors.description}</FormError>}
       <StyledInput
         value={input.price.toString()}
         onChangeText={(ev) => hadleInputChange("price", ev)}
         placeholder="Precio de la entrada"
       />
+      {errors.price && <FormError>{errors.price}</FormError>}
       <StyledInput
         value={input.place}
         onChangeText={(ev) => hadleInputChange("place", ev)}
         placeholder="Ubicación"
       />
+      {errors.place && <FormError>{errors.place}</FormError>}
+      <SelectedDate onPress={showDatepicker}>
+        Fecha : {input.date.toISOString().slice(0, -14)}
+      </SelectedDate>
       </StyledView2>
       
       <SmallerText>Categorías:</SmallerText>
       <CustomMultiPicker
         options={categories}
-        search={false} // should show search bar?
-        multiple={true} //
+        search={false} 
+        multiple={true}
         placeholder={"Search"}
         placeholderTextColor={"#757575"}
-        returnValue={"label"} // label or value
+        returnValue={"label"}
         callback={(res) => {
           selected = res;
-        }} // callback, array of selected items
+        }}
         rowBackgroundColor={"#eee"}
         rowHeight={40}
         rowRadius={5}
@@ -182,11 +246,8 @@ export function CrearEvento() {
         selectedIconName={"ios-checkmark-circle-outline"}
         unselectedIconName={"ios-radio-button-off-outline"}
         scrollViewHeight={340}
-        selected={[]} // list of options which are selected by default
+        selected={[]}
       />
-      <SelectedDate onPress={showDatepicker}>
-        Fecha : {input.date.toISOString().slice(0, -14)}
-      </SelectedDate>
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <UploadPic onPress={()=>setMapVisible(true)}>Agregar ubicacion</UploadPic>
       <StyledButton onPress={() => createEvent(input)}>
@@ -197,15 +258,20 @@ export function CrearEvento() {
           value={input.date}
           mode="date"
           display="default"
-          onChange={onChange}
+          onChange={onDateChange}
         />
       )}
-      {input.image && (
-        <Image
-          source={{ uri: input.image }}
-          style={{ width: 200, height: 200 }}
-        />
-      )}
+         {input.image && (
+  
+            <EventFormImage
+              source={{ uri: input.image }}
+              style={{ width: 200, height: 200 }}
+            /> 
+     
+          )}
+      <StyledButton onPress={() => validate(input)}>
+        <TextButton>Enviar</TextButton>
+      </StyledButton>
       
       {/*Logica del modal de mapas, no borrar*/}
       <Modal animationType="fade" transparent={true} visible={mapVisible}>
