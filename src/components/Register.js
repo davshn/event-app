@@ -3,7 +3,7 @@ import ButtonGen from '../generiComponents/ButtonGen';
 import { TextStyled, ViewStyled, InputStyled, FormStyled, FormError,ChipStyled, StyledTitle } from '../generiComponents/GenericStyles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
-import {Image} from 'react-native' ; 
+import {Alert, Image} from 'react-native' ; 
 import axios from 'axios';
 import { Modal } from 'react-native';
 import { ModalContStyled, ModalText, ModalButtonStyled, ButtonText } from '../generiComponents/ModalGen';
@@ -27,6 +27,7 @@ export default function Register({ navigation }) {
   const [errors, setErrors] = useState({});  //Crea el estado que contendrá los errores
   const [show, setShow] = useState(false);  //Controla visibilidad del datepicker
   const [modalVisible, setModalVisible] = useState(false); //Controla el modal de error al crear usuario
+  // const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions() // un estado para los permisos de la camara
   
   function getCategories() {
     axios.get('https://find-spot.herokuapp.com/categories',) //Trae las categorias del endpoint
@@ -86,16 +87,42 @@ export default function Register({ navigation }) {
   
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      setInput(prev => ({ ...prev, "image": result.uri }))
-    };
+    let granted = await ImagePicker.requestMediaLibraryPermissionsAsync()
+    if (granted){
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+      if (!result.cancelled) {
+        let newFile = {
+          uri: result.uri,
+          type: `image/jpg`,
+          name:  `ProfilePic.jpg`,
+        }
+        handleUpLoadImage(newFile)
+        // console.log(input)
+      };
+    } else {
+      Alert.alert("No se han dado los permisos para acceder a las fotos")
+    }
   };
+
+  const handleUpLoadImage = (image) => {
+    let data = new FormData()
+    data.append("file", image)
+    data.append("upload_preset" , "upload_profile_pic")
+    data.append("cloud_name" , "findspot")
+
+    fetch("https://api.cloudinary.com/v1_1/findspot/image/upload", {
+      method: "POST",
+      body: data
+    }).then(res => res.json())
+    .then(data => setInput(prev => ({ ...prev, "image": data.secure_url })))
+  }
+
 
   return (
     <ViewStyled>
