@@ -43,7 +43,7 @@ const Payments = () => {
   return (
     <View>
       <TextInput
-        value={'juan'}
+        value={name}
         onChangeText={(text) => setName(text)}
         placeholder="Name"
         style={{ width: 200, fontSize: 20, padding: 10, borderWidth: 1 }}
