@@ -1,5 +1,7 @@
 import styled from "styled-components/native";
-import { backgroundColor } from "../services/theme";
+import { backgroundColor, TextColor, InputColor } from "../services/theme";
+import MapView from 'react-native-maps';
+
 // import * as Font from "expo-font";
 
 // export default useFonts = async () =>
@@ -55,12 +57,14 @@ export const TextStyled = styled.Text`
   font-size: 14px;
   text-align: center;
   margin: 3% 0;
+  color: ${TextColor}
 `;
 
 export const ViewStyled = styled.ScrollView`
-  padding: 10%;
+  padding: 6%;
   padding-bottom:20px;
-`; // background-color:${backgroundColor};
+  background-color:${backgroundColor};
+`; 
 
 export const InputStyled = styled.TextInput`
   border-radius: 15px;
@@ -68,6 +72,7 @@ export const InputStyled = styled.TextInput`
   padding: 8px;
   margin: 5px;
   width: 90%;
+  align-self: center;
 `;
 
 export const FormStyled = styled.View`
@@ -92,6 +97,7 @@ export const TitleStyled = styled.Text`
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
+  color: ${TextColor}
 `;
 
 export const SectionStyled = styled.View`
@@ -109,11 +115,12 @@ export const ChipStyled = styled.View`
 
 //Form CSS
 export const StyledView = styled.ScrollView`
-  margin: 25px;
+  margin: 6%;
   border: 0.5px solid grey;
-  padding: 15px;
+  padding: 4%;
   border-radius: 10px;
   padding-bottom: 10px;
+  background-color:${backgroundColor};
 `;
 
 export const StyledView2 = styled.View`
@@ -133,6 +140,7 @@ export const StyledTitle = styled.Text`
   font-size: 23px;
   margin: auto;
   margin-bottom: 10px;
+  color: ${TextColor}
 `;
 
 export const SmallerText = styled.Text`
@@ -154,7 +162,7 @@ font-size: 17px;
 
 export const StyledButton = styled.TouchableOpacity`
   margin-bottom: 50px;
-  background-color: #5641abff;
+  background-color: #776BC7;
   margin: auto;
   margin-bottom: 30px;
   border-radius: 10px;
@@ -175,9 +183,12 @@ export const TextButton = styled.Text`
 export const Logo = styled.View`
   margin: auto;
   flex-direction: row;
-  align-items: center;
+  align-self: center;
 `;
 
+export const StyledText = styled.Text`
+  color: ${TextColor}
+`
 
 
 export const SelectedDate = styled.Text`
@@ -192,9 +203,9 @@ export const Container = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: center;
-
+  background-color: ${backgroundColor};
   margin: 10px;
-`; // background-color: ${backgroundColor};
+`; 
 
 export const Input = styled.TextInput`
   border-radius: 15px;
@@ -202,7 +213,7 @@ export const Input = styled.TextInput`
   border: 0.5mm solid rgb(209, 209, 209);
   width: 240px;
   height: 40px;
-  border: 1px solid #bababa;
+  border: 1px solid ${InputColor};
 `;
 
 export const FilterButton = styled.TouchableOpacity`
@@ -215,14 +226,22 @@ export const FilterButton = styled.TouchableOpacity`
 
 export const EventItem = styled.View`
   border-radius: 30px;
-  margin-left: 6px;
-  border: 2px solid #5641ab;
+  align-self: center;
+  border: 2px solid #776BC7;
+  background-color:${backgroundColor};
 `;
+
+export const EventItemContainer = styled.TouchableOpacity`
+background-color:${backgroundColor};
+padding: 3%;
+align-self: center;
+width: 100%;
+`
 
 export const EventImage = styled.Image`
   width: 333px;
   height: 200px;
-  border-radius: 20px;
+  border-radius: 30px;
   margin: auto;
 `;
 
@@ -235,4 +254,15 @@ export const CardInfoText = styled.Text`
   font-size: 17px;
   margin-left: 15px;
   font-weight: bold;
+  color: ${TextColor}
 `;
+
+// Explorar CSS
+export const StyledMap = styled(MapView)`
+  width:900px;
+  height:670px;
+`;
+
+export const MapViewContainer = styled.ScrollView`
+  background-color: ${backgroundColor};
+`
