@@ -66,7 +66,7 @@ export function EventCards() {
       keyExtractor={(item) => item.id}
       // extraData={(item) => item.id}
       navigation={navigation}
-    />
+      />
   );
 }
 
