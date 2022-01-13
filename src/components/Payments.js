@@ -23,7 +23,8 @@ const Payments = () => {
       const clientSecret = data.clientSecret;
 
             const initSheet = await stripe.initPaymentSheet({
-                paymentIntentClientSecret: clientSecret,
+              paymentIntentClientSecret: clientSecret,
+              merchantDisplayName: "Merchant Name",
             });
 
       if (initSheet.error) return Alert.alert(initSheet.error.message);
