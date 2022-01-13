@@ -9,7 +9,10 @@ export default function App() {
   return (
     <>
       <Provider store={store}>
-        <StripeProvider publishableKey="pk_test_51KHAP5LIn0UuDGLfU55zd6ikHNqTr28CKWnmaIWQNakzbMYAzXJxApeizgsbyuJGThrTusYIid4A52vtTlrJCdre00YR7QAAe4">
+        <StripeProvider
+          publishableKey="pk_test_51KHAP5LIn0UuDGLfU55zd6ikHNqTr28CKWnmaIWQNakzbMYAzXJxApeizgsbyuJGThrTusYIid4A52vtTlrJCdre00YR7QAAe4"
+          // merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}"
+        >
           <PaperProvider>
             <Index />
           </PaperProvider>
