@@ -16,7 +16,7 @@ Nuestro proyecto surge de la necesidad de encontrar una plataforma móvil que pe
 * Express
 * Sequelize
 * PostgreSQL
-* Librerias destacadas: `bcrypt`, `Json web token authentication`, `country-state-city`
+* Librerias destacadas: `react native paper`, `Json web token authentication`, `Google maps api`, 
 
 # Documentación para inicilizar la app 
 
