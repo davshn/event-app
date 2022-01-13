@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useStripe } from "@stripe/stripe-react-native";
 import { View,  TextInput, Button , Alert,Text} from "react-native";
 import { useSelector } from "react-redux";
+import { StyledButton, TextButton } from "../generiComponents/GenericStyles";
+
 const Payments = () => {
   // const [name, setName] = useState("");
 const user = useSelector((state) => state.authUserReducer);
@@ -50,8 +52,9 @@ const user = useSelector((state) => state.authUserReducer);
         style={{ width: 200, fontSize: 20, padding: 10, borderWidth: 1 }}
       /> */}
 
-      
-      <Button title="Comprar Entrada" onPress={pay} />
+      <StyledButton style={{right: '20%', backgroundColor:'#121212'}} onPress={pay}>
+        <TextButton>Comprar Entrada</TextButton>
+      </StyledButton>
     </View>
   );
 };

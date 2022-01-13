@@ -172,6 +172,7 @@ export const TextButton = styled.Text`
   font-size: 18px;
   text-align: center;
   padding: 9px;
+  
 `;
 
 
