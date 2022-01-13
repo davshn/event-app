@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { useSelector,useDispatch } from "react-redux";
 import axios from "axios";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 import { EventItem, EventImage, CardInfo, CardInfoText } from "../generiComponents/GenericStyles";
+import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 
 const Item = ({ item }) => (
   //    let { textCard , card ,cardImage} = styles
@@ -31,20 +33,10 @@ const Item = ({ item }) => (
 );
 
 export function EventCards() {
-  const [events, setEvents] = useState([]);
+  const dispatch = useDispatch();
+  const events = useSelector(state => state.getEventsReducer.events);
 
-  useEffect(() => getEvents(), []);
-
-  const getEvents = () => {
-    axios
-      .get("https://find-spot.herokuapp.com/events")
-      .then((res) => {
-        return setEvents(res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+  useEffect(() => dispatch(searchByFilters()), []);
 
   const navigation = useNavigation();
 

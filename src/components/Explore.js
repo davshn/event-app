@@ -1,14 +1,16 @@
 import { StyledView } from "../generiComponents/GenericStyles";
 import Searchbar from "./Searchbar";
 import { PROVIDER_GOOGLE, Marker, Callout, Circle } from 'react-native-maps';
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { MapStyled } from '../generiComponents/MapsStyles';
 import * as Location from 'expo-location';
 
 
 function Explore() {
+  const events = useSelector(state => state.getEventsReducer.events);
   const [location, setLocation] = useState(null);
-  
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -33,7 +35,12 @@ function Explore() {
             latitudeDelta: 0.00049,
             longitudeDelta: 0.00054,
           }}
-        />
+        >
+          {events?.map((event)=><Marker key={event.id}
+          coordinate={{latitude: parseFloat(event.latitude), longitude: parseFloat(event.longitude)}}
+          title={event.name}/>) }
+        
+        </MapStyled>
       </StyledView>
     </>
   );
