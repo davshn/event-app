@@ -3,13 +3,12 @@ import { FilterButton } from "../generiComponents/GenericStyles";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { InputStyled , TextStyled,ViewStyled} from "../generiComponents/GenericStyles";
 import { useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 import { Text } from "react-native";
 
 export default function Searchbar() {
   const dispatch = useDispatch();
-  const modes = useSelector(state => state.getEventsReducer.events);
   const initialState = { //Estado inicial para usuarios
     name: "",
     initialPrice:"",
@@ -24,7 +23,6 @@ export default function Searchbar() {
 
   function filterAndSearch() {
     dispatch(searchByFilters(filters));
-    console.log(modes)
   };
   
   function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
