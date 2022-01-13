@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useStripe } from "@stripe/stripe-react-native";
 import { View,  TextInput, Button , Alert} from "react-native";
-
+import { useSelector } from "react-redux";
 const Payments = () => {
   const [name, setName] = useState("");
-
+const user = useSelector((state) => state.authUserReducer);
+console.log(user)
   const stripe = useStripe();
 
   const pay = async () => {
