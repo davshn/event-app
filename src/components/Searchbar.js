@@ -1,5 +1,5 @@
 import React from "react";
-import { FilterButton } from "../generiComponents/GenericStyles";
+import { StyledButton, TextButton } from "../generiComponents/GenericStyles";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { TextStyled, ViewStyled, InputStyled, ChipStyled} from '../generiComponents/GenericStyles';
 import { useState,useEffect } from "react";
@@ -62,19 +62,19 @@ export default function Searchbar() {
   
   return (
     <ViewStyled>
-      <InputStyled value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" />
-      <InputStyled value={filters.initialPrice} onChangeText={(ev) => hadleInputChange("initialPrice", ev)} placeholder="Precio inicial" />
-      <InputStyled value={filters.finalPrice} onChangeText={(ev) => hadleInputChange("finalPrice", ev)} placeholder="Precio final" />
-      <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion" />
+      <InputStyled value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" placeholderTextColor='gray'/>
+      <InputStyled value={filters.initialPrice} onChangeText={(ev) => hadleInputChange("initialPrice", ev)} placeholder="Precio inicial" placeholderTextColor='gray'/>
+      <InputStyled value={filters.finalPrice} onChangeText={(ev) => hadleInputChange("finalPrice", ev)} placeholder="Precio final"  placeholderTextColor='gray'/>
+      <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion"  placeholderTextColor='gray'/>
       <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Fecha inicial:{filters.initialDate}</TextStyled>
       <TextStyled style={{ color: "gray" }} onPress={showDatepicker2}>Fecha final:{filters.finalDate}</TextStyled>
       <TextStyled style={{ color: "black" }}>Elimina las categorias que no sean de tu interés </TextStyled>
       <ChipStyled>
         {filters.categories.map((cat)=><Chip key={cat.id} style={{ height: 50,width: 110 }} onClose={() => setFilters(prev => ({ ...prev, categories: prev.categories.filter((e)=>e.name!==cat.name) }))}>{cat.name}</Chip>)}        
       </ChipStyled>
-      <FilterButton onPress={()=>filterAndSearch(filters)}>
-        <Text>Filtrar</Text>
-      </FilterButton>
+      <StyledButton onPress={()=>filterAndSearch(filters)}>
+        <TextButton>Filtrar</TextButton>
+      </StyledButton>
       <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion" />
       {show && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange} />)}
       {show2 && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange2} /> )}

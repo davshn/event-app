@@ -1,6 +1,5 @@
-import { View, Image, Text} from "react-native";
-import { Logo } from "../generiComponents/GenericStyles"
-
+import { Image } from "react-native";
+import { Logo, StyledText } from "../generiComponents/GenericStyles"
 
 export function LogoTitle() {
     return (
@@ -9,7 +8,7 @@ export function LogoTitle() {
           style={{ width: 30, height: 30, borderRadius: 10 }}
           source={require('../public/logo.png')}
         />
-        <Text style={{fontSize: 20, fontWeight: 'bold'}}>findSpot</Text>
+        <StyledText style={{fontSize: 20, fontWeight: 'bold'}}>findSpot</StyledText>
       </Logo>
     );
   }

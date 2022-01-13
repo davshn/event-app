@@ -4,7 +4,7 @@ import axios from "axios";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
-import { EventItem, EventImage, CardInfo, CardInfoText } from "../generiComponents/GenericStyles";
+import { EventItem, EventImage, CardInfo, CardInfoText, EventItemContainer } from "../generiComponents/GenericStyles";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 
 const Item = ({ item }) => (
@@ -42,12 +42,9 @@ export function EventCards() {
 
   const _renderItem = ({ item }) => {
     return (
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Detail", { item: item })}
-        style={styles.card}
-      >
-        <Item item={item} />
-      </TouchableOpacity>
+      <EventItemContainer onPress={() => navigation.navigate("Detail", { item: item })}>
+        <Item item={item}/>
+      </EventItemContainer>
     );
   };
 
@@ -62,50 +59,49 @@ export function EventCards() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 5,
-  },
-  description: {},
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: "center",
+//     justifyContent: "center",
+//     borderRadius: 5,
+//   },
+//   description: {},
 
-  title: {
-    fontSize: 23,
-    padding: 10,
-  },
-  when: {
-    fontSize: 20,
-    padding: 5,
-  },
-  who: {
-    fontSize: 18,
-    padding: 2,
-  },
-  price: {
-    fontSize: 20,
-    padding: 5,
-  },
-  card: {
-    marginBottom: 10,
-
-    width: "95%",
-    shadowColor: "#776bc7",
-    shadowOpacity: 1,
-    shadowOffset: {
-      width: 3,
-      height: 3,
-    },
-  },
-  cardImage: {
-    width: "100%",
-    height: 200,
-    resizeMode: "cover",
-  },
-  item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 4,
-  },
-});
+//   title: {
+//     fontSize: 23,
+//     padding: 10,
+//   },
+//   when: {
+//     fontSize: 20,
+//     padding: 5,
+//   },
+//   who: {
+//     fontSize: 18,
+//     padding: 2,
+//   },
+//   price: {
+//     fontSize: 20,
+//     padding: 5,
+//   },
+//   card: {
+//     marginBottom: 10,
+//     width: "95%",
+//     shadowColor: "#776bc7",
+//     shadowOpacity: 1,
+//     shadowOffset: {
+//       width: 3,
+//       height: 3,
+//     },
+//   },
+//   cardImage: {
+//     width: "100%",
+//     height: 200,
+//     resizeMode: "cover",
+//   },
+//   item: {
+//     padding: 20,
+//     marginVertical: 8,
+//     marginHorizontal: 4,
+//   },
+// });

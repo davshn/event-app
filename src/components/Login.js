@@ -45,12 +45,12 @@ export default function Login({navigation}) {
     <ViewStyled>
       <TitleStyled>findSpot</TitleStyled>
      <InputStyled value={input.email} onChangeText={(ev)=>hadleInputChange("email",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
-        {errors.email&&(<FormError>{errors.email}</FormError>)}
+        {errors.email&&(<FormError style={{marginLeft: "4%"}}>{errors.email}</FormError>)}
       <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
-        {errors.password&&(<FormError>{errors.password}</FormError>)}
+        {errors.password&&(<FormError style={{marginLeft: "4%"}}>{errors.password}</FormError>)}
       <SectionStyled>
         <ButtonGen title="Acceder" onPress={()=>validate(input)}/>
-        <TextStyled style={{ color: "red" }} >Olvidaste tu contraseña</TextStyled>
+        <TextStyled style={{ color: "#999999"}}>¿Olvidaste tu contraseña?</TextStyled>
       </SectionStyled>
       <SectionStyled>
         <TextStyled style={{ color: "#999999" }}>¿No tienes una cuenta?</TextStyled>
