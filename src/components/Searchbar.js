@@ -1,29 +1,32 @@
 import React from "react";
 import { StyledButton, TextButton } from "../generiComponents/GenericStyles";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { InputStyled , TextStyled,ViewStyled} from "../generiComponents/GenericStyles";
-import { useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { TextStyled, ViewStyled, InputStyled, ChipStyled} from '../generiComponents/GenericStyles';
+import { useState,useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
+import { Text } from "react-native";
+import { Chip } from 'react-native-paper';
+import axios from "axios";
 
 export default function Searchbar() {
   const dispatch = useDispatch();
-  const modes = useSelector(state => state.getEventsReducer.events);
   const initialState = { //Estado inicial para usuarios
     name: "",
     initialPrice:"",
     finalPrice: "",
     initialDate: "",
     finalDate:"",
-    rating:null,
+    rating: null,
+    categories:[],
   };
   const [filters, setFilters] = useState(initialState);
   const [show, setShow] = useState(false);  //Controla visibilidad del datepicker
   const [show2, setShow2] = useState(false);  //Controla visibilidad del datepicker
 
-  function filterAndSearch() {
-    dispatch(searchByFilters(filters));
-    console.log(modes)
+  function filterAndSearch(filter) {
+    filter.category = filter.categories.map(cat => cat.name);               //Convierte las categorias en el formato del back
+    dispatch(searchByFilters(filter));
   };
   
   function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
@@ -50,6 +53,12 @@ export default function Searchbar() {
     setFilters(prev => ({ ...prev, "finalDate": currentDate.toISOString().slice(0, -14) }))
   };
 
+  function getCategories() {
+    axios.get('https://find-spot.herokuapp.com/categories',) //Trae las categorias del endpoint
+    .then((res) => setFilters(prev => ({ ...prev, categories: res.data })))
+    .catch((res) => console.log(res));
+  };
+  useEffect(() => getCategories(), []);
   
   return (
     <ViewStyled>
@@ -59,9 +68,14 @@ export default function Searchbar() {
       <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion"  placeholderTextColor='gray'/>
       <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Fecha inicial:{filters.initialDate}</TextStyled>
       <TextStyled style={{ color: "gray" }} onPress={showDatepicker2}>Fecha final:{filters.finalDate}</TextStyled>
-      <StyledButton onPress={filterAndSearch}>
+      <TextStyled style={{ color: "black" }}>Elimina las categorias que no sean de tu interés </TextStyled>
+      <ChipStyled>
+        {filters.categories.map((cat)=><Chip key={cat.id} style={{ height: 50,width: 110 }} onClose={() => setFilters(prev => ({ ...prev, categories: prev.categories.filter((e)=>e.name!==cat.name) }))}>{cat.name}</Chip>)}        
+      </ChipStyled>
+      <StyledButton onPress={()=>filterAndSearch(filters)}>
         <TextButton>Filtrar</TextButton>
       </StyledButton>
+      <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion" />
       {show && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange} />)}
       {show2 && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange2} /> )}
     </ViewStyled>
