@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Image, Text } from "react-native";
-import ButtonGen from "../generiComponents/ButtonGen";
+import { MapStyled,MapContainertStyled } from '../generiComponents/MapsStyles';
+import {PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import * as Location from 'expo-location';
 import {
   StyledView,
   StyledInput,
@@ -16,6 +18,7 @@ import * as ImagePicker from "expo-image-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 import CustomMultiPicker from "react-native-multiple-select-list";
+import { Modal } from 'react-native';
 
 function createEvent(evento) {
   // evento.creators = [evento.creators]
@@ -43,6 +46,12 @@ const categories = {
 };
 
 export function CrearEvento() {
+
+  //Logica modal mapas no tocar
+  const [location, setLocation] = useState(null);
+  const [mapVisible, setMapVisible] = useState(false); //Controla el modal de mapas
+  //Fin
+  
   var today = new Date();
 
   const initialState = {
@@ -54,11 +63,37 @@ export function CrearEvento() {
     time: "",
     creators: [],
     image: null,
+    longitude: "",
+    latitude:"",
   };
   const [input, setInput] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [show, setShow] = useState(false);
 
+  //Logica modal mapas no tocar
+    useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+    }, []);
+
+  function handleMapMarker(lat,long) {
+    setInput((prev) => ({
+      ...prev,
+      latitude: lat,
+      longitude: long,
+    }));
+  }
+  
+  //Fin
+  
+  
   function hadleInputChange(input, e) {
     if (input === "price")
       setInput((prev) => ({ ...prev, price: parseInt(e) }));
@@ -153,6 +188,7 @@ export function CrearEvento() {
         Fecha : {input.date.toISOString().slice(0, -14)}
       </SelectedDate>
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
+      <UploadPic onPress={()=>setMapVisible(true)}>Agregar ubicacion</UploadPic>
       <StyledButton onPress={() => createEvent(input)}>
         <TextButton>Enviar</TextButton>
       </StyledButton>
@@ -170,6 +206,30 @@ export function CrearEvento() {
           style={{ width: 200, height: 200 }}
         />
       )}
+      
+      {/*Logica del modal de mapas, no borrar*/}
+      <Modal animationType="fade" transparent={true} visible={mapVisible}>
+        <MapContainertStyled>
+        <MapStyled showsUserLocation loadingEnabled onPress={(e) => handleMapMarker(e.nativeEvent.coordinate.latitude,e.nativeEvent.coordinate.longitude)}
+          provider={PROVIDER_GOOGLE}
+          region={{
+            latitude: location?location.coords.latitude:0,
+            longitude: location?location.coords.longitude:0,
+            latitudeDelta: 0.00049,
+            longitudeDelta: 0.00054,
+          }}
+          >
+            <Marker
+              coordinate={{latitude: input.latitude?input.latitude:0, longitude: input.longitude?input.longitude:0}}
+              title={"Tu evento"}/>
+        </MapStyled>
+      <StyledButton onPress={() => setMapVisible(false)}>
+        <TextButton>Guardar</TextButton>
+      </StyledButton>
+          </MapContainertStyled>
+      </Modal>
+      
+      
     </StyledView>
   );
 }
