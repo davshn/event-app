@@ -23,7 +23,8 @@ const Payments = () => {
       const clientSecret = data.clientSecret;
 
             const initSheet = await stripe.initPaymentSheet({
-                paymentIntentClientSecret: clientSecret,
+              paymentIntentClientSecret: clientSecret,
+              merchantDisplayName: "Merchant Name",
             });
 
       if (initSheet.error) return Alert.alert(initSheet.error.message);
@@ -42,7 +43,7 @@ const Payments = () => {
   return (
     <View>
       <TextInput
-        value={name}
+        value={'juan'}
         onChangeText={(text) => setName(text)}
         placeholder="Name"
         style={{ width: 200, fontSize: 20, padding: 10, borderWidth: 1 }}
