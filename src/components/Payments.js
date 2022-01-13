@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useStripe } from "@stripe/stripe-react-native";
-import { View,  TextInput, Button , Alert} from "react-native";
+import { View,  TextInput, Button , Alert,Text} from "react-native";
 import { useSelector } from "react-redux";
 const Payments = () => {
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
 const user = useSelector((state) => state.authUserReducer);
-console.log(user)
+  let name = user.name
   const stripe = useStripe();
 
   const pay = async () => {
@@ -43,12 +43,14 @@ console.log(user)
 
   return (
     <View>
-      <TextInput
+      {/* <TextInput
         value={name}
         onChangeText={(text) => setName(text)}
         placeholder="Name"
         style={{ width: 200, fontSize: 20, padding: 10, borderWidth: 1 }}
-      />
+      /> */}
+
+      
       <Button title="Comprar Entrada" onPress={pay} />
     </View>
   );
