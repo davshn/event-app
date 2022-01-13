@@ -5,11 +5,13 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { MapStyled } from '../generiComponents/MapsStyles';
 import * as Location from 'expo-location';
+import { useNavigation } from "@react-navigation/native";
 
 
 function Explore() {
   const events = useSelector(state => state.getEventsReducer.events);
   const [location, setLocation] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
@@ -37,8 +39,10 @@ function Explore() {
           }}
         >
           {events?.map((event)=><Marker key={event.id}
-          coordinate={{latitude: parseFloat(event.latitude), longitude: parseFloat(event.longitude)}}
-          title={event.name}/>) }
+            coordinate={{latitude: parseFloat(event.latitude), longitude: parseFloat(event.longitude)}}
+            title={event.name}>
+            <Callout onPress={() => navigation.navigate("Detail", { item: event })}></Callout>
+          </Marker>)}
         
         </MapStyled>
       </StyledView>
