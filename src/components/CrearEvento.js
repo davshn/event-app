@@ -30,17 +30,14 @@ import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 var selected = [];
 export function CrearEvento() {
   const modes = useSelector(state => state.darkModeReducer.darkMode);
-  //Logica modal mapas no tocar
   const [location, setLocation] = useState(null);
   const [mapVisible, setMapVisible] = useState(false); //Controla el modal de mapas
-  //Fin
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   function createEvent(evento) {
     evento.category = selected;
-    // console.log(input)
     axios
       .post("https://find-spot.herokuapp.com/events", evento)
       .then((res) => {  console.log("Success"); 
@@ -123,20 +120,13 @@ export function CrearEvento() {
     }
     else if(isNaN(parseInt(input.price))){
       error.price = "El valor ingresado no es valido";
-      console.log(typeof(parseInt(input.price)))
-      console.log(input.price)
     }
-    // if (!validateDate()) {
-    //   error.date = "Ingrese una fecha correcta";
-    // }
     if (!(Object.entries(error).length === 0)) {
       setErrors(error);
     } else {
       createEvent(input);
     }
   }
-
-  //Logica modal mapas no tocar
     useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -157,13 +147,7 @@ export function CrearEvento() {
     }));
   }
   
-  //Fin
-  
-  
   function hadleInputChange(input, e) {
-    // if (input === "price"){
-    //    setInput((prev) => ({...prev, price: parseInt(e)}));
-    // } 
     if (input === "creators") setInput((prev) => ({ ...prev, [input]: [e] }));
     else setInput((prev) => ({ ...prev, [input]: e }));
   }
@@ -171,7 +155,7 @@ export function CrearEvento() {
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(Platform.OS === "ios");
-    setInput((prev) => ({ ...prev, date: currentDate.toISOString().slice(0, -14) }));
+    if (currentDate) { setInput((prev) => ({ ...prev, date: currentDate.toISOString().slice(0, -14) })) };
   };
 
   const showDatepicker = () => {
@@ -180,7 +164,6 @@ export function CrearEvento() {
 
   const pickImage = async () => {
     let permit = await ImagePicker.requestMediaLibraryPermissionsAsync()
-    // console.log(permit)
     if (permit.granted){
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
