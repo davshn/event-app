@@ -16,8 +16,6 @@ import {
   ButtonText,
   ModalButtonStyled,
 } from "../generiComponents/ModalGen";
-import { Modal } from 'react-native';
-
 
 export default function Searchbar() {
   const dispatch = useDispatch();
