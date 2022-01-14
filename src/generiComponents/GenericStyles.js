@@ -9,10 +9,7 @@ import MapView from 'react-native-maps';
 //     "ProximaNova": require('../../assets/Fonts/Proxima_Nova'),
 //   });
 
-// --violet-blue-crayola: #776bc7ff;
-// --ultramarine: #5302deff;
-// --plump-purple: #5641abff;
-// --lavender-web: #e6e3f3ff;
+
 
 //Event detail CSS
 export const TextCardBig = styled.Text`
@@ -179,6 +176,7 @@ export const TextButton = styled.Text`
   font-size: 18px;
   text-align: center;
   padding: 9px;
+  
 `;
 
 

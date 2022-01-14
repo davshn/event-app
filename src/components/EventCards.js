@@ -6,7 +6,7 @@ import { EventItem, EventImage, CardInfo, CardInfoText, EventItemContainer } fro
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 
 const Item = ({ item }) => (
-  //    let { textCard , card ,cardImage} = styles
+  
   <EventItem>
     <EventImage
       source={{
@@ -16,7 +16,7 @@ const Item = ({ item }) => (
     <CardInfo>
       <CardInfoText>{item.name}</CardInfoText>
       <CardInfoText>{item.date}</CardInfoText>
-      {/* <CardInfoText style={styles.who}>{item.who}</CardInfoText> */}
+   
       <CardInfoText>${item.price}</CardInfoText>
       <CardInfoText>{item.time} hs.</CardInfoText>
     </CardInfo>
@@ -53,55 +53,8 @@ export function EventCards() {
       data={events}
       renderItem={_renderItem}
       keyExtractor={(item) => item.id}
-      // extraData={(item) => item.id}
       navigation={navigation}
       />
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: "center",
-//     justifyContent: "center",
-//     borderRadius: 5,
-//   },
-//   description: {},
-
-//   title: {
-//     fontSize: 23,
-//     padding: 10,
-//   },
-//   when: {
-//     fontSize: 20,
-//     padding: 5,
-//   },
-//   who: {
-//     fontSize: 18,
-//     padding: 2,
-//   },
-//   price: {
-//     fontSize: 20,
-//     padding: 5,
-//   },
-//   card: {
-//     marginBottom: 10,
-//     width: "95%",
-//     shadowColor: "#776bc7",
-//     shadowOpacity: 1,
-//     shadowOffset: {
-//       width: 3,
-//       height: 3,
-//     },
-//   },
-//   cardImage: {
-//     width: "100%",
-//     height: 200,
-//     resizeMode: "cover",
-//   },
-//   item: {
-//     padding: 20,
-//     marginVertical: 8,
-//     marginHorizontal: 4,
-//   },
-// });

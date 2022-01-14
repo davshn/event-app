@@ -8,7 +8,16 @@ import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 import { Button, Modal, Text } from "react-native";
 import { Chip } from 'react-native-paper';
 import axios from "axios";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
+
+import {
+  ModalContStyled,
+  ModalText,
+  ButtonText,
+  ModalButtonStyled,
+} from "../generiComponents/ModalGen";
+import { Modal } from 'react-native';
+
 
 export default function Searchbar() {
   const dispatch = useDispatch();
