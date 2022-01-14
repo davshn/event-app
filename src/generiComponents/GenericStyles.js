@@ -19,6 +19,7 @@ export const TextCardBig = styled.Text`
   text-align: center;
   margin-top: 15px;
   margin-bottom: 2.5px;
+  color: ${TextColor};
 `;
 
 export const TextCardMedium = styled.Text`
@@ -27,6 +28,7 @@ export const TextCardMedium = styled.Text`
   text-align: left;
   margin-top: 2.5px;
   margin-bottom: 2.5px;
+  color: ${TextColor};
 `;
 
 export const TextCardSmall = styled.Text`
@@ -35,11 +37,12 @@ export const TextCardSmall = styled.Text`
   text-align: left;
   margin-top: 2.5px;
   margin-bottom: 2.5px;
+  color: ${TextColor};
 `;
 
 export const DetailView = styled.View`
   margin: 20px;
-  border: 1px solid #5302deff;
+  border: 1px solid #776BC7;;
   border-radius: 20px;
   padding: 10px;
   height: 100%;
@@ -146,15 +149,16 @@ export const SmallerText = styled.Text`
   margin: auto;
   margin-top: 9px;
   margin-bottom: 9px;
+  color: ${TextColor}
 `;
 
 export const UploadPic = styled.Text`
-color: #5641abff;
-text-decoration: underline;
-margin: auto;
-margin-top: 5px;
-margin-bottom: 15px;
-font-size: 17px;
+  color: #5641abff;
+  text-decoration: underline;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 17px;
 `;
 
 export const StyledButton = styled.TouchableOpacity`
@@ -262,5 +266,8 @@ export const StyledMap = styled(MapView)`
 `;
 
 export const MapViewContainer = styled.ScrollView`
+  background-color: ${backgroundColor};
+`
+export const ViewBackground = styled.View`
   background-color: ${backgroundColor};
 `

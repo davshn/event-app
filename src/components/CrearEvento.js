@@ -15,6 +15,7 @@ import {
   StyledView2,
   FormError,
   EventFormImage,
+  ViewBackground,
 } from "../generiComponents/GenericStyles";
 import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
@@ -22,13 +23,13 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import CustomMultiPicker from "react-native-multiple-select-list";
 import { useNavigation } from "@react-navigation/native";
 import { Modal } from 'react-native';
+import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 
-
-
 var selected = [];
 export function CrearEvento() {
+  const modes = useSelector(state => state.darkModeReducer.darkMode);
   //Logica modal mapas no tocar
   const [location, setLocation] = useState(null);
   const [mapVisible, setMapVisible] = useState(false); //Controla el modal de mapas
@@ -113,6 +114,9 @@ export function CrearEvento() {
     if (!input.description) {
       error.description = "Campo requerido";
     }
+    if (!input.latitude) {
+      error.latitude = "Por favor ingrese una ubicación";
+    }
     if (!input.price) {
       error.price = "Campo requerido";
     }
@@ -186,7 +190,8 @@ export function CrearEvento() {
   };
 
   return (
-    <StyledView>
+    <ViewBackground>
+      <StyledView>
       <StyledTitle> Crear Evento.</StyledTitle>
       <StyledView2>
         <StyledInput
@@ -242,21 +247,24 @@ export function CrearEvento() {
         callback={(res) => {
           selected = res;
         }}
-        rowBackgroundColor={"#eee"}
+        rowBackgroundColor={"modes? '#292929' : '#EDEDED'"}
         rowHeight={40}
         rowRadius={5}
         searchIconName="ios-checkmark"
         searchIconColor="red"
         searchIconSize={30}
-        iconColor={"#5641abff"}
-        iconSize={28}
+        iconColor={"#776BC7"}
+        textColor={"#776BC7"}
+        iconSize={26}
         selectedIconName={"ios-checkmark-circle-outline"}
         unselectedIconName={"ios-radio-button-off-outline"}
         scrollViewHeight={340}
         selected={[]}
+        border={"#776BC7"}
       />
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <UploadPic onPress={()=>setMapVisible(true)}>Agregar ubicacion</UploadPic>
+      {errors.latitude && <FormError>{errors.latitude}</FormError>}
       {/* ESTE BOTON ESTA DE MAS Y SE SALTA LA FUNCION VALIDATE 
       ---> LA FUNCION VALIDATE LLAMA CREATE EVENT LUEGO DE LA VALIDACION */}
       {/* <StyledButton onPress={() => createEvent(input)}> 
@@ -304,8 +312,8 @@ export function CrearEvento() {
       </StyledButton>
           </MapContainertStyled>
       </Modal>
-      
-      
     </StyledView>
+    </ViewBackground>
+    
   );
 }
