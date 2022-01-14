@@ -40,6 +40,7 @@ export function CrearEvento() {
 
   function createEvent(evento) {
     evento.category = selected;
+    // console.log(input)
     axios
       .post("https://find-spot.herokuapp.com/events", evento)
       .then((res) => {  console.log("Success"); 
@@ -57,7 +58,7 @@ export function CrearEvento() {
     date: "",
     time: "",
     creators: [],
-    image: null,
+    eventPic: null,
     longitude: "",
     latitude:"",
   };
@@ -178,16 +179,42 @@ export function CrearEvento() {
   };
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
+    let permit = await ImagePicker.requestMediaLibraryPermissionsAsync()
+    // console.log(permit)
+    if (permit.granted){
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
     });
+
     if (!result.cancelled) {
-      setInput((prev) => ({ ...prev, image: result.uri }));
+        let newFile = {
+          uri: result.uri,
+          type: `image/jpg`,
+          name:  `EventPic.jpg`,
+        }
+        handleUpLoadImage(newFile)
+        
+      };
+    } else {
+      Alert.alert("No se han dado los permisos para acceder a las fotos")
     }
   };
+
+  const handleUpLoadImage = (image) => {
+    let data = new FormData()
+    data.append("file", image)
+    data.append("upload_preset" , "upload_event_pic")
+    data.append("cloud_name" , "findspot")
+
+    fetch("https://api.cloudinary.com/v1_1/findspot/image/upload", {
+      method: "POST",
+      body: data
+    }).then(res => res.json())
+    .then(data => setInput(prev => ({ ...prev, "eventPic": data.secure_url })))
+  }
 
   return (
     <ViewBackground>
