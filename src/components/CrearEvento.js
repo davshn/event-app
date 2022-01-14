@@ -24,6 +24,8 @@ import { Modal } from 'react-native';
 
 function createEvent(evento) {
   evento.category = selected;
+  console.log(typeof evento.date);
+  console.log(evento.date.slice(0, -14));
   evento.date = evento.date.toISOString().slice(0, -14);
   axios
     .post("https://find-spot.herokuapp.com/events", evento)
@@ -250,9 +252,11 @@ export function CrearEvento() {
       />
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <UploadPic onPress={()=>setMapVisible(true)}>Agregar ubicacion</UploadPic>
-      <StyledButton onPress={() => createEvent(input)}>
+      {/* ESTE BOTON ESTA DE MAS Y SE SALTA LA FUNCION VALIDATE 
+      ---> LA FUNCION VALIDATE LLAMA CREATE EVENT LUEGO DE LA VALIDACION */}
+      {/* <StyledButton onPress={() => createEvent(input)}> 
         <TextButton>Enviar</TextButton>
-      </StyledButton>
+      </StyledButton> */}
       {show && (
         <DateTimePicker
           value={input.date}
