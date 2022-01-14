@@ -18,7 +18,7 @@ export default function Register({ navigation }) {
     password: "",
     passwordRep:"",
     dateOfBirth: "",
-    image: null,
+    profilePic: null,
     interests:[],
   };
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
@@ -86,8 +86,8 @@ export default function Register({ navigation }) {
   
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    let granted = await ImagePicker.requestMediaLibraryPermissionsAsync()
-    if (granted){
+    let permit = await ImagePicker.requestMediaLibraryPermissionsAsync()
+    if (permit.granted){
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
