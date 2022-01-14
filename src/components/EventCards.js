@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector,useDispatch } from "react-redux";
-import axios from "axios";
-import { TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 import { EventItem, EventImage, CardInfo, CardInfoText, EventItemContainer } from "../generiComponents/GenericStyles";
@@ -35,6 +33,7 @@ const Item = ({ item }) => (
 export function EventCards() {
   const dispatch = useDispatch();
   const events = useSelector(state => state.getEventsReducer.events);
+  const modes = useSelector(state => state.darkModeReducer.darkMode);
 
   useEffect(() => dispatch(searchByFilters()), []);
 
@@ -50,6 +49,7 @@ export function EventCards() {
 
   return (
     <FlatList
+      style={{backgroundColor: modes? '#292929' : '#EDEDED'}}
       data={events}
       renderItem={_renderItem}
       keyExtractor={(item) => item.id}

@@ -11,14 +11,9 @@ import {
   DetailView,
   DetailInfo,
   StyledButton,
-  TextButton
+  TextButton,
+  ViewBackground
 } from "../generiComponents/GenericStyles";
-
-
-
-
-const StyledView = styled.ScrollView`
-`;
 
 const EventDetail = ({ navigation: { goBack }, route }) => {
   const [event, setEvent] = useState([]);
@@ -39,8 +34,7 @@ const EventDetail = ({ navigation: { goBack }, route }) => {
   };
 
   return (
-    <>
-      <StyledView>
+      <ViewBackground>
         <DetailView>
           <ImageDetail
             source={{
@@ -71,8 +65,7 @@ const EventDetail = ({ navigation: { goBack }, route }) => {
             <TextButton>Volver</TextButton>
           </StyledButton>
         </DetailView>
-      </StyledView>
-    </>
+      </ViewBackground>
   );
 };
 
