@@ -57,7 +57,7 @@ export const TextStyled = styled.Text`
   font-size: 14px;
   text-align: center;
   margin: 3% 0;
-  color: ${TextColor}
+  color: ${TextColor};
 `;
 
 export const ViewStyled = styled.ScrollView`
@@ -97,7 +97,7 @@ export const TitleStyled = styled.Text`
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: ${TextColor}
+  color: ${TextColor};
 `;
 
 export const SectionStyled = styled.View`
@@ -140,7 +140,7 @@ export const StyledTitle = styled.Text`
   font-size: 23px;
   margin: auto;
   margin-bottom: 10px;
-  color: ${TextColor}
+  color: ${TextColor};
 `;
 
 export const SmallerText = styled.Text`
@@ -187,7 +187,7 @@ export const Logo = styled.View`
 `;
 
 export const StyledText = styled.Text`
-  color: ${TextColor}
+  color: ${TextColor};
 `
 
 
@@ -254,7 +254,7 @@ export const CardInfoText = styled.Text`
   font-size: 17px;
   margin-left: 15px;
   font-weight: bold;
-  color: ${TextColor}
+  color: ${TextColor};
 `;
 
 // Explorar CSS
