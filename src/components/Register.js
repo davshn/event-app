@@ -12,16 +12,14 @@ import { Chip } from 'react-native-paper';
 //https://find-spot.herokuapp.com/categories
 
 export default function Register({ navigation }) {
-  const today = new Date();
-  
   const initialState = { //Estado inicial para usuarios
     name: "",
     email: "",
     password: "",
     passwordRep:"",
-    dateOfBirth: today,
+    dateOfBirth: "",
     image: null,
-    interests:[],
+    categories:[],
   };
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
   const [errors, setErrors] = useState({});  //Crea el estado que contendrá los errores
@@ -31,15 +29,14 @@ export default function Register({ navigation }) {
   
   function getCategories() {
     axios.get('https://find-spot.herokuapp.com/categories',) //Trae las categorias del endpoint
-    .then((res) => setInput(prev => ({ ...prev, interests: res.data })))
+    .then((res) => setInput(prev => ({ ...prev, categories: res.data })))
     .catch((res) => console.log(res));
   };
  
   useEffect(() => getCategories(), []);     //Cuando se monta el componente pide las categorias al back
   
   function createUser(user) {
-    user.dateOfBirth = user.dateOfBirth.toISOString().slice(0, -14);    //Convierte la fecha en el formato del back
-    user.interests = user.interests.map(cat => cat.name);               //Convierte los intereses en el formato del back
+    user.interests = user.categories.map(cat => cat.name);               //Convierte los intereses en el formato del back
     axios.post('https://find-spot.herokuapp.com/register',user) //Envia por post la a crear
       .then((res) => {
         setInput(initialState);
@@ -60,12 +57,13 @@ export default function Register({ navigation }) {
     if (!input.password) { error.password = "Requerido" }
     else if (!(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i).test(input.password)) { error.password = "Contraseña insegura" };
     if(input.password!==input.passwordRep){error.passwordRep = "Contraseña no coincide"}
-    if (!validateAge()) { error.dateOfBirth = "Debes ser mayor de edad" };
+   // if (!validateAge()) { error.dateOfBirth = "Debes ser mayor de edad" };
     if (!(Object.entries(error).length===0)) { setErrors(error) }
     else { createUser(input) };
   };
   
-  function validateAge() {          //Valida que la edad sea 18 o mas
+  /*function validateAge() {          //Valida que la edad sea 18 o mas
+    const today = new Date();
     let year = today.getFullYear() - input.dateOfBirth.getFullYear();
     let month = today.getMonth() - input.dateOfBirth.getMonth();
     if (month < 0 || (month === 0 && today.getDate() < input.dateOfBirth.getDate())) {
@@ -73,12 +71,12 @@ export default function Register({ navigation }) {
     }
     if (year < 18) { return false };
     return true;
-  }
+  }*/
     
   const onChange = (event, selectedDate) => {             //Guarda la fecha seleccionada
-    const currentDate = selectedDate || input.dateOfBirth;
+    const currentDate = selectedDate;
     setShow(Platform.OS === 'ios');
-    setInput(prev => ({ ...prev, "dateOfBirth": currentDate }))
+    setInput(prev => ({ ...prev, "dateOfBirth": currentDate.toISOString().slice(0, -14) }))
   };
 
   const showDatepicker = () => {
@@ -135,12 +133,12 @@ export default function Register({ navigation }) {
         {errors.password&&(<FormError>{errors.password}</FormError>)}
         <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
         {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
-        <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Año de nacimiento:{input.dateOfBirth.toISOString().slice(0, -14)}</TextStyled>
+        <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Año de nacimiento:{input.dateOfBirth}</TextStyled>
         {errors.dateOfBirth&&(<FormError>{errors.dateOfBirth}</FormError>)}
       <TextStyled onPress={pickImage} style={{ color: "red" }}>Agregar foto de perfil </TextStyled>
       <TextStyled >Elimina las categorias que no sean de tu interés </TextStyled>
       <ChipStyled>
-        {input.interests.map((cat)=><Chip key={cat.id} style={{ height: 50,width: 110 }} onClose={() => setInput(prev => ({ ...prev, interests: prev.interests.filter((e)=>e.name!==cat.name) }))}>{cat.name}</Chip>)}        
+        {input.categories.map((cat)=><Chip key={cat.id} style={{ height: 50,width: 110 }} onClose={() => setInput(prev => ({ ...prev, categories: prev.categories.filter((e)=>e.name!==cat.name) }))}>{cat.name}</Chip>)}        
       </ChipStyled>
       <ButtonGen title="Enviar" onPress={() => validate(input)} />
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
@@ -151,7 +149,7 @@ export default function Register({ navigation }) {
           </ModalButtonStyled>
         </ModalContStyled>
       </Modal>
-        {show && (<DateTimePicker value={input.dateOfBirth} mode='date' display="default" onChange={onChange} /> )}
+        {show && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange} /> )}
         {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
     </ViewStyled>
   );

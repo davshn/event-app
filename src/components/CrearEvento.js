@@ -21,18 +21,11 @@ import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import CustomMultiPicker from "react-native-multiple-select-list";
+import { useNavigation } from "@react-navigation/native";
 import { Modal } from 'react-native';
 import { useSelector } from "react-redux"
-
-function createEvent(evento) {
-  evento.category = selected;
-  evento.date = evento.date.toISOString().slice(0, -14);
-  axios
-    .post("https://find-spot.herokuapp.com/events", evento)
-    .then((res) => console.log("Success"))
-    .catch((res) => console.log(res));
-  // console.log(evento)
-}
+import { useDispatch } from "react-redux";
+import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 
 var selected = [];
 export function CrearEvento() {
@@ -41,14 +34,27 @@ export function CrearEvento() {
   const [location, setLocation] = useState(null);
   const [mapVisible, setMapVisible] = useState(false); //Controla el modal de mapas
   //Fin
+
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  function createEvent(evento) {
+    evento.category = selected;
+    axios
+      .post("https://find-spot.herokuapp.com/events", evento)
+      .then((res) => {  console.log("Success"); 
+                        dispatch(searchByFilters());
+                        navigation.navigate('Home')})
+      .catch((res) => console.log(res));
   
-  var today = new Date();
+  }
+  
   const initialState = {
     name: "",
     description: "",
     place: "",
     price: "",
-    date: today,
+    date: "",
     time: "",
     creators: [],
     image: null,
@@ -162,9 +168,9 @@ export function CrearEvento() {
   }
 
   const onDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || input.date;
+    const currentDate = selectedDate;
     setShow(Platform.OS === "ios");
-    setInput((prev) => ({ ...prev, date: currentDate }));
+    setInput((prev) => ({ ...prev, date: currentDate.toISOString().slice(0, -14) }));
   };
 
   const showDatepicker = () => {
@@ -226,7 +232,7 @@ export function CrearEvento() {
       />
       {errors.place && <FormError>{errors.place}</FormError>}
       <SelectedDate onPress={showDatepicker}>
-        Fecha : {input.date.toISOString().slice(0, -14)}
+        Fecha : {input.date}
       </SelectedDate>
       </StyledView2>
       
@@ -259,22 +265,28 @@ export function CrearEvento() {
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <UploadPic onPress={()=>setMapVisible(true)}>Agregar ubicacion</UploadPic>
       {errors.latitude && <FormError>{errors.latitude}</FormError>}
+      {/* ESTE BOTON ESTA DE MAS Y SE SALTA LA FUNCION VALIDATE 
+      ---> LA FUNCION VALIDATE LLAMA CREATE EVENT LUEGO DE LA VALIDACION */}
+      {/* <StyledButton onPress={() => createEvent(input)}> 
+        <TextButton>Enviar</TextButton>
+      </StyledButton> */}
       {show && (
         <DateTimePicker
-          value={input.date}
+          value={new Date}
           mode="date"
           display="default"
           onChange={onDateChange}
         />
       )}
-         {input.image && (
+      {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
+         {/* {input.image && (
   
             <EventFormImage
               source={{ uri: input.image }}
               style={{ width: 200, height: 200 }}
-            /> 
+            />
      
-          )}
+          )} */}
       <StyledButton onPress={() => validate(input)}>
         <TextButton>Enviar</TextButton>
       </StyledButton>
