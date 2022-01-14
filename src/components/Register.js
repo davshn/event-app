@@ -1,17 +1,17 @@
 import { useState,useEffect } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
-import { TextStyled, ViewStyled, InputStyled, FormStyled, FormError,ChipStyled, StyledTitle } from '../generiComponents/GenericStyles';
+import { TextStyled, ViewStyled, InputStyled, FormError,SmallerText, StyledTitle } from '../generiComponents/GenericStyles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import {Alert, Image} from 'react-native' ; 
 import axios from 'axios';
 import { Modal } from 'react-native';
 import { ModalContStyled, ModalText, ModalButtonStyled, ButtonText } from '../generiComponents/ModalGen';
-import { Chip } from 'react-native-paper';
+import CustomMultiPicker from "react-native-multiple-select-list";
 
-//https://find-spot.herokuapp.com/categories
 
 export default function Register({ navigation }) {
+  let selected = [];
   const initialState = { //Estado inicial para usuarios
     name: "",
     email: "",
@@ -19,24 +19,31 @@ export default function Register({ navigation }) {
     passwordRep:"",
     dateOfBirth: "",
     profilePic: null,
-    categories:[],
+    interests:[],
   };
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
   const [errors, setErrors] = useState({});  //Crea el estado que contendrá los errores
   const [show, setShow] = useState(false);  //Controla visibilidad del datepicker
   const [modalVisible, setModalVisible] = useState(false); //Controla el modal de error al crear usuario
-  // const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions() // un estado para los permisos de la camara
+  const [categories, setCategories] = useState([]);
   
   function getCategories() {
-    axios.get('https://find-spot.herokuapp.com/categories',) //Trae las categorias del endpoint
-    .then((res) => setInput(prev => ({ ...prev, categories: res.data })))
-    .catch((res) => console.log(res));
-  };
- 
-  useEffect(() => getCategories(), []);     //Cuando se monta el componente pide las categorias al back
+    axios
+      .get("https://find-spot.herokuapp.com/categories")
+      .then((res) => {
+        let formatted = {}
+        res.data.map(category => {
+          formatted[category.id] = category.name
+        })
+        setCategories(formatted);
+      })
+      .catch((res) => console.log(res))
+  }
+
+  useEffect(() => getCategories(), []);
   
   function createUser(user) {
-    user.interests = user.categories.map(cat => cat.name);               //Convierte los intereses en el formato del back
+    user.interests = selected;
     axios.post('https://find-spot.herokuapp.com/register',user) //Envia por post la a crear
       .then((res) => {
         setInput(initialState);
@@ -76,7 +83,7 @@ export default function Register({ navigation }) {
   const onChange = (event, selectedDate) => {             //Guarda la fecha seleccionada
     const currentDate = selectedDate;
     setShow(Platform.OS === 'ios');
-    setInput(prev => ({ ...prev, "dateOfBirth": currentDate.toISOString().slice(0, -14) }))
+    if (currentDate) { setInput(prev => ({ ...prev, "dateOfBirth": currentDate.toISOString().slice(0, -14) })) };
   };
 
   const showDatepicker = () => {
@@ -84,7 +91,6 @@ export default function Register({ navigation }) {
   };
   
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let permit = await ImagePicker.requestMediaLibraryPermissionsAsync()
     if (permit.granted){
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -101,7 +107,6 @@ export default function Register({ navigation }) {
           name:  `ProfilePic.jpg`,
         }
         handleUpLoadImage(newFile)
-        // console.log(input)
       };
     } else {
       Alert.alert("No se han dado los permisos para acceder a las fotos")
@@ -136,10 +141,32 @@ export default function Register({ navigation }) {
         <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Año de nacimiento:{input.dateOfBirth}</TextStyled>
         {errors.dateOfBirth&&(<FormError>{errors.dateOfBirth}</FormError>)}
       <TextStyled onPress={pickImage} style={{ color: "red" }}>Agregar foto de perfil </TextStyled>
-      <TextStyled >Elimina las categorias que no sean de tu interés </TextStyled>
-      <ChipStyled>
-        {input.categories.map((cat)=><Chip key={cat.id} style={{ height: 50,width: 110 }} onClose={() => setInput(prev => ({ ...prev, categories: prev.categories.filter((e)=>e.name!==cat.name) }))}>{cat.name}</Chip>)}        
-      </ChipStyled>
+      <SmallerText>Categorías:</SmallerText>
+      <CustomMultiPicker
+        options={categories}
+        search={false} 
+        multiple={true}
+        placeholder={"Search"}
+        placeholderTextColor={"#757575"}
+        returnValue={"label"}
+        callback={(res) => {
+          selected = res;
+        }}
+        rowBackgroundColor={"modes? '#292929' : '#EDEDED'"}
+        rowHeight={40}
+        rowRadius={5}
+        searchIconName="ios-checkmark"
+        searchIconColor="red"
+        searchIconSize={30}
+        iconColor={"#776BC7"}
+        textColor={"#776BC7"}
+        iconSize={26}
+        selectedIconName={"ios-checkmark-circle-outline"}
+        unselectedIconName={"ios-radio-button-off-outline"}
+        scrollViewHeight={340}
+        selected={[]}
+        border={"#776BC7"}
+      />
       <ButtonGen title="Enviar" onPress={() => validate(input)} />
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <ModalContStyled>
