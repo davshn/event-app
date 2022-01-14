@@ -64,21 +64,24 @@ export default function Register({ navigation }) {
     if (!input.password) { error.password = "Requerido" }
     else if (!(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i).test(input.password)) { error.password = "Contraseña insegura" };
     if(input.password!==input.passwordRep){error.passwordRep = "Contraseña no coincide"}
-   // if (!validateAge()) { error.dateOfBirth = "Debes ser mayor de edad" };
+    if (!validateAge()) { error.dateOfBirth = "Debes ser mayor de edad" };
     if (!(Object.entries(error).length===0)) { setErrors(error) }
     else { createUser(input) };
   };
   
-  /*function validateAge() {          //Valida que la edad sea 18 o mas
+  function validateAge() {          //Valida que la edad sea 18 o mas
+    if (input.dateOfBirth === "") { return false };
     const today = new Date();
-    let year = today.getFullYear() - input.dateOfBirth.getFullYear();
-    let month = today.getMonth() - input.dateOfBirth.getMonth();
-    if (month < 0 || (month === 0 && today.getDate() < input.dateOfBirth.getDate())) {
+    const date = input.dateOfBirth.split('-');
+    const birth = new Date(date[0], date[1], date[2]);
+    let year = today.getFullYear() - birth.getFullYear();
+    let month = today.getMonth() - birth.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < birth.getDate())) {
         year--;
     }
     if (year < 18) { return false };
     return true;
-  }*/
+  }
     
   const onChange = (event, selectedDate) => {             //Guarda la fecha seleccionada
     const currentDate = selectedDate;
