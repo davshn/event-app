@@ -19,7 +19,7 @@ export default function Register({ navigation }) {
     passwordRep:"",
     dateOfBirth: "",
     image: null,
-    interests:[],
+    categories:[],
   };
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
   const [errors, setErrors] = useState({});  //Crea el estado que contendrá los errores
@@ -29,15 +29,14 @@ export default function Register({ navigation }) {
   
   function getCategories() {
     axios.get('https://find-spot.herokuapp.com/categories',) //Trae las categorias del endpoint
-    .then((res) => setInput(prev => ({ ...prev, interests: res.data })))
+    .then((res) => setInput(prev => ({ ...prev, categories: res.data })))
     .catch((res) => console.log(res));
   };
  
   useEffect(() => getCategories(), []);     //Cuando se monta el componente pide las categorias al back
   
   function createUser(user) {
-    user.dateOfBirth = user.dateOfBirth.toISOString().slice(0, -14);    //Convierte la fecha en el formato del back
-    user.interests = user.interests.map(cat => cat.name);               //Convierte los intereses en el formato del back
+    user.interests = user.categories.map(cat => cat.name);               //Convierte los intereses en el formato del back
     axios.post('https://find-spot.herokuapp.com/register',user) //Envia por post la a crear
       .then((res) => {
         setInput(initialState);
@@ -63,7 +62,7 @@ export default function Register({ navigation }) {
     else { createUser(input) };
   };
   
-  function validateAge() {          //Valida que la edad sea 18 o mas
+  /*function validateAge() {          //Valida que la edad sea 18 o mas
     const today = new Date();
     let year = today.getFullYear() - input.dateOfBirth.getFullYear();
     let month = today.getMonth() - input.dateOfBirth.getMonth();
@@ -72,10 +71,10 @@ export default function Register({ navigation }) {
     }
     if (year < 18) { return false };
     return true;
-  }
+  }*/
     
   const onChange = (event, selectedDate) => {             //Guarda la fecha seleccionada
-    const currentDate = selectedDate || input.dateOfBirth;
+    const currentDate = selectedDate;
     setShow(Platform.OS === 'ios');
     setInput(prev => ({ ...prev, "dateOfBirth": currentDate.toISOString().slice(0, -14) }))
   };
@@ -139,7 +138,7 @@ export default function Register({ navigation }) {
       <TextStyled onPress={pickImage} style={{ color: "red" }}>Agregar foto de perfil </TextStyled>
       <TextStyled >Elimina las categorias que no sean de tu interés </TextStyled>
       <ChipStyled>
-        {input.interests.map((cat)=><Chip key={cat.id} style={{ height: 50,width: 110 }} onClose={() => setInput(prev => ({ ...prev, interests: prev.interests.filter((e)=>e.name!==cat.name) }))}>{cat.name}</Chip>)}        
+        {input.categories.map((cat)=><Chip key={cat.id} style={{ height: 50,width: 110 }} onClose={() => setInput(prev => ({ ...prev, categories: prev.categories.filter((e)=>e.name!==cat.name) }))}>{cat.name}</Chip>)}        
       </ChipStyled>
       <ButtonGen title="Enviar" onPress={() => validate(input)} />
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
