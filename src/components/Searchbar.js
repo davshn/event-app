@@ -8,6 +8,14 @@ import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 import { Text } from "react-native";
 import { Chip } from 'react-native-paper';
 import axios from "axios";
+import {
+  ModalContStyled,
+  ModalText,
+  ButtonText,
+  ModalButtonStyled,
+} from "../generiComponents/ModalGen";
+import { Modal } from 'react-native';
+
 
 export default function Searchbar() {
   const dispatch = useDispatch();
@@ -63,6 +71,10 @@ export default function Searchbar() {
   return (
     <ViewStyled>
       <InputStyled value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" placeholderTextColor='gray'/>
+
+
+
+
       <InputStyled value={filters.initialPrice} onChangeText={(ev) => hadleInputChange("initialPrice", ev)} placeholder="Precio inicial" placeholderTextColor='gray'/>
       <InputStyled value={filters.finalPrice} onChangeText={(ev) => hadleInputChange("finalPrice", ev)} placeholder="Precio final"  placeholderTextColor='gray'/>
       <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion"  placeholderTextColor='gray'/>
