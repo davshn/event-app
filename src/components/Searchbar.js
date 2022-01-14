@@ -1,13 +1,21 @@
 import React from "react";
-import { StyledButton, TextButton } from "../generiComponents/GenericStyles";
+import { StyledButton, TextButton, ViewBackground } from "../generiComponents/GenericStyles";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { TextStyled, ViewStyled, InputStyled, ChipStyled} from '../generiComponents/GenericStyles';
 import { useState,useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
-import { Text } from "react-native";
+import { Button, Modal, Text } from "react-native";
 import { Chip } from 'react-native-paper';
 import axios from "axios";
+import { TouchableOpacity } from "react-native";
+
+import {
+  ModalContStyled,
+  ModalText,
+  ButtonText,
+  ModalButtonStyled,
+} from "../generiComponents/ModalGen";
 
 export default function Searchbar() {
   const dispatch = useDispatch();
@@ -23,10 +31,12 @@ export default function Searchbar() {
   const [filters, setFilters] = useState(initialState);
   const [show, setShow] = useState(false);  //Controla visibilidad del datepicker
   const [show2, setShow2] = useState(false);  //Controla visibilidad del datepicker
+  const [filtersVisible, setFiltersVisible] = useState(false);
 
   function filterAndSearch(filter) {
     filter.category = filter.categories.map(cat => cat.name);               //Convierte las categorias en el formato del back
     dispatch(searchByFilters(filter));
+    setFiltersVisible(false)
   };
   
   function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
@@ -61,7 +71,12 @@ export default function Searchbar() {
   useEffect(() => getCategories(), []);
   
   return (
-    <ViewStyled>
+    <ViewBackground>
+    <StyledButton onPress={()=>setFiltersVisible(true)}>
+        <TextButton>Filtros</TextButton>
+      </StyledButton>
+    <Modal animationType="fade" transparent={true} visible={filtersVisible}>
+      <ViewStyled>
       <InputStyled value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" placeholderTextColor='gray'/>
       <InputStyled value={filters.initialPrice} onChangeText={(ev) => hadleInputChange("initialPrice", ev)} placeholder="Precio inicial" placeholderTextColor='gray'/>
       <InputStyled value={filters.finalPrice} onChangeText={(ev) => hadleInputChange("finalPrice", ev)} placeholder="Precio final"  placeholderTextColor='gray'/>
@@ -75,9 +90,10 @@ export default function Searchbar() {
       <StyledButton onPress={()=>filterAndSearch(filters)}>
         <TextButton>Filtrar</TextButton>
       </StyledButton>
-      <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion" />
       {show && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange} />)}
       {show2 && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange2} /> )}
     </ViewStyled>
+    </Modal>
+    </ViewBackground>
   );
 }
