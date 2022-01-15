@@ -1,23 +1,16 @@
 import React from "react";
-import { StyledButton, TextButton, ViewBackground } from "../generiComponents/GenericStyles";
+import { StyledButton, TextButton, ViewBackground,SmallerText,} from "../generiComponents/GenericStyles";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { TextStyled, ViewStyled, InputStyled, ChipStyled} from '../generiComponents/GenericStyles';
+import { TextStyled, ViewStyled, InputStyled} from '../generiComponents/GenericStyles';
 import { useState,useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
-import { Button, Modal, Text } from "react-native";
-import { Chip } from 'react-native-paper';
+import { Modal} from "react-native";
 import axios from "axios";
-import { TouchableOpacity } from "react-native";
-
-import {
-  ModalContStyled,
-  ModalText,
-  ButtonText,
-  ModalButtonStyled,
-} from "../generiComponents/ModalGen";
+import CustomMultiPicker from "react-native-multiple-select-list";
 
 export default function Searchbar() {
+  let selected = [];
   const dispatch = useDispatch();
   const initialState = { //Estado inicial para usuarios
     name: "",
@@ -26,15 +19,31 @@ export default function Searchbar() {
     initialDate: "",
     finalDate:"",
     rating: null,
-    categories:[],
+    category:[],
   };
   const [filters, setFilters] = useState(initialState);
   const [show, setShow] = useState(false);  //Controla visibilidad del datepicker
   const [show2, setShow2] = useState(false);  //Controla visibilidad del datepicker
   const [filtersVisible, setFiltersVisible] = useState(false);
+  const [categories, setCategories] = useState([])
+  
+  function getCategories() {
+    axios
+      .get("https://find-spot.herokuapp.com/categories")
+      .then((res) => {
+        let formatted = {}
+        res.data.map(category => {
+          formatted[category.id] = category.name
+        })
+        setCategories(formatted);
+      })
+      .catch((res) => console.log(res))
+  }
+
+  useEffect(() => getCategories(), []);
 
   function filterAndSearch(filter) {
-    filter.category = filter.categories.map(cat => cat.name);               //Convierte las categorias en el formato del back
+    filter.category = selected;
     dispatch(searchByFilters(filter));
     setFiltersVisible(false)
   };
@@ -54,22 +63,15 @@ export default function Searchbar() {
   const onChange = (event, selectedDate) => {             //Guarda la fecha seleccionada
   const currentDate = selectedDate;
     setShow(Platform.OS === 'ios');
-    setFilters(prev => ({ ...prev, "initialDate": currentDate.toISOString().slice(0, -14) }))
+    if (currentDate) { setFilters(prev => ({ ...prev, "initialDate": currentDate.toISOString().slice(0, -14) })) };
   };
   
   const onChange2 = (event, selectedDate) => {             //Guarda la fecha seleccionada
   const currentDate = selectedDate ;
     setShow2(Platform.OS === 'ios');
-    setFilters(prev => ({ ...prev, "finalDate": currentDate.toISOString().slice(0, -14) }))
+    if (currentDate) { setFilters(prev => ({ ...prev, "finalDate": currentDate.toISOString().slice(0, -14) })) };
   };
 
-  function getCategories() {
-    axios.get('https://find-spot.herokuapp.com/categories',) //Trae las categorias del endpoint
-    .then((res) => setFilters(prev => ({ ...prev, categories: res.data })))
-    .catch((res) => console.log(res));
-  };
-  useEffect(() => getCategories(), []);
-  
   return (
     <ViewBackground>
     <StyledButton onPress={()=>setFiltersVisible(true)}>
@@ -83,10 +85,35 @@ export default function Searchbar() {
       <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion"  placeholderTextColor='gray'/>
       <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Fecha inicial:{filters.initialDate}</TextStyled>
       <TextStyled style={{ color: "gray" }} onPress={showDatepicker2}>Fecha final:{filters.finalDate}</TextStyled>
-      <TextStyled style={{ color: "black" }}>Elimina las categorias que no sean de tu interés </TextStyled>
-      <ChipStyled>
-        {filters.categories.map((cat)=><Chip key={cat.id} style={{ height: 50,width: 110 }} onClose={() => setFilters(prev => ({ ...prev, categories: prev.categories.filter((e)=>e.name!==cat.name) }))}>{cat.name}</Chip>)}        
-      </ChipStyled>
+      <SmallerText>Categorías:</SmallerText>
+      <CustomMultiPicker
+        options={categories}
+        search={false} 
+        multiple={true}
+        placeholder={"Search"}
+        placeholderTextColor={"#757575"}
+        returnValue={"label"}
+        callback={(res) => {
+          selected = res;
+        }}
+        rowBackgroundColor={"modes? '#292929' : '#EDEDED'"}
+        rowHeight={40}
+        rowRadius={5}
+        searchIconName="ios-checkmark"
+        searchIconColor="red"
+        searchIconSize={30}
+        iconColor={"#776BC7"}
+        textColor={"#776BC7"}
+        iconSize={26}
+        selectedIconName={"ios-checkmark-circle-outline"}
+        unselectedIconName={"ios-radio-button-off-outline"}
+        scrollViewHeight={340}
+        selected={[]}
+        border={"#776BC7"}
+      />
+      <StyledButton onPress={()=>setFilters(initialState)}>
+        <TextButton>Borrar</TextButton>
+      </StyledButton>
       <StyledButton onPress={()=>filterAndSearch(filters)}>
         <TextButton>Filtrar</TextButton>
       </StyledButton>

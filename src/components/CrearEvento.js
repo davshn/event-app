@@ -30,10 +30,8 @@ import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 var selected = [];
 export function CrearEvento() {
   const modes = useSelector(state => state.darkModeReducer.darkMode);
-  //Logica modal mapas no tocar
   const [location, setLocation] = useState(null);
   const [mapVisible, setMapVisible] = useState(false); //Controla el modal de mapas
-  //Fin
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -57,7 +55,7 @@ export function CrearEvento() {
     date: "",
     time: "",
     creators: [],
-    image: null,
+    eventPic: null,
     longitude: "",
     latitude:"",
   };
@@ -122,20 +120,13 @@ export function CrearEvento() {
     }
     else if(isNaN(parseInt(input.price))){
       error.price = "El valor ingresado no es valido";
-      console.log(typeof(parseInt(input.price)))
-      console.log(input.price)
     }
-    // if (!validateDate()) {
-    //   error.date = "Ingrese una fecha correcta";
-    // }
     if (!(Object.entries(error).length === 0)) {
       setErrors(error);
     } else {
       createEvent(input);
     }
   }
-
-  //Logica modal mapas no tocar
     useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -156,13 +147,7 @@ export function CrearEvento() {
     }));
   }
   
-  //Fin
-  
-  
   function hadleInputChange(input, e) {
-    // if (input === "price"){
-    //    setInput((prev) => ({...prev, price: parseInt(e)}));
-    // } 
     if (input === "creators") setInput((prev) => ({ ...prev, [input]: [e] }));
     else setInput((prev) => ({ ...prev, [input]: e }));
   }
@@ -170,7 +155,7 @@ export function CrearEvento() {
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(Platform.OS === "ios");
-    setInput((prev) => ({ ...prev, date: currentDate.toISOString().slice(0, -14) }));
+    if (currentDate) { setInput((prev) => ({ ...prev, date: currentDate.toISOString().slice(0, -14) })) };
   };
 
   const showDatepicker = () => {
@@ -178,16 +163,41 @@ export function CrearEvento() {
   };
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
+    let permit = await ImagePicker.requestMediaLibraryPermissionsAsync()
+    if (permit.granted){
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
     });
+
     if (!result.cancelled) {
-      setInput((prev) => ({ ...prev, image: result.uri }));
+        let newFile = {
+          uri: result.uri,
+          type: `image/jpg`,
+          name:  `EventPic.jpg`,
+        }
+        handleUpLoadImage(newFile)
+        
+      };
+    } else {
+      Alert.alert("No se han dado los permisos para acceder a las fotos")
     }
   };
+
+  const handleUpLoadImage = (image) => {
+    let data = new FormData()
+    data.append("file", image)
+    data.append("upload_preset" , "upload_event_pic")
+    data.append("cloud_name" , "findspot")
+
+    fetch("https://api.cloudinary.com/v1_1/findspot/image/upload", {
+      method: "POST",
+      body: data
+    }).then(res => res.json())
+    .then(data => setInput(prev => ({ ...prev, "eventPic": data.secure_url })))
+  }
 
   return (
     <ViewBackground>
