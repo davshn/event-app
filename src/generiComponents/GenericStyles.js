@@ -171,12 +171,11 @@ export const StyledButton = styled.TouchableOpacity`
 `;
 
 export const TextButton = styled.Text`
-  color: white;
+  color: ${TextColor};
   font-weight: bold;
   font-size: 18px;
   text-align: center;
   padding: 9px;
-  
 `;
 
 
@@ -227,23 +226,20 @@ export const FilterButton = styled.TouchableOpacity`
 `;
 
 export const EventItem = styled.View`
-  border-radius: 30px;
-  align-self: center;
   border: 2px solid #776BC7;
   background-color:${backgroundColor};
+  margin-top: 3%;
 `;
 
 export const EventItemContainer = styled.TouchableOpacity`
 background-color:${backgroundColor};
-padding: 3%;
-align-self: center;
 width: 100%;
+
 `
 
 export const EventImage = styled.Image`
-  width: 333px;
+  width: 100%;
   height: 200px;
-  border-radius: 30px;
   margin: auto;
 `;
 
@@ -270,4 +266,34 @@ export const MapViewContainer = styled.ScrollView`
 `
 export const ViewBackground = styled.View`
   background-color: ${backgroundColor};
+  display: flex;
+  flex-direction: row;
+  height: 10%;
+  justify-content: center;
+`
+
+export const InicioFilterButton = styled.TouchableOpacity`
+  background-color: ${backgroundColor};
+  border-radius: 10px;
+  padding: 1%;
+  width: 25%;
+  height: 60%;
+  margin: 1%;
+  border: 1.5px solid #776BC7;
+  align-self: center;
+  justify-content: center;
+`
+export const InicioSearchInput = styled.TextInput`
+background-color: ${backgroundColor};
+border-radius: 10px;
+border: 1.5px solid #776BC7;
+padding-left: 2%;
+margin: 1%;
+width: 65%;
+height: 60%;
+align-self: center;
+`
+export const InicioButtonText = styled.Text`
+color: ${TextColor};
+text-align: center;
 `

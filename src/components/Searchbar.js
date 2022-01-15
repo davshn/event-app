@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledButton, TextButton, ViewBackground,SmallerText,} from "../generiComponents/GenericStyles";
+import { StyledButton, TextButton, ViewBackground,SmallerText, InicioFilterButton, InicioSearchInput, InicioButtonText,} from "../generiComponents/GenericStyles";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { TextStyled, ViewStyled, InputStyled} from '../generiComponents/GenericStyles';
 import { useState,useEffect } from "react";
@@ -74,9 +74,10 @@ export default function Searchbar() {
 
   return (
     <ViewBackground>
-    <StyledButton onPress={()=>setFiltersVisible(true)}>
-        <TextButton>Filtros</TextButton>
-      </StyledButton>
+    <InicioSearchInput placeholder="Busca tu evento" placeholderTextColor='#776BC7'/>
+    <InicioFilterButton onPress={()=>setFiltersVisible(true)}>
+        <InicioButtonText>Filtros</InicioButtonText>
+      </InicioFilterButton>
     <Modal animationType="fade" transparent={true} visible={filtersVisible}>
       <ViewStyled>
       <InputStyled value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" placeholderTextColor='gray'/>
