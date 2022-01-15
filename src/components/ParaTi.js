@@ -106,9 +106,8 @@ const BottomContainer = styled.View`
   margin-top: 52%;
   height: 90%;
   width: 400;
-  backgroundColor: #ededed;
-  borderTopStartRadius: 50;
-  borderTopEndRadius: 50;
+  background-color: #ededed;
+  border-radius: 50px;
   align-items: center;
 `;
 
