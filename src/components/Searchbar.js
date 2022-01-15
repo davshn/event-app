@@ -1,9 +1,9 @@
 import React from "react";
-import { StyledButton, TextButton, ViewBackground,SmallerText, InicioFilterButton, InicioSearchInput, InicioButtonText,} from "../generiComponents/GenericStyles";
+import { StyledButton, TextButton, SearchbarView,SmallerText, InicioFilterButton, InicioSearchInput, InicioButtonText,} from "../generiComponents/GenericStyles";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { TextStyled, ViewStyled, InputStyled} from '../generiComponents/GenericStyles';
 import { useState,useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 import { Modal} from "react-native";
 import axios from "axios";
@@ -26,6 +26,7 @@ export default function Searchbar() {
   const [show2, setShow2] = useState(false);  //Controla visibilidad del datepicker
   const [filtersVisible, setFiltersVisible] = useState(false);
   const [categories, setCategories] = useState([])
+  const modes = useSelector(state => state.darkModeReducer.darkMode);
   
   function getCategories() {
     axios
@@ -73,8 +74,8 @@ export default function Searchbar() {
   };
 
   return (
-    <ViewBackground>
-    <InicioSearchInput placeholder="Busca tu evento" placeholderTextColor='#776BC7'/>
+    <SearchbarView>
+    <InicioSearchInput placeholder="Busca tu evento" placeholderTextColor= {modes? '#EDEDED' : '#292929'}/>
     <InicioFilterButton onPress={()=>setFiltersVisible(true)}>
         <InicioButtonText>Filtros</InicioButtonText>
       </InicioFilterButton>
@@ -122,6 +123,6 @@ export default function Searchbar() {
       {show2 && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange2} /> )}
     </ViewStyled>
     </Modal>
-    </ViewBackground>
+    </SearchbarView>
   );
 }

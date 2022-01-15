@@ -52,18 +52,13 @@ const EventDetail = ({ navigation: { goBack }, route }) => {
             <TextCardMedium>Creado por : {event.creators}</TextCardMedium>
           </DetailInfo>
 
-          <View
-            style={{
-              margin: '20%',
-             fontWeight: 'bold',
-            }}
-          >
-            <Payment />
-          </View>
-
+          
+           <Payment />
+          
           <StyledButton onPress={() => goBack()}>
             <TextButton>Volver</TextButton>
           </StyledButton>
+          
         </DetailView>
       </ViewBackground>
   );

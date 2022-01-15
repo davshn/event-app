@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
-import { TextStyled, ViewStyled, InputStyled, FormError,SmallerText, StyledTitle } from '../generiComponents/GenericStyles';
+import { TextStyled, ViewStyled, InputStyled, FormError,SmallerText, StyledTitle, SelectedDate, StyledView, ViewBackground, AgregarFotoButton, TextButton, ProfilePic } from '../generiComponents/GenericStyles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import {Alert, Image} from 'react-native' ; 
@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Modal } from 'react-native';
 import { ModalContStyled, ModalText, ModalButtonStyled, ButtonText } from '../generiComponents/ModalGen';
 import CustomMultiPicker from "react-native-multiple-select-list";
+import { useSelector } from "react-redux"
 
 
 export default function Register({ navigation }) {
@@ -26,6 +27,7 @@ export default function Register({ navigation }) {
   const [show, setShow] = useState(false);  //Controla visibilidad del datepicker
   const [modalVisible, setModalVisible] = useState(false); //Controla el modal de error al crear usuario
   const [categories, setCategories] = useState([]);
+  const modes = useSelector(state => state.darkModeReducer.darkMode);
   
   function getCategories() {
     axios
@@ -57,11 +59,11 @@ export default function Register({ navigation }) {
   
   function validate(input) {
     let error={};       //Guarda temporalmente los errores encontrados
-    if (!input.name) { error.name = "Requerido" }
+    if (!input.name) { error.name = "Campo requerido" }
     else if(!(/^[a-z ,.'-]+$/i).test(input.name)){error.name="Nombre invalido"};
-    if (!input.email) { error.email = "Requerido" }
+    if (!input.email) { error.email = "Campo requerido" }
     else if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/i).test(input.email)){error.email="Correo invalido"};
-    if (!input.password) { error.password = "Requerido" }
+    if (!input.password) { error.password = "Campo requerido" }
     else if (!(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i).test(input.password)) { error.password = "Contraseña insegura" };
     if(input.password!==input.passwordRep){error.passwordRep = "Contraseña no coincide"}
     if (!validateAge()) { error.dateOfBirth = "Debes ser mayor de edad" };
@@ -131,8 +133,9 @@ export default function Register({ navigation }) {
 
 
   return (
-    <ViewStyled>
-       <StyledTitle> Registrarse</StyledTitle>
+    <ViewBackground>
+      <StyledView>
+        <StyledTitle> Registrarse</StyledTitle>
         <InputStyled value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre completo" placeholderTextColor='gray' />
         {errors.name&&(<FormError>{errors.name}</FormError>)}
         <InputStyled value={input.email} onChangeText={(ev)=>hadleInputChange("email",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
@@ -141,9 +144,12 @@ export default function Register({ navigation }) {
         {errors.password&&(<FormError>{errors.password}</FormError>)}
         <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
         {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
-        <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Año de nacimiento:{input.dateOfBirth}</TextStyled>
+        <SelectedDate style={{width: "90%", alignSelf: "center"}} onPress={showDatepicker}>Año de nacimiento: {input.dateOfBirth}</SelectedDate>
         {errors.dateOfBirth&&(<FormError>{errors.dateOfBirth}</FormError>)}
-      <TextStyled onPress={pickImage} style={{ color: "red" }}>Agregar foto de perfil </TextStyled>
+      <AgregarFotoButton onPress={pickImage}>
+        <TextButton>Agregar foto de perfil</TextButton>
+      </AgregarFotoButton>
+      {input.image && <ProfilePic source={{ uri: input.image }}/>}
       <SmallerText>Categorías:</SmallerText>
       <CustomMultiPicker
         options={categories}
@@ -155,14 +161,14 @@ export default function Register({ navigation }) {
         callback={(res) => {
           selected = res;
         }}
-        rowBackgroundColor={"modes? '#292929' : '#EDEDED'"}
+        rowBackgroundColor={modes? '#292929' : '#EDEDED'}
         rowHeight={40}
         rowRadius={5}
         searchIconName="ios-checkmark"
         searchIconColor="red"
         searchIconSize={30}
         iconColor={"#776BC7"}
-        textColor={"#776BC7"}
+        textColor={modes? '#EDEDED' : '#292929'}
         iconSize={26}
         selectedIconName={"ios-checkmark-circle-outline"}
         unselectedIconName={"ios-radio-button-off-outline"}
@@ -170,7 +176,7 @@ export default function Register({ navigation }) {
         selected={[]}
         border={"#776BC7"}
       />
-      <ButtonGen title="Enviar" onPress={() => validate(input)} />
+      <ButtonGen textcolor={'#EDEDED'} title="Enviar" onPress={() => validate(input)} />
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <ModalContStyled>
           <ModalText>Verifica tus datos</ModalText>
@@ -180,7 +186,9 @@ export default function Register({ navigation }) {
         </ModalContStyled>
       </Modal>
         {show && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange} /> )}
-        {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
-    </ViewStyled>
+       
+      </StyledView>
+       
+    </ViewBackground>
   );
 }
