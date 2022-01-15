@@ -52,7 +52,7 @@ const user = useSelector((state) => state.authUserReducer);
         style={{ width: 200, fontSize: 20, padding: 10, borderWidth: 1 }}
       /> */}
 
-      <StyledButton style={{right: '20%', backgroundColor:'#121212'}} onPress={pay}>
+      <StyledButton style={{right: '23%', backgroundColor:'#121212'}} onPress={pay}>
         <TextButton>Comprar Entrada</TextButton>
       </StyledButton>
     </View>
