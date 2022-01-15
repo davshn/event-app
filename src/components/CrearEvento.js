@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Image, Text } from "react-native";
+import { Image} from "react-native";
 import { MapStyled,MapContainertStyled } from '../generiComponents/MapsStyles';
 import {PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -14,7 +14,6 @@ import {
   SelectedDate,
   StyledView2,
   FormError,
-  EventFormImage,
   ViewBackground,
 } from "../generiComponents/GenericStyles";
 import axios from "axios";
@@ -36,17 +35,6 @@ export function CrearEvento() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  function createEvent(evento) {
-    evento.category = selected;
-    axios
-      .post("https://find-spot.herokuapp.com/events", evento)
-      .then((res) => {  console.log("Success"); 
-                        dispatch(searchByFilters());
-                        navigation.navigate('Home')})
-      .catch((res) => console.log(res));
-  
-  }
-  
   const initialState = {
     name: "",
     description: "",
@@ -62,7 +50,20 @@ export function CrearEvento() {
   const [input, setInput] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [show, setShow] = useState(false);
+  const [showTime, setShowTime] = useState(false);
   const [categories, setCategories] = useState([])
+  
+  function createEvent(evento) {
+    evento.category = selected;
+    axios
+      .post("https://find-spot.herokuapp.com/events", evento)
+      .then((res) => {
+        dispatch(searchByFilters());
+        setInput(initialState)
+        navigation.navigate('Home')})
+      .catch((res) => console.log(res));
+  
+  }
   
   function getCategories() {
     axios
@@ -78,21 +79,6 @@ export function CrearEvento() {
   }
 
   useEffect(() => getCategories(), []);
-
-  // function validateDate() {
-  //   let year =  input.date.getFullYear();
-  //   let month = input.date.getMonth();
-  //   if (
-  //     month < 0 ||
-  //     (month === 0 && today.getDate() < input.date.getDate())
-  //   ) {
-  //     year--;
-  //   }
-  //   if (year < 18) {
-  //     return false;
-  //   }
-  //   return true;
-  // } validar fecha
 
   function validate(input) {
     setErrors({})
@@ -157,9 +143,19 @@ export function CrearEvento() {
     setShow(Platform.OS === "ios");
     if (currentDate) { setInput((prev) => ({ ...prev, date: currentDate.toISOString().slice(0, -14) })) };
   };
-
+  
+  const onTimeChange = (event, selectedTime) => {
+    const currentTime = selectedTime;
+    setShowTime(Platform.OS === "ios");
+    if (currentTime) { setInput((prev) => ({ ...prev, time: currentTime.toISOString().slice(11, -8) })) };
+  };
+  
   const showDatepicker = () => {
     setShow(true);
+  };
+  
+  const showTimepicker = () => {
+    setShowTime(true);
   };
 
   const pickImage = async () => {
@@ -216,11 +212,9 @@ export function CrearEvento() {
         placeholder="Nombre del evento"
       />
       {errors.name && <FormError>{errors.name}</FormError>}
-      <StyledInput
-        value={input.time}
-        onChangeText={(ev) => hadleInputChange("time", ev)}
-        placeholder="HH:MM"
-      />
+      <SelectedDate onPress={showTimepicker}>
+        Hora : {input.time}
+      </SelectedDate>
       {errors.time && <FormError>{errors.time}</FormError>}
       <StyledInput
         multiline = {true}
@@ -274,47 +268,26 @@ export function CrearEvento() {
       />
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <UploadPic onPress={()=>setMapVisible(true)}>Agregar ubicacion</UploadPic>
-      {errors.latitude && <FormError>{errors.latitude}</FormError>}
-      {/* ESTE BOTON ESTA DE MAS Y SE SALTA LA FUNCION VALIDATE 
-      ---> LA FUNCION VALIDATE LLAMA CREATE EVENT LUEGO DE LA VALIDACION */}
-      {/* <StyledButton onPress={() => createEvent(input)}> 
-        <TextButton>Enviar</TextButton>
-      </StyledButton> */}
-      {show && (
-        <DateTimePicker
-          value={new Date}
-          mode="date"
-          display="default"
-          onChange={onDateChange}
-        />
-      )}
-      {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
-         {/* {input.image && (
-  
-            <EventFormImage
-              source={{ uri: input.image }}
-              style={{ width: 200, height: 200 }}
-            />
-     
-          )} */}
+        {errors.latitude && <FormError>{errors.latitude}</FormError>}
+        {show && (<DateTimePicker value={new Date} mode="date" display="default" onChange={onDateChange} />)}
+        {showTime && (<DateTimePicker value={new Date} mode="time" display="default" is24Hour={true} onChange={onTimeChange} /> )}
+        {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
       <StyledButton onPress={() => validate(input)}>
         <TextButton>Enviar</TextButton>
       </StyledButton>
-      
-      {/*Logica del modal de mapas, no borrar*/}
       <Modal animationType="fade" transparent={true} visible={mapVisible}>
         <MapContainertStyled>
         <MapStyled showsUserLocation loadingEnabled onPress={(e) => handleMapMarker(e.nativeEvent.coordinate.latitude,e.nativeEvent.coordinate.longitude)}
           provider={PROVIDER_GOOGLE}
           region={{
-            latitude: location?location.coords.latitude:0,
-            longitude: location?location.coords.longitude:0,
-            latitudeDelta: 0.00049,
-            longitudeDelta: 0.00054,
+            latitude: input.latitude?input.latitude:location?location.coords.latitude:0,
+            longitude: input.longitude?input.longitude:location?location.coords.longitude:0,
+            latitudeDelta: 0.03549,
+            longitudeDelta: 0.03554,
           }}
           >
             <Marker
-              coordinate={{latitude: input.latitude?input.latitude:0, longitude: input.longitude?input.longitude:0}}
+              coordinate={{latitude: input.latitude?input.latitude:0, longitude: input.latitude?input.longitude:0}}
               title={"Tu evento"}/>
         </MapStyled>
       <StyledButton onPress={() => setMapVisible(false)}>

@@ -50,6 +50,8 @@ function Explore() {
               
               <Callout onPress={() => navigation.navigate("Detail", { item: event })}>
                 <Text>{event.name}</Text>
+                <Text>{event.place}</Text>
+                <Text>{event.date} {event.time}</Text>
                 <Text>${event.price}</Text>
               </Callout>
             </Marker>)
