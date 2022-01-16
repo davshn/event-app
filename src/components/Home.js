@@ -1,10 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import InicioScreen from './Inicio';
+import StartScreen from './StartScreen';
 import Explore from './Explore';
-import ParaTiScreen from './ParaTi';
+import ForYou from './ForYou';
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 import { useSelector } from 'react-redux';
-import { backgroundColor } from '../services/theme';
 
 const Tab = createBottomTabNavigator()
 // aqui van los iconos 
@@ -25,7 +24,7 @@ export default function HomeScreen() {
         <Tab.Navigator screenOptions={TabOptions}>
           <Tab.Screen
             name="Inicio"
-            component={InicioScreen}
+            component={StartScreen}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
@@ -52,7 +51,7 @@ export default function HomeScreen() {
           />
           {logged ? <Tab.Screen
             name="Para ti"
-            component={ParaTiScreen}
+            component={ForYou}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons

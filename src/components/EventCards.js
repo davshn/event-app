@@ -12,11 +12,6 @@ const Item = ({ item }) => (
       source={{
         uri: item.eventPic || "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg"
       }}
-/*
-      source={{
-        uri: "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg",
-      }}
-*/
     />
     <CardInfo>
       <CardInfoText style={{fontSize: 20}}>{item.name}</CardInfoText>
@@ -26,13 +21,6 @@ const Item = ({ item }) => (
       <CardInfoText>{item.time} hs.</CardInfoText>
     </CardInfo>
   </EventItem>
-
-  // "date": "2022-10-15",
-  //     "eventPic": null,
-  //     "id": 2,
-  //     "name": "Baile ",
-  //     "price": 305.3,
-  //     "time": "12:00",
 );
 
 export function EventCards() {
@@ -45,7 +33,6 @@ export function EventCards() {
   const navigation = useNavigation();
 
   const _renderItem = ({ item }) => {
-    // console.log(item)
     return (
       <EventItemContainer onPress={() => navigation.navigate("Detail", { item: item })}>
         <Item item={item}/>

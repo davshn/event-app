@@ -1,9 +1,9 @@
 import { useState,useEffect } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
-import { TextStyled, ViewStyled, InputStyled, FormError,SmallerText, StyledTitle, SelectedDate, StyledView, ViewBackground, AgregarFotoButton, TextButton, ProfilePic } from '../generiComponents/GenericStyles';
+import { InputStyled, FormError,SmallerText, StyledTitle, SelectedDate, StyledView, ViewBackground, AgregarFotoButton, TextButton, ProfilePic } from '../generiComponents/GenericStyles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
-import {Alert, Image} from 'react-native' ; 
+import {Alert} from 'react-native' ; 
 import axios from 'axios';
 import { Modal } from 'react-native';
 import { ModalContStyled, ModalText, ModalButtonStyled, ButtonText } from '../generiComponents/ModalGen';
@@ -185,10 +185,8 @@ export default function Register({ navigation }) {
           </ModalButtonStyled>
         </ModalContStyled>
       </Modal>
-        {show && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange} /> )}
-       
+        {show && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange} /> )}     
       </StyledView>
-       
     </ViewBackground>
   );
 }
