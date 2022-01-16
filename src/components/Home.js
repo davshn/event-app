@@ -42,7 +42,7 @@ export default function HomeScreen() {
             options={{
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
-                  name="map-outline"
+                  name="globe-outline"
                   color={modes? "#776BC7" : "#5302de"}
                   size={size}
                 />

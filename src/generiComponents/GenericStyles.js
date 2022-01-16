@@ -2,6 +2,15 @@ import styled from "styled-components/native";
 import { backgroundColor, TextColor, InputColor } from "../services/theme";
 import MapView from 'react-native-maps';
 
+/* CSS HEX */
+/*--violet-blue-crayola: #776bc7ff;
+--plump-purple: #5641abff;
+--rhythm: #817c99ff;
+--silver-metallic: #ada9acff;
+--cultured: #edededff;
+--jet: #2b2b2bff;*/
+
+
 //Event detail CSS
 export const TextCardBig = styled.Text`
   font-weight: bold;
@@ -126,6 +135,7 @@ export const StyledInput = styled.TextInput`
   padding: 8px;
   margin: 5px;
   width: 80%;
+  color: ${TextColor};
 `;
 
 export const StyledTitle = styled.Text`
@@ -234,9 +244,9 @@ export const FilterButton = styled.TouchableOpacity`
 `;
 
 export const EventItem = styled.View`
-  border: 2px solid #776BC7;
-  background-color:${backgroundColor};
-  margin-bottom: 3%;
+  border: 1px solid #776BC7;
+  background-color: ${backgroundColor};
+  margin-bottom: 4%;
 `;
 
 export const EventItemContainer = styled.TouchableOpacity`
@@ -252,13 +262,15 @@ export const EventImage = styled.Image`
 `;
 
 export const CardInfo = styled.View`
-  margin: 5px;
   height: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 `;
 
 export const CardInfoText = styled.Text`
-  font-size: 17px;
-  margin-left: 15px;
+  font-size: 19px;
+  margin-left: 4%;
   font-weight: bold;
   color: ${TextColor};
 `;
@@ -279,7 +291,7 @@ export const SearchbarView = styled.View`
 background-color: ${backgroundColor};
   display: flex;
   flex-direction: row;
-  height: 11%;
+  height: 10%;
   justify-content: center;
 `;
 
