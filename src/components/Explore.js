@@ -43,7 +43,7 @@ export default function Explore() {
             <Marker key={event.id}
               coordinate={{latitude: parseFloat(event.latitude), longitude: parseFloat(event.longitude)}}
               title={event.name}
-              icon={require('../../assets/icon1.png')}>
+              icon={require('../../assets/selector.png')}>
               
               <Callout onPress={() => navigation.navigate("Detail", { item: event })}>
                 <Text>{event.name}</Text>

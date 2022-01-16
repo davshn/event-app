@@ -289,7 +289,7 @@ export default function CreateEvent() {
             <Marker
               coordinate={{latitude: input.latitude?input.latitude:0, longitude: input.longitude?input.longitude:0}}
               title={"Tu evento"}
-              icon={require('../../assets/icon1.png')}              
+              icon={require('../../assets/selector.png')}              
               />
         </MapStyled>
       <StyledButton onPress={() => setMapVisible(false)}>
