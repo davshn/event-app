@@ -34,8 +34,8 @@ const EventDetail = ({ navigation: { goBack }, route }) => {
   };
 
   return (
-      <ViewBackground>
-        <DetailView>
+      <ViewBackground style={{paddingBottom: 30}}>
+        <DetailView style={{height: "95%"}}>
           <ImageDetail
             source={{
               uri: event.eventPic || "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg",
@@ -52,18 +52,13 @@ const EventDetail = ({ navigation: { goBack }, route }) => {
             <TextCardMedium>Creado por : {event.creators}</TextCardMedium>
           </DetailInfo>
 
-          <View
-            style={{
-              margin: '20%',
-             fontWeight: 'bold',
-            }}
-          >
-            <Payment />
-          </View>
-
+          
+           <Payment />
+          
           <StyledButton onPress={() => goBack()}>
             <TextButton>Volver</TextButton>
           </StyledButton>
+          
         </DetailView>
       </ViewBackground>
   );

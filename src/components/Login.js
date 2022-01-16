@@ -49,12 +49,12 @@ export default function Login({navigation}) {
       <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
         {errors.password&&(<FormError style={{marginLeft: "4%"}}>{errors.password}</FormError>)}
       <SectionStyled>
-        <ButtonGen title="Acceder" onPress={()=>validate(input)}/>
+        <ButtonGen title="Acceder" onPress={()=>validate(input)} textcolor={'#EDEDED'}/>
         <TextStyled style={{ color: "#999999"}}>¿Olvidaste tu contraseña?</TextStyled>
       </SectionStyled>
       <SectionStyled>
         <TextStyled style={{ color: "#999999" }}>¿No tienes una cuenta?</TextStyled>
-        <ButtonGen title="Registrate" onPress={() => navigation.navigate('Register')} />
+        <ButtonGen title="Registrate" onPress={() => navigation.navigate('Register')} textcolor={'#EDEDED'} />
       </SectionStyled>
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <ModalContStyled>

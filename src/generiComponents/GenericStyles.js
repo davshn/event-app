@@ -73,6 +73,7 @@ export const InputStyled = styled.TextInput`
   margin: 5px;
   width: 90%;
   align-self: center;
+  color:${TextColor};
 `;
 
 export const FormStyled = styled.View`
@@ -89,6 +90,7 @@ export const FormStyled = styled.View`
 export const FormError = styled.Text`
   color: red;
   font-size: 10px;
+  padding-left: 8%;
 `;
 
 export const TitleStyled = styled.Text`
@@ -162,24 +164,38 @@ export const UploadPic = styled.Text`
 `;
 
 export const StyledButton = styled.TouchableOpacity`
-  margin-bottom: 50px;
   background-color: #776BC7;
   margin: auto;
   margin-bottom: 30px;
   border-radius: 10px;
-  width: 260px;
+  width: 88%;
 `;
 
 export const TextButton = styled.Text`
-  color: white;
+  color: ${TextColor};
   font-weight: bold;
   font-size: 18px;
   text-align: center;
   padding: 9px;
-  
 `;
 
+export const AgregarFotoButton = styled.TouchableOpacity`
+  background-color: #776BC7;
+  margin: auto;
+  margin-top: 7%;
+  margin-bottom: 5%;
+  border-radius: 10px;
+  width: 88%;
+  color: #EDEDED;
+`;
 
+export const ProfilePic = styled.Image`
+  width: 150px;
+  border-radius: 100px;
+  height: 150px;
+  margin: 7%;
+  align-self: center;
+`
 
 //Logo CSS -- NO CAMBIAR
 export const Logo = styled.View`
@@ -227,23 +243,20 @@ export const FilterButton = styled.TouchableOpacity`
 `;
 
 export const EventItem = styled.View`
-  border-radius: 30px;
-  align-self: center;
   border: 2px solid #776BC7;
   background-color:${backgroundColor};
+  margin-bottom: 3%;
 `;
 
 export const EventItemContainer = styled.TouchableOpacity`
 background-color:${backgroundColor};
-padding: 3%;
-align-self: center;
 width: 100%;
+
 `
 
 export const EventImage = styled.Image`
-  width: 333px;
+  width: 100%;
   height: 200px;
-  border-radius: 30px;
   margin: auto;
 `;
 
@@ -270,4 +283,37 @@ export const MapViewContainer = styled.ScrollView`
 `
 export const ViewBackground = styled.View`
   background-color: ${backgroundColor};
+`
+export const SearchbarView = styled.View`
+background-color: ${backgroundColor};
+  display: flex;
+  flex-direction: row;
+  height: 11%;
+  justify-content: center;
+`
+
+export const InicioFilterButton = styled.TouchableOpacity`
+  background-color: ${backgroundColor};
+  border-radius: 10px;
+  padding: 1%;
+  width: 25%;
+  height: 70%;
+  margin: 1%;
+  border: 1.5px solid #776BC7;
+  align-self: center;
+  justify-content: center;
+`
+export const InicioSearchInput = styled.TextInput`
+background-color: ${backgroundColor};
+border-radius: 10px;
+border: 1.5px solid #776BC7;
+padding-left: 2%;
+margin: 1%;
+width: 65%;
+height: 70%;
+align-self: center;
+`
+export const InicioButtonText = styled.Text`
+color: ${TextColor};
+text-align: center;
 `

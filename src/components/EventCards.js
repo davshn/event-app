@@ -19,7 +19,7 @@ const Item = ({ item }) => (
 */
     />
     <CardInfo>
-      <CardInfoText>{item.name}</CardInfoText>
+      <CardInfoText style={{fontSize: 20}}>{item.name}</CardInfoText>
       <CardInfoText>{item.date}</CardInfoText>
    
       <CardInfoText>${item.price}</CardInfoText>

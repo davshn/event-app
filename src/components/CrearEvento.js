@@ -232,7 +232,7 @@ export function CrearEvento() {
       <StyledInput
         value={input.place}
         onChangeText={(ev) => hadleInputChange("place", ev)}
-        placeholder="Ubicación"
+        placeholder="Ciudad"
       />
       {errors.place && <FormError>{errors.place}</FormError>}
       <SelectedDate onPress={showDatepicker}>
