@@ -200,23 +200,25 @@ export default function CreateEvent() {
       <StyledView>
       <StyledTitle> Crear Evento.</StyledTitle>
       <StyledView2>
-        <StyledInput
+        <StyledInput placeholderTextColor={"gray"}
         value={input.creators.toString()}
         onChangeText={(ev) => hadleInputChange("creators", ev)}
         placeholder="Organizador"
       />
       {errors.creators && <FormError>{errors.creators}</FormError>}
       <StyledInput
+        placeholderTextColor={"gray"}
         value={input.name}
         onChangeText={(ev) => hadleInputChange("name", ev)}
         placeholder="Nombre del evento"
       />
       {errors.name && <FormError>{errors.name}</FormError>}
-      <SelectedDate onPress={showTimepicker}>
+      <SelectedDate style={{width:"80%"}} onPress={showTimepicker}>
         Hora : {input.time}
       </SelectedDate>
       {errors.time && <FormError>{errors.time}</FormError>}
       <StyledInput
+        placeholderTextColor={"gray"}
         multiline = {true}
         value={input.description}
         onChangeText={(ev) => hadleInputChange("description", ev)}
@@ -224,18 +226,20 @@ export default function CreateEvent() {
       />
       {errors.description && <FormError>{errors.description}</FormError>}
       <StyledInput
+        placeholderTextColor={"gray"}
         value={input.price.toString()}
         onChangeText={(ev) => hadleInputChange("price", ev)}
         placeholder="Precio de la entrada"
       />
       {errors.price && <FormError>{errors.price}</FormError>}
       <StyledInput
+        placeholderTextColor={"gray"}
         value={input.place}
         onChangeText={(ev) => hadleInputChange("place", ev)}
         placeholder="Ciudad"
       />
       {errors.place && <FormError>{errors.place}</FormError>}
-      <SelectedDate onPress={showDatepicker}>
+      <SelectedDate style={{width:"80%"}} onPress={showDatepicker}>
         Fecha : {input.date}
       </SelectedDate>
       </StyledView2>

@@ -4,6 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 import { EventItem, EventImage, CardInfo, CardInfoText, EventItemContainer } from "../generiComponents/GenericStyles";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
+import { View } from "react-native";
+import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 
 const Item = ({ item }) => (
   
@@ -14,11 +16,28 @@ const Item = ({ item }) => (
       }}
     />
     <CardInfo>
-      <CardInfoText style={{fontSize: 20}}>{item.name}</CardInfoText>
-      <CardInfoText>{item.date}</CardInfoText>
-   
-      <CardInfoText>${item.price}</CardInfoText>
-      <CardInfoText>{item.time} hs.</CardInfoText>
+      <View style={{display: "flex", width: "55%",flexDirection: "column", justifyContent:"space-evenly"}}>
+      <CardInfoText style={{fontSize: 23}}>{item.name}</CardInfoText>
+      <CardInfoText style={{fontSize: 21}}>${item.price}</CardInfoText>
+      </View>
+      <View style={{display: "flex", width: "45%", flexDirection: "column", justifyContent:"space-evenly"}}>
+        <View style={{display: "flex", alignSelf: "center", flexDirection:"row",height: "50%", marginTop:"15%"}}>
+        <MaterialCommunityIcons
+                    name="calendar-outline"
+                    color={"#776BC7"}
+                    size={25}
+                  />
+        <CardInfoText>{item.date}</CardInfoText>
+        </View>
+        <View style={{display: "flex", flexDirection:"row", alignSelf: "center", height: "50%"}}>
+          <MaterialCommunityIcons
+                      name="time-outline"
+                      color={"#776BC7"}
+                      size={25}
+                    />
+          <CardInfoText>{item.time} hs.</CardInfoText>
+        </View>
+      </View>
     </CardInfo>
   </EventItem>
 );

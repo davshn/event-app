@@ -1,13 +1,15 @@
-import { backgroundColor } from "../services/theme.js";
+import { backgroundColor, TextColor } from "../services/theme.js";
 import React from "react";
 import { View, ScrollView, Text, StyleSheet ,Image} from "react-native";
 import styled from "styled-components/native";
+import { useSelector } from "react-redux"
 
 const StyledView = styled.ScrollView`
   background-color: ${backgroundColor};
 `;
 
 export default function ForYou() {
+  const modes = useSelector(state => state.darkModeReducer.darkMode);
   return (
     <StyledView>
       <ContainerImg>
@@ -32,7 +34,7 @@ export default function ForYou() {
               width: "75%",
             }}
           >
-            <Text style={{ color: "black", fontSize: 18, fontWeight: "bold" }}>
+            <Text style={{ color: modes? '#EDEDED' : '#292929', fontSize: 18, fontWeight: "bold" }}>
               Eventos para ti
             </Text>
             <Text style={{ color: "#6d6a7f" }}>See All</Text>
@@ -42,8 +44,9 @@ export default function ForYou() {
             style={{
               flexDirection: "row",
               width: "100%",
-              height: 100,
-              paddingLeft: 50.0,
+              height: "60%",
+              paddingLeft: "5%",
+              paddingRight: "15%",
               paddingTop: 12,
             }}
             horizontal
@@ -104,8 +107,8 @@ const BgImage = styled.Image`
 const BottomContainer = styled.View`
   margin-top: 52%;
   height: 90%;
-  width: 400;
-  background-color: #ededed;
+  width: 400px;
+  background-color: ${backgroundColor};
   border-radius: 50px;
   align-items: center;
 `;
@@ -120,4 +123,5 @@ const TextName = styled.Text`
   font-weight: bold;
   font-size: 23px;
   bottom: 8%;
+  color: ${TextColor};
 `;
