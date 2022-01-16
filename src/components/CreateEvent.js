@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Image} from "react-native";
-import { MapStyled,MapContainertStyled } from '../generiComponents/MapsStyles';
+import { MapStyled,MapViewContainer,stylesDarkMode, defaultMode } from '../generiComponents/MapsStyles';
 import {PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import {
@@ -276,8 +276,8 @@ export default function CreateEvent() {
         <TextButton>Enviar</TextButton>
       </StyledButton>
       <Modal animationType="fade" transparent={true} visible={mapVisible}>
-        <MapContainertStyled>
-        <MapStyled showsUserLocation loadingEnabled onPress={(e) => handleMapMarker(e.nativeEvent.coordinate.latitude,e.nativeEvent.coordinate.longitude)}
+        <MapViewContainer>
+        <MapStyled customMapStyle={modes?stylesDarkMode:defaultMode} userInterfaceStyle='dark' showsUserLocation loadingEnabled onPress={(e) => handleMapMarker(e.nativeEvent.coordinate.latitude,e.nativeEvent.coordinate.longitude)}
           provider={PROVIDER_GOOGLE}
           region={{
             latitude: input.latitude?input.latitude:(location?location.coords.latitude:0),
@@ -288,12 +288,14 @@ export default function CreateEvent() {
           >
             <Marker
               coordinate={{latitude: input.latitude?input.latitude:0, longitude: input.longitude?input.longitude:0}}
-              title={"Tu evento"}/>
+              title={"Tu evento"}
+              icon={require('../../assets/icon1.png')}              
+              />
         </MapStyled>
       <StyledButton onPress={() => setMapVisible(false)}>
         <TextButton>Guardar</TextButton>
       </StyledButton>
-          </MapContainertStyled>
+          </MapViewContainer>
       </Modal>
     </StyledView>
     </ViewBackground>
