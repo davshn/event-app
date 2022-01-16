@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
-import { SectionStyled,TextStyled,ViewStyled,InputStyled,FormStyled,FormError,TitleStyled, StyledInput } from '../generiComponents/GenericStyles';
+import { SectionStyled,TextStyled,ViewStyled,InputStyled,FormError,TitleStyled} from '../generiComponents/GenericStyles';
 import axios from 'axios';
 import { setUser } from '../stateManagement/actions/authUserActions';
 import { useDispatch } from "react-redux";

@@ -5,7 +5,7 @@ import { useSelector,useDispatch } from 'react-redux';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import Root from './Root';
-import { CrearEvento } from './components/CrearEvento';
+import CreateEvent from './components/CreateEvent';
 import { LogoTitle } from "./components/LogoTitle"
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Switch } from 'react-native-paper';
@@ -58,7 +58,7 @@ export default function Index() {
                     <Drawer.Screen name="Inicio" component={Root} />
                     {!logged?<Drawer.Screen name="Ingresar" component={Login}/>:<></>}
                     {!logged?<Drawer.Screen name="Registrarse" component={Register} />:<></>}
-                    {logged ? <Drawer.Screen name="Crear evento" component={CrearEvento} /> : <></>}
+                    {logged ? <Drawer.Screen name="Crear evento" component={CreateEvent} /> : <></>}
                 </Drawer.Navigator>
             </ThemeProvider>
         </NavigationContainer>

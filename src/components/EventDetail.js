@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import { Text, Button ,View} from "react-native";
 import axios from "axios";
 import styled from "styled-components/native";
-import { backgroundColor } from "../services/theme.js";
 import Payment from '../components/Payments';
 import {
   TextCardBig,
@@ -15,7 +13,7 @@ import {
   ViewBackground
 } from "../generiComponents/GenericStyles";
 
-const EventDetail = ({ navigation: { goBack }, route }) => {
+export default function EventDetail ({ navigation: { goBack }, route })  {
   const [event, setEvent] = useState([]);
 
   let { id } = route.params.item;
@@ -73,5 +71,3 @@ const ImageDetail = styled.Image`
 const NameDetail = styled.Text`
   font-weight: bold;
 `;
-
-export default EventDetail;

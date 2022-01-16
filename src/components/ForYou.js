@@ -7,7 +7,7 @@ const StyledView = styled.ScrollView`
   background-color: ${backgroundColor};
 `;
 
-function ParaTiScreen() {
+export default function ForYou() {
   return (
     <StyledView>
       <ContainerImg>
@@ -48,7 +48,6 @@ function ParaTiScreen() {
             }}
             horizontal
           >
-            {/* replace with events for user  */}
             <Image
               style={{
                 height: 200,
@@ -112,9 +111,9 @@ const BottomContainer = styled.View`
 `;
 
 const ProfileImg = styled.Image`
-  height: 120;
-  width: 120;
-  border-radius: 25;
+  height: 120px;
+  width: 120px;
+  border-radius: 25px;
   bottom: 10%;
 `;
 const TextName = styled.Text`
@@ -122,5 +121,3 @@ const TextName = styled.Text`
   font-size: 23px;
   bottom: 8%;
 `;
-
-export default ParaTiScreen;

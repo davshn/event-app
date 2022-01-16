@@ -1,11 +1,9 @@
-import React, { useState } from "react";
 import { useStripe } from "@stripe/stripe-react-native";
-import { View,  TextInput, Button , Alert,Text} from "react-native";
+import { View,  Alert} from "react-native";
 import { useSelector } from "react-redux";
 import { StyledButton, TextButton } from "../generiComponents/GenericStyles";
 
-const Payments = () => {
-  // const [name, setName] = useState("");
+export default function Payments () {
 const user = useSelector((state) => state.authUserReducer);
   let name = user.name
   const stripe = useStripe();
@@ -45,18 +43,9 @@ const user = useSelector((state) => state.authUserReducer);
 
   return (
     <View>
-      {/* <TextInput
-        value={name}
-        onChangeText={(text) => setName(text)}
-        placeholder="Name"
-        style={{ width: 200, fontSize: 20, padding: 10, borderWidth: 1 }}
-      /> */}
-
       <StyledButton style={{ marginTop: '20%',backgroundColor:'#121212'}} onPress={pay}>
         <TextButton style={{ color: "#EDEDED"}}>Comprar Entrada</TextButton>
       </StyledButton>
     </View>
   );
 };
-
-export default Payments;

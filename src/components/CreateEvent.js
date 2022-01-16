@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Image} from "react-native";
-import { MapStyled,MapContainertStyled } from '../generiComponents/MapsStyles';
+import { MapStyled,MapViewContainer,stylesDarkMode, defaultMode } from '../generiComponents/MapsStyles';
 import {PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import {
@@ -27,7 +27,7 @@ import { useDispatch } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 
 var selected = [];
-export function CrearEvento() {
+export default function CreateEvent() {
   const modes = useSelector(state => state.darkModeReducer.darkMode);
   const [location, setLocation] = useState(null);
   const [mapVisible, setMapVisible] = useState(false); //Controla el modal de mapas
@@ -45,7 +45,7 @@ export function CrearEvento() {
     creators: [],
     eventPic: null,
     longitude: "",
-    latitude:"",
+    latitude: "",
   };
   const [input, setInput] = useState(initialState);
   const [errors, setErrors] = useState({});
@@ -53,10 +53,10 @@ export function CrearEvento() {
   const [showTime, setShowTime] = useState(false);
   const [categories, setCategories] = useState([])
   
-  function createEvent(evento) {
+  function create(event) {
     evento.category = selected;
     axios
-      .post("https://find-spot.herokuapp.com/events", evento)
+      .post("https://find-spot.herokuapp.com/events", event)
       .then((res) => {
         dispatch(searchByFilters());
         setInput(initialState)
@@ -110,7 +110,7 @@ export function CrearEvento() {
     if (!(Object.entries(error).length === 0)) {
       setErrors(error);
     } else {
-      createEvent(input);
+      create(input);
     }
   }
     useEffect(() => {
@@ -276,24 +276,26 @@ export function CrearEvento() {
         <TextButton>Enviar</TextButton>
       </StyledButton>
       <Modal animationType="fade" transparent={true} visible={mapVisible}>
-        <MapContainertStyled>
-        <MapStyled showsUserLocation loadingEnabled onPress={(e) => handleMapMarker(e.nativeEvent.coordinate.latitude,e.nativeEvent.coordinate.longitude)}
+        <MapViewContainer>
+        <MapStyled customMapStyle={modes?stylesDarkMode:defaultMode} userInterfaceStyle='dark' showsUserLocation loadingEnabled onPress={(e) => handleMapMarker(e.nativeEvent.coordinate.latitude,e.nativeEvent.coordinate.longitude)}
           provider={PROVIDER_GOOGLE}
           region={{
-            latitude: input.latitude?input.latitude:location?location.coords.latitude:0,
-            longitude: input.longitude?input.longitude:location?location.coords.longitude:0,
+            latitude: input.latitude?input.latitude:(location?location.coords.latitude:0),
+            longitude: input.longitude?input.longitude:(location?location.coords.longitude:0),
             latitudeDelta: 0.03549,
             longitudeDelta: 0.03554,
           }}
           >
             <Marker
-              coordinate={{latitude: input.latitude?input.latitude:0, longitude: input.latitude?input.longitude:0}}
-              title={"Tu evento"}/>
+              coordinate={{latitude: input.latitude?input.latitude:0, longitude: input.longitude?input.longitude:0}}
+              title={"Tu evento"}
+              icon={require('../../assets/selector.png')}              
+              />
         </MapStyled>
       <StyledButton onPress={() => setMapVisible(false)}>
         <TextButton>Guardar</TextButton>
       </StyledButton>
-          </MapContainertStyled>
+          </MapViewContainer>
       </Modal>
     </StyledView>
     </ViewBackground>

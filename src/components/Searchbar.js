@@ -1,4 +1,3 @@
-import React from "react";
 import { StyledButton, TextButton, SearchbarView,SmallerText, InicioFilterButton, InicioSearchInput, InicioButtonText,} from "../generiComponents/GenericStyles";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { TextStyled, ViewStyled, InputStyled} from '../generiComponents/GenericStyles';

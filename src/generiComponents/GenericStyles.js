@@ -2,15 +2,6 @@ import styled from "styled-components/native";
 import { backgroundColor, TextColor, InputColor } from "../services/theme";
 import MapView from 'react-native-maps';
 
-// import * as Font from "expo-font";
-
-// export default useFonts = async () =>
-//   await Font.loadAsync({
-//     "ProximaNova": require('../../assets/Fonts/Proxima_Nova'),
-//   });
-
-
-
 //Event detail CSS
 export const TextCardBig = styled.Text`
   font-weight: bold;
@@ -151,7 +142,7 @@ export const SmallerText = styled.Text`
   margin: auto;
   margin-top: 9px;
   margin-bottom: 9px;
-  color: ${TextColor}
+  color: ${TextColor};
 `;
 
 export const UploadPic = styled.Text`
@@ -280,17 +271,17 @@ export const StyledMap = styled(MapView)`
 
 export const MapViewContainer = styled.ScrollView`
   background-color: ${backgroundColor};
-`
+`;
 export const ViewBackground = styled.View`
   background-color: ${backgroundColor};
-`
+`;
 export const SearchbarView = styled.View`
 background-color: ${backgroundColor};
   display: flex;
   flex-direction: row;
   height: 11%;
   justify-content: center;
-`
+`;
 
 export const InicioFilterButton = styled.TouchableOpacity`
   background-color: ${backgroundColor};
@@ -302,18 +293,18 @@ export const InicioFilterButton = styled.TouchableOpacity`
   border: 1.5px solid #776BC7;
   align-self: center;
   justify-content: center;
-`
+`;
 export const InicioSearchInput = styled.TextInput`
-background-color: ${backgroundColor};
-border-radius: 10px;
-border: 1.5px solid #776BC7;
-padding-left: 2%;
-margin: 1%;
-width: 65%;
-height: 70%;
-align-self: center;
-`
+  background-color: ${backgroundColor};
+  border-radius: 10px;
+  border: 1.5px solid #776BC7;
+  padding-left: 2%;
+  margin: 1%;
+  width: 65%;
+  height: 70%;
+  align-self: center;
+`;
 export const InicioButtonText = styled.Text`
-color: ${TextColor};
-text-align: center;
-`
+  color: ${TextColor};
+  text-align: center;
+`;
