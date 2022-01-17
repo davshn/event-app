@@ -54,7 +54,7 @@ export default function CreateEvent() {
   const [categories, setCategories] = useState([])
   
   function create(event) {
-    evento.category = selected;
+    event.category = selected;
     axios
       .post("https://find-spot.herokuapp.com/events", event)
       .then((res) => {

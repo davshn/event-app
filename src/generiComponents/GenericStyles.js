@@ -294,6 +294,7 @@ background-color: ${backgroundColor};
   flex-direction: row;
   height: 15%;
   justify-content: center;
+  padding-bottom: 10%;
 `;
 
 export const InicioFilterButton = styled.TouchableOpacity`
