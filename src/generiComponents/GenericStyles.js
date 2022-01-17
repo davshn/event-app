@@ -290,8 +290,9 @@ export const ViewBackground = styled.View`
 export const SearchbarView = styled.View`
 background-color: ${backgroundColor};
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
-  height: 10%;
+  height: 15%;
   justify-content: center;
 `;
 
