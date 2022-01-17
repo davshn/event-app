@@ -1,4 +1,4 @@
-import { StyledButton, TextButton, SearchbarView,SmallerText, InicioFilterButton, InicioSearchInput, InicioButtonText,} from "../generiComponents/GenericStyles";
+import { StyledButton, TextButton, SearchbarView,SmallerText, InicioFilterButton, InicioSearchInput, InicioButtonText,UploadPic} from "../generiComponents/GenericStyles";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { TextStyled, ViewStyled, InputStyled} from '../generiComponents/GenericStyles';
 import { useState,useEffect } from "react";
@@ -74,10 +74,11 @@ export default function Searchbar() {
 
   return (
     <SearchbarView>
-    <InicioSearchInput placeholder="Busca tu evento" placeholderTextColor= {modes? '#EDEDED' : '#292929'}/>
-    <InicioFilterButton onPress={()=>setFiltersVisible(true)}>
-        <InicioButtonText>Filtros</InicioButtonText>
-      </InicioFilterButton>
+    <InicioSearchInput value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" placeholderTextColor= {modes? '#EDEDED' : '#292929'}/>
+    <InicioFilterButton /*onPress={()=>setFiltersVisible(true)}*/ onPress={()=>filterAndSearch(filters)}>
+        <InicioButtonText>Buscar</InicioButtonText>
+    </InicioFilterButton>
+    <UploadPic onPress={()=>setFiltersVisible(true)}>Busqueda Avanzada</UploadPic>
     <Modal animationType="fade" transparent={true} visible={filtersVisible}>
       <ViewStyled>
       <InputStyled value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" placeholderTextColor='gray'/>
@@ -116,7 +117,7 @@ export default function Searchbar() {
         <TextButton>Borrar</TextButton>
       </StyledButton>
       <StyledButton onPress={()=>filterAndSearch(filters)}>
-        <TextButton>Filtrar</TextButton>
+        <TextButton>Buscar</TextButton>
       </StyledButton>
       {show && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange} />)}
       {show2 && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange2} /> )}
