@@ -9,7 +9,6 @@ const Tab = createBottomTabNavigator()
 // aqui van los iconos 
 export default function HomeScreen() {
   const modes = useSelector(state => state.darkModeReducer.darkMode);
-
   const TabOptions = { //Tab styles
     headerShown: false,
     tabBarInactiveBackgroundColor: modes? '#292929' : '#EDEDED',

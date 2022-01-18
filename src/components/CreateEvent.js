@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Image} from "react-native";
 import { MapStyled,MapViewContainer,stylesDarkMode, defaultMode } from '../generiComponents/MapsStyles';
 import {PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -22,16 +23,16 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import CustomMultiPicker from "react-native-multiple-select-list";
 import { useNavigation } from "@react-navigation/native";
 import { Modal } from 'react-native';
-import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 
 var selected = [];
 export default function CreateEvent() {
+  const user = useSelector((state) => state.authUserReducer);
+  const categories = useSelector((state) => state.getCategoriesReducer.categories);
   const modes = useSelector(state => state.darkModeReducer.darkMode);
   const [location, setLocation] = useState(null);
   const [mapVisible, setMapVisible] = useState(false); //Controla el modal de mapas
-
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -42,7 +43,7 @@ export default function CreateEvent() {
     price: "",
     date: "",
     time: "",
-    creators: [],
+    creators: user.id,
     eventPic: null,
     longitude: "",
     latitude: "",
@@ -51,7 +52,6 @@ export default function CreateEvent() {
   const [errors, setErrors] = useState({});
   const [show, setShow] = useState(false);
   const [showTime, setShowTime] = useState(false);
-  const [categories, setCategories] = useState([])
   
   function create(event) {
     event.category = selected;
@@ -62,24 +62,8 @@ export default function CreateEvent() {
         setInput(initialState)
         navigation.navigate('Home')})
       .catch((res) => console.log(res));
-  
   }
   
-  function getCategories() {
-    axios
-      .get("https://find-spot.herokuapp.com/categories")
-      .then((res) => {
-        let formatted = {}
-        res.data.map(category => {
-          formatted[category.id] = category.name
-        })
-        setCategories(formatted);
-      })
-      .catch((res) => console.log(res))
-  }
-
-  useEffect(() => getCategories(), []);
-
   function validate(input) {
     setErrors({})
     let error = {};
@@ -91,9 +75,6 @@ export default function CreateEvent() {
     }
     if (!input.time) {
       error.time = "Campo requerido";
-    }
-    if (!input.creators.toString()) {
-      error.creators = "Campo requerido";
     }
     if (!input.description) {
       error.description = "Campo requerido";
@@ -200,12 +181,6 @@ export default function CreateEvent() {
       <StyledView>
       <StyledTitle> Crear Evento.</StyledTitle>
       <StyledView2>
-        <StyledInput placeholderTextColor={"gray"}
-        value={input.creators.toString()}
-        onChangeText={(ev) => hadleInputChange("creators", ev)}
-        placeholder="Organizador"
-      />
-      {errors.creators && <FormError>{errors.creators}</FormError>}
       <StyledInput
         placeholderTextColor={"gray"}
         value={input.name}

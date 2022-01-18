@@ -10,7 +10,6 @@ import { ModalContStyled, ModalText, ModalButtonStyled, ButtonText } from '../ge
 import CustomMultiPicker from "react-native-multiple-select-list";
 import { useSelector } from "react-redux"
 
-
 export default function Register({ navigation }) {
   let selected = [];
   const initialState = { //Estado inicial para usuarios
@@ -26,23 +25,8 @@ export default function Register({ navigation }) {
   const [errors, setErrors] = useState({});  //Crea el estado que contendrá los errores
   const [show, setShow] = useState(false);  //Controla visibilidad del datepicker
   const [modalVisible, setModalVisible] = useState(false); //Controla el modal de error al crear usuario
-  const [categories, setCategories] = useState([]);
   const modes = useSelector(state => state.darkModeReducer.darkMode);
-  
-  function getCategories() {
-    axios
-      .get("https://find-spot.herokuapp.com/categories")
-      .then((res) => {
-        let formatted = {}
-        res.data.map(category => {
-          formatted[category.id] = category.name
-        })
-        setCategories(formatted);
-      })
-      .catch((res) => console.log(res))
-  }
-
-  useEffect(() => getCategories(), []);
+  const categories = useSelector((state) => state.getCategoriesReducer.categories);
   
   function createUser(user) {
     user.interests = selected;

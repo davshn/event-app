@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { StyledButton, TextButton } from "../generiComponents/GenericStyles";
 
 export default function Payments () {
-const user = useSelector((state) => state.authUserReducer);
+  const user = useSelector((state) => state.authUserReducer);
   let name = user.name
   const stripe = useStripe();
 

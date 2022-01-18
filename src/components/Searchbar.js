@@ -4,8 +4,8 @@ import { TextStyled, ViewStyled, InputStyled} from '../generiComponents/GenericS
 import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
+import { getCategories } from '../stateManagement/actions/getCategoriesActions';
 import { Modal} from "react-native";
-import axios from "axios";
 import CustomMultiPicker from "react-native-multiple-select-list";
 
 export default function Searchbar() {
@@ -20,28 +20,14 @@ export default function Searchbar() {
     rating: null,
     category:[],
   };
+  useEffect(() => dispatch(getCategories()), []);
   const [filters, setFilters] = useState(initialState);
   const [show, setShow] = useState(false);  //Controla visibilidad del datepicker
   const [show2, setShow2] = useState(false);  //Controla visibilidad del datepicker
   const [filtersVisible, setFiltersVisible] = useState(false);
-  const [categories, setCategories] = useState([])
   const modes = useSelector(state => state.darkModeReducer.darkMode);
+  const categories = useSelector((state) => state.getCategoriesReducer.categories);
   
-  function getCategories() {
-    axios
-      .get("https://find-spot.herokuapp.com/categories")
-      .then((res) => {
-        let formatted = {}
-        res.data.map(category => {
-          formatted[category.id] = category.name
-        })
-        setCategories(formatted);
-      })
-      .catch((res) => console.log(res))
-  }
-
-  useEffect(() => getCategories(), []);
-
   function filterAndSearch(filter) {
     filter.category = selected;
     dispatch(searchByFilters(filter));
