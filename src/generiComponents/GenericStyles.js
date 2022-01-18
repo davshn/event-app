@@ -164,6 +164,22 @@ export const UploadPic = styled.Text`
   font-size: 17px;
 `;
 
+export const TermsModal = styled.View`
+  align-items:center;
+  justify-content:space-evenly;
+  height: 90%;
+  margin: 10%;
+  padding: 8%;
+  background-color:${backgroundColor};
+  border-radius:10px;
+  border: 1.5px solid #776BC7;
+`
+
+export const TermsText = styled.Text`
+  color: #5641abff;
+  text-decoration: underline;
+`
+
 export const StyledButton = styled.TouchableOpacity`
   background-color: #776BC7;
   margin: auto;
@@ -173,9 +189,9 @@ export const StyledButton = styled.TouchableOpacity`
 `;
 
 export const TextButton = styled.Text`
-  color: ${TextColor};
+  color: #EDEDED;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 17px;
   text-align: center;
   padding: 9px;
 `;
