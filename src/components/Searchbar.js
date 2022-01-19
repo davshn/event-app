@@ -29,7 +29,8 @@ export default function Searchbar() {
   function filterAndSearch(filter) {
     if (selected.length > 0) { filter.category = selected};
     dispatch(searchByFilters(filter));
-    setFiltersVisible(false)
+    setFilters(initialState);
+    setFiltersVisible(false);
   };
   
   function hadleInputChange(input,e) {               //Cuando se digita lo guarda en el estado
