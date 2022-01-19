@@ -16,6 +16,8 @@ const authUserReducer = (state = INITIAL_STATE, { type, payload }) => {
             id: payload.id,
             name: payload.name,
             interests: payload.interests,
+            verifyed: payload.verifyProfile,
+            profilePick: payload.profilePic,
             logged:true,
         }
         

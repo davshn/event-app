@@ -47,12 +47,13 @@ export default function CreateEvent() {
     eventPic: null,
     longitude: "",
     latitude: "",
+    token: user.token,
   };
   const [input, setInput] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [show, setShow] = useState(false);
   const [showTime, setShowTime] = useState(false);
-  
+  console.log(user)
   function create(event) {
     event.category = selected;
     axios
