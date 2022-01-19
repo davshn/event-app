@@ -12,6 +12,7 @@ import { Switch } from 'react-native-paper';
 import { useState } from 'react';
 import { setDarkModeOn, setDarkModeOff } from './stateManagement/actions/darkModeActions';
 import { eraseUser } from './stateManagement/actions/authUserActions';
+import ShoppingCart from './components/ShoppingCart';
 
 const Drawer = createDrawerNavigator();
 
@@ -59,6 +60,7 @@ export default function Index() {
                     {!logged?<Drawer.Screen name="Ingresar" component={Login}/>:<></>}
                     {!logged?<Drawer.Screen name="Registrarse" component={Register} />:<></>}
                     {logged ? <Drawer.Screen name="Crear evento" component={CreateEvent} /> : <></>}
+                    {!logged?<Drawer.Screen name="Carrito de compras" component={ShoppingCart} />:<></>}
                 </Drawer.Navigator>
             </ThemeProvider>
         </NavigationContainer>
