@@ -31,6 +31,10 @@ export default function EventDetail({ navigation: { goBack }, route }) {
       });
   };
 
+  // esto fue una prueba, y ya renderiza las categorias
+  // cambiar el <TextCardMedium> por uno personalizado aca abajo para darle estilo y ver si aparecen por separado
+  const tags = event.categories?.map(el => <TextCardMedium key={el.eventcategory.categoryId}>{el.name}</TextCardMedium> )
+
   return (
     <ViewBackground style={{ paddingBottom: 30 }}>
       <DetailView style={{ height: "95%" }}>
@@ -43,13 +47,13 @@ export default function EventDetail({ navigation: { goBack }, route }) {
         />
         <TextCardBig>{event.name}</TextCardBig>
         <DetailInfo>
+          <TextCardMedium>{tags}</TextCardMedium>
           <TextCardSmall>Descripción : {event.description}</TextCardSmall>
           <TextCardMedium>Lugar: {event.place}</TextCardMedium>
           <TextCardSmall>Hora: {event.time}</TextCardSmall>
           <TextCardSmall>Fecha: {event.date}</TextCardSmall>
-          <TextCardMedium>Rating : {event.rating}</TextCardMedium>
           <TextCardMedium>$ {event.price}</TextCardMedium>
-          <TextCardMedium>Creado por : {event.creators}</TextCardMedium>
+          <TextCardMedium>Creado por : {event.user?.name}</TextCardMedium>
         </DetailInfo>
 
         <Payment
