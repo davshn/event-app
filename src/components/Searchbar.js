@@ -17,8 +17,6 @@ export default function Searchbar() {
     finalPrice: "",
     initialDate: "",
     finalDate:"",
-    rating: null,
-    category:[],
   };
   useEffect(() => dispatch(getCategories()), []);
   const [filters, setFilters] = useState(initialState);
@@ -29,7 +27,7 @@ export default function Searchbar() {
   const categories = useSelector((state) => state.getCategoriesReducer.categories);
   
   function filterAndSearch(filter) {
-    filter.category = selected;
+    if (selected.length > 0) { filter.category = selected};
     dispatch(searchByFilters(filter));
     setFiltersVisible(false)
   };
@@ -70,7 +68,6 @@ export default function Searchbar() {
       <InputStyled value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" placeholderTextColor='gray'/>
       <InputStyled value={filters.initialPrice} onChangeText={(ev) => hadleInputChange("initialPrice", ev)} placeholder="Precio inicial" placeholderTextColor='gray'/>
       <InputStyled value={filters.finalPrice} onChangeText={(ev) => hadleInputChange("finalPrice", ev)} placeholder="Precio final"  placeholderTextColor='gray'/>
-      <InputStyled value={filters.rating} onChangeText={(ev) => hadleInputChange("rating", ev)} placeholder="Calificacion"  placeholderTextColor='gray'/>
       <TextStyled style={{ color: "gray" }} onPress={showDatepicker}>Fecha inicial:{filters.initialDate}</TextStyled>
       <TextStyled style={{ color: "gray" }} onPress={showDatepicker2}>Fecha final:{filters.finalDate}</TextStyled>
       <SmallerText>Categorías:</SmallerText>
