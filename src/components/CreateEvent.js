@@ -86,6 +86,9 @@ export default function CreateEvent() {
     if (!input.price) {
       error.price = "Campo requerido";
     }
+    if (selected.length===0) {
+      error.category = "Ingrese al menos una categoria";
+    }
     else if(isNaN(parseInt(input.price))){
       error.price = "El valor ingresado no es valido";
     }
@@ -245,7 +248,8 @@ export default function CreateEvent() {
         scrollViewHeight={340}
         selected={[]}
         border={"#776BC7"}
-      />
+        />
+        {errors.category && <FormError>{errors.category}</FormError>}
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <UploadPic onPress={()=>setMapVisible(true)}>Agregar ubicacion</UploadPic>
         {errors.latitude && <FormError>{errors.latitude}</FormError>}
