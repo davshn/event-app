@@ -12,6 +12,7 @@ import {
   TextButton,
   ViewBackground,
 } from "../generiComponents/GenericStyles";
+import {  View } from "react-native";
 
 export default function EventDetail({ navigation: { goBack }, route }) {
   const [event, setEvent] = useState([]);
@@ -50,20 +51,21 @@ export default function EventDetail({ navigation: { goBack }, route }) {
           <TextCardMedium>Rating : {event.rating}</TextCardMedium>
           <TextCardMedium>$ {event.price}</TextCardMedium>
           <TextCardMedium>Creado por : {event.creators}</TextCardMedium>
-        </DetailInfo>
-
-        <Payment
+        </DetailInfo><View>
+       <Payment
           precio={event.price}
-        
           evento={event.name}
           cantidad={5}
           fecha={event.date}
           hora={event.time}
         />
+       
 
-        <StyledButton onPress={() => goBack()}>
-          <TextButton>Volver</TextButton>
-        </StyledButton>
+        
+          <StyledButton onPress={() => goBack()}>
+            <TextButton>Volver</TextButton>
+          </StyledButton>
+        </View>
       </DetailView>
     </ViewBackground>
   );

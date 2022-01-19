@@ -61,10 +61,16 @@ export default function Searchbar() {
   return (
     <SearchbarView>
     <InicioSearchInput value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" placeholderTextColor= {modes? '#EDEDED' : '#292929'}/>
+
+
     <InicioFilterButton /*onPress={()=>setFiltersVisible(true)}*/ onPress={()=>filterAndSearch(filters)}>
         <InicioButtonText>Buscar</InicioButtonText>
     </InicioFilterButton>
+
+
     <UploadPic onPress={()=>setFiltersVisible(true)}>Busqueda Avanzada</UploadPic>
+
+    
     <Modal animationType="fade" transparent={true} visible={filtersVisible}>
       <ViewStyled>
       <InputStyled value={filters.name} onChangeText={(ev) => hadleInputChange("name", ev)} placeholder="Busca tu evento" placeholderTextColor='gray'/>

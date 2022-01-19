@@ -49,7 +49,17 @@ export function EventCards() {
 
   useEffect(() => dispatch(searchByFilters()), []);
 
+
+
+
+
+
+
   const navigation = useNavigation();
+
+
+
+
 
   const _renderItem = ({ item }) => {
     return (
@@ -62,6 +72,7 @@ export function EventCards() {
   
 
   return (
+    
     <FlatList
       style={{backgroundColor: modes? '#292929' : '#EDEDED'}}
       data={events}
