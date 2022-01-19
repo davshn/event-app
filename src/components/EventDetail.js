@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components/native";
-import Payment from '../components/Payments';
+import Payment from "../components/Payments";
 import {
   TextCardBig,
   TextCardMedium,
@@ -10,10 +10,10 @@ import {
   DetailInfo,
   StyledButton,
   TextButton,
-  ViewBackground
+  ViewBackground,
 } from "../generiComponents/GenericStyles";
 
-export default function EventDetail ({ navigation: { goBack }, route })  {
+export default function EventDetail({ navigation: { goBack }, route }) {
   const [event, setEvent] = useState([]);
 
   let { id } = route.params.item;
@@ -32,35 +32,42 @@ export default function EventDetail ({ navigation: { goBack }, route })  {
   };
 
   return (
-      <ViewBackground style={{paddingBottom: 30}}>
-        <DetailView style={{height: "95%"}}>
-          <ImageDetail
-            source={{
-              uri: event.eventPic || "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg",
-            }}
-          />
-          <TextCardBig>{event.name}</TextCardBig>
-          <DetailInfo>
-            <TextCardSmall>Descripción : {event.description}</TextCardSmall>
-            <TextCardMedium>Lugar: {event.place}</TextCardMedium>
-            <TextCardSmall>Hora: {event.time}</TextCardSmall>
-            <TextCardSmall>Fecha: {event.date}</TextCardSmall>
-            <TextCardMedium>Rating : {event.rating}</TextCardMedium>
-            <TextCardMedium>$ {event.price}</TextCardMedium>
-            <TextCardMedium>Creado por : {event.creators}</TextCardMedium>
-          </DetailInfo>
+    <ViewBackground style={{ paddingBottom: 30 }}>
+      <DetailView style={{ height: "95%" }}>
+        <ImageDetail
+          source={{
+            uri:
+              event.eventPic ||
+              "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg",
+          }}
+        />
+        <TextCardBig>{event.name}</TextCardBig>
+        <DetailInfo>
+          <TextCardSmall>Descripción : {event.description}</TextCardSmall>
+          <TextCardMedium>Lugar: {event.place}</TextCardMedium>
+          <TextCardSmall>Hora: {event.time}</TextCardSmall>
+          <TextCardSmall>Fecha: {event.date}</TextCardSmall>
+          <TextCardMedium>Rating : {event.rating}</TextCardMedium>
+          <TextCardMedium>$ {event.price}</TextCardMedium>
+          <TextCardMedium>Creado por : {event.creators}</TextCardMedium>
+        </DetailInfo>
 
-          
-           <Payment />
-          
-          <StyledButton onPress={() => goBack()}>
-            <TextButton>Volver</TextButton>
-          </StyledButton>
-          
-        </DetailView>
-      </ViewBackground>
+        <Payment
+          precio={event.price}
+        
+          evento={event.name}
+          cantidad={5}
+          fecha={event.date}
+          hora={event.time}
+        />
+
+        <StyledButton onPress={() => goBack()}>
+          <TextButton>Volver</TextButton>
+        </StyledButton>
+      </DetailView>
+    </ViewBackground>
   );
-};
+}
 
 const ImageDetail = styled.Image`
   width: 100%;

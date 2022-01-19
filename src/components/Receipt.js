@@ -2,6 +2,11 @@ import { Text, View } from "react-native"
 import ZigzagView from "react-native-zigzag-view"
 
 export const Receipt = () => {
+/* AQUI SE HACE EL GETALL QUE DEVUELVE todos LOS TICKETS POR PERSONA  */
+
+
+
+
   return (
     <ZigzagView
         backgroundColor="violet"
