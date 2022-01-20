@@ -87,7 +87,7 @@ export default function Register({ navigation }) {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
-        aspect: [4, 3],
+        aspect: [3, 3],
         quality: 1,
       });
   
@@ -114,7 +114,7 @@ export default function Register({ navigation }) {
       method: "POST",
       body: data
     }).then(res => res.json())
-    .then(data => setInput(prev => ({ ...prev, "image": data.secure_url })))
+    .then(data => setInput(prev => ({ ...prev, "profilePic": data.secure_url })))
   }
 
 
@@ -135,7 +135,7 @@ export default function Register({ navigation }) {
       <AgregarFotoButton onPress={pickImage}>
         <TextButton color={'#EDEDED'}>Agregar foto de perfil</TextButton>
       </AgregarFotoButton>
-      {input.image && <ProfilePic source={{ uri: input.image }}/>}
+      {input.profilePic && <ProfilePic source={{ uri: input.profilePic }}/>}
       <SmallerText>Categorías:</SmallerText>
       <CustomMultiPicker
         options={categories}

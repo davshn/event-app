@@ -1,21 +1,27 @@
 import { backgroundColor, TextColor } from "../services/theme.js";
-import React from "react";
+import React, { useEffect } from "react";
 import { View, ScrollView, Text, StyleSheet ,Image} from "react-native";
 import styled from "styled-components/native";
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 
 const StyledView = styled.ScrollView`
   background-color: ${backgroundColor};
 `;
 
 export default function ForYou() {
+  const dispatch = useDispatch();
+  const events = useSelector(state => state.getEventsReducer.events);
+
+  useEffect(() => dispatch(searchByFilters()), []);
+
   const modes = useSelector(state => state.darkModeReducer.darkMode);
   return (
     <StyledView>
-      <ContainerImg>
+      <ContainerImg style={{backgroundColor: "#5641abff"}} >
         <BgImage
           source={{
-            uri: "https://images.unsplash.com/photo-1599422314077-f4dfdaa4cd09?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+            uri: "https://images.unsplash.com/photo-1516889782132-fb580815f8f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80https://images.unsplash.com/photo-1516889782132-fb580815f8f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
           }}
         />
 
@@ -51,39 +57,7 @@ export default function ForYou() {
             }}
             horizontal
           >
-            <Image
-              style={{
-                height: 200,
-                width: 150,
-                borderRadius: 15,
-                marginLeft: 8,
-              }}
-              source={{
-                uri: "https://images.unsplash.com/photo-1600616366660-ba86bf0b3dfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1767&q=80",
-              }}
-            />
-            <Image
-              style={{
-                height: 200,
-                width: 150,
-                borderRadius: 15,
-                marginLeft: 8,
-              }}
-              source={{
-                uri: "https://images.unsplash.com/photo-1600616366660-ba86bf0b3dfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1767&q=80",
-              }}
-            />
-            <Image
-              style={{
-                height: 200,
-                width: 150,
-                borderRadius: 15,
-                marginLeft: 8,
-              }}
-              source={{
-                uri: "https://images.unsplash.com/photo-1600616366660-ba86bf0b3dfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1767&q=80",
-              }}
-            />
+            
           </ScrollView>
 
 

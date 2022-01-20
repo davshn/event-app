@@ -12,46 +12,32 @@ import MapView from 'react-native-maps';
 
 
 //Event detail CSS
-export const TextCardBig = styled.Text`
-  font-weight: bold;
-  text-decoration: underline;
-  font-size: 23px;
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 2.5px;
-  color: ${TextColor};
-`;
-
 export const TextCardMedium = styled.Text`
   text-align: auto;
-  font-size: 14px;
+  font-size: 16px;
   text-align: left;
   margin-top: 2.5px;
   margin-bottom: 2.5px;
   color: ${TextColor};
-`;
-
-export const TextCardSmall = styled.Text`
-  font-weight: 600;
-  font-size: 14px;
-  text-align: left;
-  margin-top: 2.5px;
-  margin-bottom: 2.5px;
-  color: ${TextColor};
-`;
-
-export const DetailView = styled.View`
-  margin: 20px;
-  border: 1px solid #776BC7;;
-  border-radius: 20px;
-  padding: 10px;
-  height: 100%;
 `;
 
 export const DetailInfo = styled.View`
-  margin: 20px;
-  height: 130px;
+  margin: 5%;
+  justify-content: space-evenly;
+  height: 40%;
+  bottom: 1%
 `;
+
+export const GoBackButton = styled.View`
+  background-color: ${backgroundColor};
+  height: 4%;
+  width: 8%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  margin-top: 5%;
+  margin-left: 80%;
+`
 
 export const TextStyled = styled.Text`
   font-size: 14px;
@@ -75,17 +61,6 @@ export const InputStyled = styled.TextInput`
   align-self: center;
   color:${TextColor};
 `;
-
-export const FormStyled = styled.View`
-  `
-// `;
-// border-bottom-width: 1px;
-//   border-bottom-color: #999999;
-//   margin: 3% 0;
-//   width: 100%;
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
 
 export const FormError = styled.Text`
   color: red;
@@ -186,6 +161,7 @@ export const StyledButton = styled.TouchableOpacity`
   margin-bottom: 30px;
   border-radius: 10px;
   width: 88%;
+  padding: 1%
 `;
 
 export const TextButton = styled.Text`

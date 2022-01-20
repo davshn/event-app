@@ -10,9 +10,6 @@ export default function Payments (props) {
   let price = props.price 
  
 
-
-
-
   const pay = async () => {
     try {
       const response = await fetch(`https://find-spot.herokuapp.com/pay`, {
@@ -76,8 +73,8 @@ hora:props.time,
 
   return (
     <View>
-      <StyledButton style={{ marginTop: '20%',backgroundColor:'#121212'}} onPress={pay}>
-        <TextButton style={{ color: "#EDEDED"}}>Comprar Entrada</TextButton>
+      <StyledButton style={{ marginTop: '4%',backgroundColor:'#121212'}} onPress={pay}>
+        <TextButton style={{ color: "#EDEDED"}}>Agregar al carrito</TextButton>
       </StyledButton>
     </View>
   );
