@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 import { getCategories } from '../stateManagement/actions/getCategoriesActions';
 import { Modal} from "react-native";
+import {Picker} from "@react-native-picker/picker";
 import CustomMultiPicker from "react-native-multiple-select-list";
 
 export default function Searchbar() {
@@ -17,6 +18,8 @@ export default function Searchbar() {
     finalPrice: "",
     initialDate: "",
     finalDate:"",
+    type:"",
+    sortType:"",
   };
   useEffect(() => dispatch(getCategories()), []);
   const [filters, setFilters] = useState(initialState);
@@ -25,7 +28,20 @@ export default function Searchbar() {
   const [filtersVisible, setFiltersVisible] = useState(false);
   const modes = useSelector(state => state.darkModeReducer.darkMode);
   const categories = useSelector((state) => state.getCategoriesReducer.categories);
+  const [selectedValue, setSelectedValue] = useState("");
   
+  function handleTypeSelect(value){
+    setFilters({
+      ...filters,
+      type:value
+    })
+  }
+  function handleSortTypeSelect (value){
+    setFilters({
+      ...filters,
+      sortType:value
+    })
+  }
   function filterAndSearch(filter) {
     if (selected.length > 0) { filter.category = selected};
     dispatch(searchByFilters(filter));
@@ -97,6 +113,23 @@ export default function Searchbar() {
         selected={[]}
         border={"#776BC7"}
       />
+    <Picker
+        selectedValue={filters.sortType}
+        style={{ height: 50, width: 150 }}
+        onValueChange={(itemValue) => handleSortTypeSelect(itemValue)}
+      >
+        <Picker.Item label="ascendente" value="ascending" />
+        <Picker.Item label="descendente" value="descending" />
+      </Picker>
+      <Picker
+        selectedValue={filters.type}
+        style={{ height: 50, width: 150 }}
+        onValueChange={(itemValue) => handleTypeSelect(itemValue)}
+      >
+        <Picker.Item label="Nombre" value="name" />
+        <Picker.Item label="Fecha" value="date" />
+        <Picker.Item label="Precio" value="price" />
+      </Picker>
       <StyledButton onPress={()=>setFilters(initialState)}>
         <TextButton>Borrar</TextButton>
       </StyledButton>
