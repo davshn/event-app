@@ -59,6 +59,11 @@ export default function ForYou() {
           >
             
           </ScrollView>
+
+
+
+
+          {/* LISTado de tickets al cual se accede por id  */}
         </BottomContainer>
       </ContainerImg>
     </StyledView>
