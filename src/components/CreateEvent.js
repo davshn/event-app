@@ -47,12 +47,13 @@ export default function CreateEvent() {
     eventPic: null,
     longitude: "",
     latitude: "",
+    token: user.token,
   };
   const [input, setInput] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [show, setShow] = useState(false);
   const [showTime, setShowTime] = useState(false);
-  
+  console.log(user)
   function create(event) {
     event.category = selected;
     axios
@@ -84,6 +85,9 @@ export default function CreateEvent() {
     }
     if (!input.price) {
       error.price = "Campo requerido";
+    }
+    if (selected.length===0) {
+      error.category = "Ingrese al menos una categoria";
     }
     else if(isNaN(parseInt(input.price))){
       error.price = "El valor ingresado no es valido";
@@ -244,7 +248,8 @@ export default function CreateEvent() {
         scrollViewHeight={340}
         selected={[]}
         border={"#776BC7"}
-      />
+        />
+        {errors.category && <FormError>{errors.category}</FormError>}
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <UploadPic onPress={()=>setMapVisible(true)}>Agregar ubicacion</UploadPic>
         {errors.latitude && <FormError>{errors.latitude}</FormError>}
