@@ -86,7 +86,7 @@ export default function CreateEvent() {
     if (!input.price) {
       error.price = "Campo requerido";
     }
-    if (selected.length===0) {
+    if (selected.length<1) {
       error.category = "Ingrese al menos una categoria";
     }
     else if(isNaN(parseInt(input.price))){
