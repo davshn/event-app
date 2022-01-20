@@ -91,6 +91,8 @@ const Item = ({ item, index, onPress }) => (
 const CartItems = () => {
   const events = useSelector((state) => state.getEventsReducer.events);
 
+  //agregar el evento que quiere comprar 
+
   const renderItem = ({ item }) => {
     return <Item item={item} />;
   };

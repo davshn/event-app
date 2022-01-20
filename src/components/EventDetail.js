@@ -2,13 +2,19 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components/native";
 import Payment from "../components/Payments";
-import { TextCardMedium, DetailInfo, GoBackButton } from "../generiComponents/GenericStyles";
+import {
+  TextCardMedium,
+  DetailInfo,
+  GoBackButton,
+  StyledButton,
+  TextButton,
+} from "../generiComponents/GenericStyles";
 import { backgroundColor, TextColor } from "../services/theme";
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 import { useSelector } from "react-redux"
 
 export default function EventDetail({ navigation: { goBack }, route }) {
-  //eventos del estado local 
+  
   const [event, setEvent] = useState([]);
   let { id } = route.params.item;
   const modes = useSelector(state => state.darkModeReducer.darkMode);
@@ -49,14 +55,17 @@ export default function EventDetail({ navigation: { goBack }, route }) {
         <GoBackButton>
           <MaterialCommunityIcons
             name="chevron-down-outline"
-            color={modes? '#EDEDED' : '#292929'}
+            color={modes ? "#EDEDED" : "#292929"}
             size={22}
             onPress={() => goBack()}
           />
         </GoBackButton>
         <BottomContainer>
           <TextName>{event.name}</TextName>
-          <TextCardMedium style={{bottom: "3%"}}>{event.description?.charAt(0).toUpperCase() + event.description?.slice(1)}</TextCardMedium>
+          <TextCardMedium style={{ bottom: "3%" }}>
+            {event.description?.charAt(0).toUpperCase() +
+              event.description?.slice(1)}
+          </TextCardMedium>
           <DetailInfo>
             <TextCardMedium>
               <MaterialCommunityIcons
@@ -64,7 +73,8 @@ export default function EventDetail({ navigation: { goBack }, route }) {
                 color={"#776BC7"}
                 size={25}
               />{" "}
-              {event.place?.charAt(0).toUpperCase() + event.place?.slice(1)}  {/*Este codigo capitaliza la primer letra*/}
+              {event.place?.charAt(0).toUpperCase() + event.place?.slice(1)}{" "}
+              {/*Este codigo capitaliza la primer letra*/}
             </TextCardMedium>
             <TextCardMedium>
               <MaterialCommunityIcons
@@ -100,13 +110,15 @@ export default function EventDetail({ navigation: { goBack }, route }) {
             </TextCardMedium>
             <TextCardMedium>{tags}</TextCardMedium>
           </DetailInfo>
-          <Payment
-            precio={event.price}
-            evento={event.name}
-            cantidad={5}
-            fecha={event.date}
-            hora={event.time}
-          />
+
+          <StyledButton
+            style={{ marginTop: "4%", backgroundColor: "#121212" }}
+            onPress={''}//navigate to shopping cart 
+          >
+            <TextButton style={{ color: "#EDEDED" }}>
+              Agregar al carrito
+            </TextButton>
+          </StyledButton>
         </BottomContainer>
       </ContainerImg>
     </>

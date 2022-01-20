@@ -74,7 +74,7 @@ hora:props.time,
   return (
     <View>
       <StyledButton style={{ marginTop: '4%',backgroundColor:'#121212'}} onPress={pay}>
-        <TextButton style={{ color: "#EDEDED"}}>Agregar al carrito</TextButton>
+        <TextButton style={{ color: "#EDEDED"}}>comprar entradas</TextButton>
       </StyledButton>
     </View>
   );

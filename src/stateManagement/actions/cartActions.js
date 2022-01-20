@@ -3,7 +3,7 @@ export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const ADJUST_QTY = "ADJUST_QTY";
 export const RESET = "RESET";
 
-import store from "../store";
+
 
 
 export const addToCart = (event, qty, count) => (dispatch) => {
@@ -24,7 +24,7 @@ export const addToCart = (event, qty, count) => (dispatch) => {
     type: ADD_TO_CART,
     payload: { cartItems },
   });
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  
 };
 
 export const removeFromCart = (event) => (dispatch) => {
