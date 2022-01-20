@@ -12,13 +12,19 @@ import {
   TextButton,
   ViewBackground,
 } from "../generiComponents/GenericStyles";
-import addToCart from "../stateManagement/actions/cartUpdates"
+import {addToCart} from "../stateManagement/actions/cartUpdates"
 import { useDispatch, useSelector } from "react-redux";
 
 export default function EventDetail({ navigation: { goBack }, route }) {
+  //eventos del estado local 
   const [event, setEvent] = useState([]);
+
   const dispatch = useDispatch();
-  const eventFromState = useSelector(state => state.getEventsReducer.events);
+
+  
+
+
+
 
   let { id } = route.params.item;
 
@@ -61,24 +67,26 @@ export default function EventDetail({ navigation: { goBack }, route }) {
           <TextCardMedium>Creado por : {event.creators}</TextCardMedium>
         </DetailInfo>
 
-        <Payment
+        {/* <Payment
           precio={event.price}
         
           evento={event.name}
           cantidad={5}
           fecha={event.date}
           hora={event.time}
-        />
+        /> */}
         <StyledButton onPress={() => goBack()}>
           <TextButton>Volver</TextButton>
         </StyledButton>
 
-        
-
-
-        <StyledButton onPress={() => addToCartDispatch(eventFromState.filter(e=>e.id===event.id))}>
+    
+        <StyledButton onPress={() => addToCartDispatch(event)}>
           <TextButton>Agregar al carrito</TextButton>
         </StyledButton>
+
+
+
+        
       </DetailView>
     </ViewBackground>
   );

@@ -7,6 +7,7 @@ import { useSelector,useDispatch } from "react-redux";
 export default class ShoppingCart extends Component {
 
   render() {
+
     return (
       <View style={{ flex: 1 }}>
         <Header />
@@ -44,6 +45,7 @@ const styles = {
 //--------------------------------------------------------------------------------------------------------
 class ItemsContainer extends Component {
   render() {
+
     return (
       <View style={styles1.containterStyle}>
         <Item />
@@ -113,8 +115,8 @@ const styles3 = {
   }
 };
 //--------------------------------------------------------------------------------------------------------
-const image1 = require('../images/orange.jpg');
-const image2 = require('../images/tomato.jpg');
+const image1 = require("../images/orange.jpg");
+const image2 = require("../images/tomato.jpg");
 const image3 = require('../images/salmon.jpg');
 const image4 = require('../images/greens.jpg');
 const image5 = require('../images/rye-bread.jpg');
@@ -143,12 +145,12 @@ class Item extends Component {
 
     _data(){
         const data = useSelector(state => state.getEventsReducer.cartEvents);
-        console.log(data);
+        
         return data;
     }
 
   _renderItem({ item, index }) {
-    const data = useSelector(state => state.getEventsReducer.cartEvents);
+    // const data = useSelector(state => state.getEventsReducer.cartEvents);
     const { 
       containerStyle, 
       lastItemStyle,
@@ -246,6 +248,8 @@ const styles4 = {
   }
 };
 
+
+
 //--------------------------------------------------------------------------------------------------------
 const TotalComponent = () => {
   const { containerStyle, goodsStyle, totalStyle } = styles5;
@@ -256,6 +260,8 @@ const TotalComponent = () => {
         <Text>8 items</Text>
       </View>
 
+
+
       <View style={totalStyle}>
         <Text>Total - </Text>
         <Text>$300</Text>
@@ -263,6 +269,9 @@ const TotalComponent = () => {
     </View>
   );
 };
+
+
+
 
 const styles5 = {
   containerStyle: {

@@ -13,10 +13,10 @@ export const searchByFilters = (body) => {
   };
 };
 
-export const addToCart = (payload) => {
-  return dispatch({ type: CART_UPDATE_ADD, payload });
-};
+// export const addToCart = (payload) => {
+//   return dispatch({ type: CART_UPDATE_ADD, payload });
+// };
 
-export const removeFromFromCart = (payload) => {
-  return { type: CART_UPDATE_REMOVE, payload };
-};
+// export const removeFromFromCart = (payload) => {
+//   return { type: CART_UPDATE_REMOVE, payload };
+// };
