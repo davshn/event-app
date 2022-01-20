@@ -134,7 +134,7 @@ const BottomContainer = styled.View`
 `;
 
 const TextName = styled.Text`
-margin-top: 25%
+margin-top: 25%;
 font-weight: bold;
 font-size: 28px;
 bottom: 8%;
