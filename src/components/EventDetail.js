@@ -12,19 +12,16 @@ import {
   TextButton,
   ViewBackground,
 } from "../generiComponents/GenericStyles";
-import {addToCart} from "../stateManagement/actions/cartUpdates"
+// import {addToCart} from "../stateManagement/actions/cartUpdates"
+import {addToCart} from "../stateManagement/actions/cartActions";
+
 import { useDispatch, useSelector } from "react-redux";
 
 export default function EventDetail({ navigation: { goBack }, route }) {
   //eventos del estado local 
   const [event, setEvent] = useState([]);
 
-  const dispatch = useDispatch();
-
-  
-
-
-
+  // const dispatch = useDispatch();
 
   let { id } = route.params.item;
 
@@ -41,10 +38,10 @@ export default function EventDetail({ navigation: { goBack }, route }) {
       });
   };
 
-  function addToCartDispatch(event) {
-    dispatch(addToCart(event));
+  // function addToCartDispatch(event) {
+  //   dispatch(addToCart(event));
 
-  };
+  // };
 
   return (
     <ViewBackground style={{ paddingBottom: 30 }}>
@@ -80,7 +77,7 @@ export default function EventDetail({ navigation: { goBack }, route }) {
         </StyledButton>
 
     
-        <StyledButton onPress={() => addToCartDispatch(event)}>
+        <StyledButton onPress={() => addToCart(event)}>
           <TextButton>Agregar al carrito</TextButton>
         </StyledButton>
 
