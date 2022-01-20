@@ -249,7 +249,7 @@ width: 100%;
 
 export const EventImage = styled.Image`
   width: 100%;
-  height: 200px;
+  height: 175 px;
   margin: auto;
 `;
 
