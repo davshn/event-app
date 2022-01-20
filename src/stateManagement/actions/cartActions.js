@@ -10,7 +10,7 @@ import store from "../store";
 //with getState we can get whatever exists in the redux store
 export const addToCart = (product, qty, count) => (dispatch) => {
   let exists = false;
-  const cartItems = store.getState().cart.cartItems.slice();
+  const cartItems = store.getState().cartItems.slice();
   cartItems.forEach((item) => {
     if (item.id === product.id) {
       exists = true;
@@ -31,8 +31,7 @@ export const addToCart = (product, qty, count) => (dispatch) => {
 
 export const removeFromCart = (product) => (dispatch) => {
   const cartItems = store
-    .getState()
-    .cart.cartItems.slice()
+    .getState().cartItems.slice()
     .filter((x) => x.id !== product.id);
   dispatch({
     type: REMOVE_FROM_CART,
