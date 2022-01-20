@@ -1,7 +1,9 @@
-import {SEARCH_BY_FILTERS}from '../actions/getEventsActions';
+import {SEARCH_BY_FILTERS , SORT_BY_DATE, SORT_BY_NAME,GET_EVENTS}from '../actions/getEventsActions';
 
   const INITIAL_STATE = { //Estado inicial para usuarios
-    events:[]
+    Events:[],
+    events:[],
+    date:[],
   };
 
 const getEventsReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -9,9 +11,11 @@ const getEventsReducer = (state = INITIAL_STATE, { type, payload }) => {
         case SEARCH_BY_FILTERS: return {          
             ...state,
             events:payload,
+            date:payload,
         }
-        default: return state;
-    }
-}
+        default:
+          return state;
+    }  
+  }
 
 export default getEventsReducer;
