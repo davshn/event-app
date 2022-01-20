@@ -229,4 +229,4 @@ const styles3 = {
   },
 };
 
-export default connect(null, addToCart)(CartItems);
+export default CartItems;
