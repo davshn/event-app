@@ -6,13 +6,11 @@ import { TextCardMedium, DetailInfo, GoBackButton } from "../generiComponents/Ge
 import { backgroundColor, TextColor } from "../services/theme";
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 import { useSelector } from "react-redux"
+import { useNavigation } from "@react-navigation/native";
 
 export default function EventDetail({ navigation: { goBack }, route }) {
-  const [event, setEvent] = useState([]);
   let { id } = route.params.item;
-  const modes = useSelector(state => state.darkModeReducer.darkMode);
   useEffect(() => getById(id), []);
-
   const getById = (id) => {
     axios
       .get(`https://find-spot.herokuapp.com/event/${id}`)
@@ -23,7 +21,26 @@ export default function EventDetail({ navigation: { goBack }, route }) {
         console.error(error);
       });
   };
-
+  
+  const [event, setEvent] = useState([]);
+  const modes = useSelector(state => state.darkModeReducer.darkMode);
+  const actualUser = useSelector(state => state.authUserReducer.id);
+  const eventUser = event.userId;
+  const navigation = useNavigation();
+  function eventEditor() {
+    navigation.navigate('Home');
+  }
+  
+   function eventDelete() {
+    axios.post(`https://find-spot.herokuapp.com/event/deleteEvent`,{id:event.id})
+      .then((res) => {
+        return console.log("exito");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  
   const tags = event.categories?.map((el) => (
     <TextCardMedium key={el.eventcategory.categoryId}>
       <MaterialCommunityIcons
@@ -53,6 +70,22 @@ export default function EventDetail({ navigation: { goBack }, route }) {
             onPress={() => goBack()}
           />
         </GoBackButton>
+        {eventUser === actualUser ? <GoBackButton>
+          <MaterialCommunityIcons
+            name="hardware-chip-outline"
+            color={modes? '#EDEDED' : '#292929'}
+            size={22}
+            onPress={() => eventEditor()}
+          />
+        </GoBackButton> : <></>}
+                {eventUser === actualUser ? <GoBackButton>
+          <MaterialCommunityIcons
+            name="close-circle-sharp"
+            color={modes? '#EDEDED' : '#292929'}
+            size={22}
+            onPress={() => eventDelete()}
+          />
+        </GoBackButton>:<></>}
         <BottomContainer>
           <TextName>{event.name}</TextName>
           <TextCardMedium style={{bottom: "3%"}}>{event.description?.charAt(0).toUpperCase() + event.description?.slice(1)}</TextCardMedium>
