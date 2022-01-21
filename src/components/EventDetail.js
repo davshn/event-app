@@ -8,6 +8,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 import { useSelector,useDispatch } from "react-redux"
 import { useNavigation } from "@react-navigation/native";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
+import { ModalContStyled,ModalText,ModalButtonStyled,ButtonText } from '../generiComponents/ModalGen';
+import { Modal } from 'react-native';
 
 const initialState = { //Estado inicial para usuarios
     name: "",
@@ -38,12 +40,17 @@ export default function EventDetail({ navigation: { goBack }, route }) {
   const actualUser = useSelector(state => state.authUserReducer.id);
   const eventUser = event.userId;
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false); //Controla el modal
   function eventEditor() {
     navigation.navigate('Home');
   }
   
+  
+  function deleteModal() {
+      setModalVisible(true);
+  }
+  
   function eventDelete() {
-     
     axios.post(`https://find-spot.herokuapp.com/events/deleteEvent`,{id:event.id})
       .then((res) => {
         dispatch(searchByFilters(initialState));
@@ -96,7 +103,7 @@ export default function EventDetail({ navigation: { goBack }, route }) {
             name="close-circle-sharp"
             color={modes? '#EDEDED' : '#292929'}
             size={22}
-            onPress={() => eventDelete()}
+            onPress={() => deleteModal()}
           />
         </GoBackButton>:<></>}
         <BottomContainer>
@@ -154,6 +161,17 @@ export default function EventDetail({ navigation: { goBack }, route }) {
           />
         </BottomContainer>
       </ContainerImg>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <ModalContStyled>
+          <ModalText>¿Deseas eliminar el evento de forma permanente?</ModalText>
+           <ModalButtonStyled onPress={() => eventDelete()}>
+            <ButtonText>Aceptar</ButtonText>
+            </ModalButtonStyled>
+          <ModalButtonStyled onPress={() => setModalVisible(false)}>
+            <ButtonText>Cancelar</ButtonText>
+          </ModalButtonStyled>
+        </ModalContStyled>
+      </Modal>
     </>
   );
 }
