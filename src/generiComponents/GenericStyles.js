@@ -194,7 +194,7 @@ export const ProfilePic = styled.Image`
 export const Logo = styled.View`
   margin: auto;
   flex-direction: row;
-  align-self: center;
+  align-items: center;
 `;
 
 export const StyledText = styled.Text`
@@ -249,7 +249,7 @@ width: 100%;
 
 export const EventImage = styled.Image`
   width: 100%;
-  height: 175px;
+  height: 175vpx;
   margin: auto;
 `;
 
