@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { setDarkModeOn, setDarkModeOff } from './stateManagement/actions/darkModeActions';
 import { eraseUser } from './stateManagement/actions/authUserActions';
 
+
 const Drawer = createDrawerNavigator();
 
 export default function Index() {
@@ -28,7 +29,7 @@ export default function Index() {
         drawerActiveTintColor: modes? '#EDEDED' : '#EDEDED',
         drawerActiveBackgroundColor: "#776BC7",
         drawerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'},
-        headerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'}
+        headerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'},
     }
 
     const onToggleSwitch = () => {
@@ -50,7 +51,7 @@ export default function Index() {
                         return (
                             <DrawerContentScrollView {...props}>
                                 <DrawerItemList {...props} />
-                                {logged?<DrawerItem label="Cerrar sesion" onPress={() => endSession(props)} />: <></>}
+                                {logged?<DrawerItem labelStyle={{color: modes? '#EDEDED' : '#292929'}} label="Cerrar sesion" onPress={() => endSession(props)} />: <></>}
                                 <Switch style={{ alignSelf: "center" }} color={ "#776BC7"} value={isSwitchOn} onValueChange={onToggleSwitch} />
                             </DrawerContentScrollView>
                         )
