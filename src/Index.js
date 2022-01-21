@@ -16,6 +16,7 @@ import ShoppingCart from './components/ShoppingCart';
 import Shopper from './components/cart_Shopper';
 
 
+
 const Drawer = createDrawerNavigator();
 
 export default function Index() {
@@ -31,7 +32,7 @@ export default function Index() {
         drawerActiveTintColor: modes? '#EDEDED' : '#EDEDED',
         drawerActiveBackgroundColor: "#776BC7",
         drawerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'},
-        headerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'}
+        headerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'},
     }
 
     const onToggleSwitch = () => {
@@ -44,60 +45,27 @@ export default function Index() {
         dispatch(eraseUser());
     };
     return (
-      <NavigationContainer>
-        <ThemeProvider theme={{ mode: modes ? "dark" : "light" }}>
-          <Drawer.Navigator
-            initialRouteName="Home"
-            screenOptions={DrawerOptions}
-            drawerContent={(props) => {
-              return (
-                <DrawerContentScrollView {...props}>
-                  <DrawerItemList {...props} />
-                  {logged ? (
-                    <DrawerItem
-                      label="Cerrar sesion"
-                      onPress={() => endSession(props)}
-                    />
-                  ) : (
-                    <></>
-                  )}
-                  <Switch
-                    style={{ alignSelf: "center" }}
-                    color={"#776BC7"}
-                    value={isSwitchOn}
-                    onValueChange={onToggleSwitch}
-                  />
-                </DrawerContentScrollView>
-              );
-            }}
-          >
-            <Drawer.Screen name="Inicio" component={Root} />
-            {!logged ? (
-              <Drawer.Screen name="Ingresar" component={Login} />
-            ) : (
-              <></>
-            )}
-            {!logged ? (
-              <Drawer.Screen name="Registrarse" component={Register} />
-            ) : (
-              <></>
-            )}
-            {logged ? (
-              <Drawer.Screen name="Crear evento" component={CreateEvent} />
-            ) : (
-              <></>
-            )}
-            {!logged ? (
-              <Drawer.Screen
-                name="Carrito de compras"
-                component={ShoppingCart}
-              />
-            ) : (
-              <></>
-            )}
-            <Drawer.Screen name="cart" component={Shopper} />
-          </Drawer.Navigator>
-        </ThemeProvider>
-      </NavigationContainer>
-    );
+        <NavigationContainer >
+            <ThemeProvider theme={{ mode: (modes) ? 'dark' : 'light' }}>
+                <Drawer.Navigator 
+                    initialRouteName="Home"
+                    screenOptions={DrawerOptions}
+                    drawerContent={ props => {
+                        return (
+                            <DrawerContentScrollView {...props}>
+                                <DrawerItemList {...props} />
+                                {logged?<DrawerItem labelStyle={{color: modes? '#EDEDED' : '#292929'}} label="Cerrar sesion" onPress={() => endSession(props)} />: <></>}
+                                <Switch style={{ alignSelf: "center" }} color={ "#776BC7"} value={isSwitchOn} onValueChange={onToggleSwitch} />
+                            </DrawerContentScrollView>
+                        )
+                    }}>
+                    <Drawer.Screen name="Inicio" component={Root} />
+                    {!logged?<Drawer.Screen name="Ingresar" component={Login}/>:<></>}
+                    {!logged?<Drawer.Screen name="Registrarse" component={Register} />:<></>}
+                    {logged ? <Drawer.Screen name="Crear evento" component={CreateEvent} /> : <></>}
+                </Drawer.Navigator>
+            </ThemeProvider>
+        </NavigationContainer>
+        
+    )
 }
