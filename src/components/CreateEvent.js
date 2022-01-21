@@ -26,6 +26,17 @@ import { Modal } from 'react-native';
 import { useDispatch } from "react-redux";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 
+  const state = { 
+    name: "",
+    initialPrice:"",
+    finalPrice: "",
+    initialDate: "",
+    finalDate:"",
+    type:"",
+    sortType:"",
+};
+
+
 var selected = [];
 export default function CreateEvent() {
   const user = useSelector((state) => state.authUserReducer);
@@ -53,13 +64,12 @@ export default function CreateEvent() {
   const [errors, setErrors] = useState({});
   const [show, setShow] = useState(false);
   const [showTime, setShowTime] = useState(false);
-  console.log(user)
   function create(event) {
     event.category = selected;
     axios
       .post("https://find-spot.herokuapp.com/events", event)
       .then((res) => {
-        dispatch(searchByFilters());
+        dispatch(searchByFilters(state));
         setInput(initialState)
         navigation.navigate('Home')})
       .catch((res) => console.log(res));
