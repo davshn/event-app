@@ -58,6 +58,7 @@ export default function CreateEvent() {
     eventPic: null,
     longitude: "",
     latitude: "",
+    capacity:null,
     token: user.token,
   };
   const [input, setInput] = useState(initialState);
@@ -80,6 +81,9 @@ export default function CreateEvent() {
     let error = {};
     if (!input.name) {
       error.name = "Campo requerido";
+    }
+    if (!input.capacity) {
+      error.capacity = "Campo requerido";
     }
     if (!input.place) {
       error.place = "Campo requerido";
@@ -221,6 +225,13 @@ export default function CreateEvent() {
         placeholder="Precio de la entrada"
       />
       {errors.price && <FormError>{errors.price}</FormError>}
+      <StyledInput
+        placeholderTextColor={"gray"}
+        value={input.capacity}
+        onChangeText={(ev) => hadleInputChange("capacity", ev)}
+        placeholder="Aforo máximo"
+      />
+      {errors.capacity && <FormError>{errors.capacity}</FormError>}
       <StyledInput
         placeholderTextColor={"gray"}
         value={input.place}
