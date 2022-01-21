@@ -5,12 +5,23 @@ import Payment from "../components/Payments";
 import { TextCardMedium, DetailInfo, GoBackButton } from "../generiComponents/GenericStyles";
 import { backgroundColor, TextColor } from "../services/theme";
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
-import { useSelector } from "react-redux"
+import { useSelector,useDispatch } from "react-redux"
 import { useNavigation } from "@react-navigation/native";
+import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 
+const initialState = { //Estado inicial para usuarios
+    name: "",
+    initialPrice:"",
+    finalPrice: "",
+    initialDate: "",
+    finalDate:"",
+    type:"",
+    sortType:"",
+};
 export default function EventDetail({ navigation: { goBack }, route }) {
   let { id } = route.params.item;
   useEffect(() => getById(id), []);
+  const dispatch = useDispatch();
   const getById = (id) => {
     axios
       .get(`https://find-spot.herokuapp.com/event/${id}`)
@@ -31,10 +42,12 @@ export default function EventDetail({ navigation: { goBack }, route }) {
     navigation.navigate('Home');
   }
   
-   function eventDelete() {
-    axios.post(`https://find-spot.herokuapp.com/event/deleteEvent`,{id:event.id})
+  function eventDelete() {
+     
+    axios.post(`https://find-spot.herokuapp.com/events/deleteEvent`,{id:event.id})
       .then((res) => {
-        return console.log("exito");
+        dispatch(searchByFilters(initialState));
+        goBack();
       })
       .catch((error) => {
         console.error(error);
