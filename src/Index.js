@@ -12,8 +12,7 @@ import { Switch } from 'react-native-paper';
 import { useState } from 'react';
 import { setDarkModeOn, setDarkModeOff } from './stateManagement/actions/darkModeActions';
 import { eraseUser } from './stateManagement/actions/authUserActions';
-import ShoppingCart from './components/ShoppingCart';
-import Shopper from './components/cart_Shopper';
+import Shopper from './components/ShoppingCart';
 
 
 const Drawer = createDrawerNavigator();
@@ -87,15 +86,7 @@ export default function Index() {
             ) : (
               <></>
             )}
-            {!logged ? (
-              <Drawer.Screen
-                name="Carrito de compras"
-                component={ShoppingCart}
-              />
-            ) : (
-              <></>
-            )}
-            <Drawer.Screen name="cart" component={Shopper} />
+            <Drawer.Screen name="Carrito de Compras" component={Shopper} />
           </Drawer.Navigator>
         </ThemeProvider>
       </NavigationContainer>

@@ -11,10 +11,11 @@ import {
 } from "../generiComponents/GenericStyles";
 import { backgroundColor, TextColor } from "../services/theme";
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { addToCart } from "../stateManagement/actions/cartActions"
 
 export default function EventDetail({ navigation: { goBack }, route }) {
-  
+  const dispatch = useDispatch();
   const [event, setEvent] = useState([]);
   let { id } = route.params.item;
   const modes = useSelector(state => state.darkModeReducer.darkMode);
@@ -41,6 +42,13 @@ export default function EventDetail({ navigation: { goBack }, route }) {
       {el.name}{" "}
     </TextCardMedium>
   ));
+
+  const handleAddToCart = (e) =>{
+    e.preventDefault();
+    const cartEvent = event;
+    cartEvent.counter = 1;
+    dispatch(addToCart(cartEvent));
+  }
 
   return (
     <>
@@ -113,12 +121,13 @@ export default function EventDetail({ navigation: { goBack }, route }) {
 
           <StyledButton
             style={{ marginTop: "4%", backgroundColor: "#121212" }}
-            onPress={''}//navigate to shopping cart 
+            onPress={e=>handleAddToCart(e)}//navigate to shopping cart 
           >
             <TextButton style={{ color: "#EDEDED" }}>
               Agregar al carrito
             </TextButton>
           </StyledButton>
+
         </BottomContainer>
       </ContainerImg>
     </>
