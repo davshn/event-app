@@ -38,6 +38,19 @@ export const GoBackButton = styled.View`
   margin-top: 5%;
   margin-left: 80%;
 `
+export const GoBackButton2 = styled.View`
+  background-color: ${backgroundColor};
+  width: 12%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  margin-top: 5%;
+  position: absolute;
+  left: 88%;
+  height: 45%;
+  bottom: 50%;
+  `
+
 
 export const TextStyled = styled.Text`
   font-size: 14px;
@@ -194,7 +207,7 @@ export const ProfilePic = styled.Image`
 export const Logo = styled.View`
   margin: auto;
   flex-direction: row;
-  align-self: center;
+  align-items: center;
 `;
 
 export const StyledText = styled.Text`
@@ -249,7 +262,7 @@ width: 100%;
 
 export const EventImage = styled.Image`
   width: 100%;
-  height: 200px;
+  height: 175px;
   margin: auto;
 `;
 
@@ -282,22 +295,25 @@ export const ViewBackground = styled.View`
 export const SearchbarView = styled.View`
 background-color: ${backgroundColor};
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
-  height: 15%;
+  height: 11%;
   justify-content: center;
-  padding-bottom: 10%;
+  padding-bottom: 1%;
 `;
 
 export const InicioFilterButton = styled.TouchableOpacity`
   background-color: ${backgroundColor};
   border-radius: 10px;
+  top: 10%;
   padding: 1%;
+  padding-top: 2%
   width: 25%;
   height: 70%;
   margin: 1%;
   border: 1.5px solid #776BC7;
-  align-self: center;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
   justify-content: center;
 `;
 export const InicioSearchInput = styled.TextInput`
@@ -313,4 +329,5 @@ export const InicioSearchInput = styled.TextInput`
 export const InicioButtonText = styled.Text`
   color: ${TextColor};
   text-align: center;
+  margin-top: 4%;
 `;

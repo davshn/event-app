@@ -15,6 +15,7 @@ import { eraseUser } from './stateManagement/actions/authUserActions';
 import Shopper from './components/ShoppingCart';
 
 
+
 const Drawer = createDrawerNavigator();
 
 export default function Index() {
@@ -30,7 +31,7 @@ export default function Index() {
         drawerActiveTintColor: modes? '#EDEDED' : '#EDEDED',
         drawerActiveBackgroundColor: "#776BC7",
         drawerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'},
-        headerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'}
+        headerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'},
     }
 
     const onToggleSwitch = () => {
@@ -91,4 +92,5 @@ export default function Index() {
         </ThemeProvider>
       </NavigationContainer>
     );
+
 }

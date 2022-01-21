@@ -11,16 +11,26 @@ import {
 } from "../generiComponents/GenericStyles";
 import { backgroundColor, TextColor } from "../services/theme";
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
-import { useSelector, useDispatch } from "react-redux"
 import { addToCart } from "../stateManagement/actions/cartActions"
+import { useSelector,useDispatch } from "react-redux"
+import { useNavigation } from "@react-navigation/native";
+import { searchByFilters } from '../stateManagement/actions/getEventsActions';
+import { ModalContStyled,ModalText,ModalButtonStyled,ButtonText } from '../generiComponents/ModalGen';
+import { Modal } from 'react-native';
 
+const initialState = { //Estado inicial para usuarios
+    name: "",
+    initialPrice:"",
+    finalPrice: "",
+    initialDate: "",
+    finalDate:"",
+    type:"",
+    sortType: "",
+};
 export default function EventDetail({ navigation: { goBack }, route }) {
-  const dispatch = useDispatch();
-  const [event, setEvent] = useState([]);
   let { id } = route.params.item;
-  const modes = useSelector(state => state.darkModeReducer.darkMode);
   useEffect(() => getById(id), []);
-
+  const dispatch = useDispatch();
   const getById = (id) => {
     axios
       .get(`https://find-spot.herokuapp.com/event/${id}`)
@@ -31,7 +41,34 @@ export default function EventDetail({ navigation: { goBack }, route }) {
         console.error(error);
       });
   };
-
+  
+  const [event, setEvent] = useState([]);
+  const modes = useSelector(state => state.darkModeReducer.darkMode);
+  const actualUser = useSelector(state => state.authUserReducer.id);
+  const eventUser = event.userId;
+  const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false); //Controla el modal
+  function eventEditor() {
+    const item = route.params.item;
+    navigation.navigate('EditEvent', { item: item });
+  }
+  
+  
+  function deleteModal() {
+      setModalVisible(true);
+  }
+  
+  function eventDelete() {
+    axios.post(`https://find-spot.herokuapp.com/events/deleteEvent`,{id:event.id})
+      .then((res) => {
+        dispatch(searchByFilters(initialState));
+        goBack();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  
   const tags = event.categories?.map((el) => (
     <TextCardMedium key={el.eventcategory.categoryId}>
       <MaterialCommunityIcons
@@ -68,6 +105,22 @@ export default function EventDetail({ navigation: { goBack }, route }) {
             onPress={() => goBack()}
           />
         </GoBackButton>
+        {eventUser === actualUser ? <GoBackButton>
+          <MaterialCommunityIcons
+            name="hardware-chip-outline"
+            color={modes? '#EDEDED' : '#292929'}
+            size={22}
+            onPress={() => eventEditor()}
+          />
+        </GoBackButton> : <></>}
+                {eventUser === actualUser ? <GoBackButton>
+          <MaterialCommunityIcons
+            name="close-circle-sharp"
+            color={modes? '#EDEDED' : '#292929'}
+            size={22}
+            onPress={() => deleteModal()}
+          />
+        </GoBackButton>:<></>}
         <BottomContainer>
           <TextName>{event.name}</TextName>
           <TextCardMedium style={{ bottom: "3%" }}>
@@ -130,6 +183,17 @@ export default function EventDetail({ navigation: { goBack }, route }) {
 
         </BottomContainer>
       </ContainerImg>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <ModalContStyled>
+          <ModalText>¿Deseas eliminar el evento de forma permanente?</ModalText>
+           <ModalButtonStyled onPress={() => eventDelete()}>
+            <ButtonText>Aceptar</ButtonText>
+            </ModalButtonStyled>
+          <ModalButtonStyled onPress={() => setModalVisible(false)}>
+            <ButtonText>Cancelar</ButtonText>
+          </ModalButtonStyled>
+        </ModalContStyled>
+      </Modal>
     </>
   );
 }
