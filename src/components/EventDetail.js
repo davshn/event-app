@@ -18,7 +18,7 @@ const initialState = { //Estado inicial para usuarios
     initialDate: "",
     finalDate:"",
     type:"",
-    sortType:"",
+    sortType: "",
 };
 export default function EventDetail({ navigation: { goBack }, route }) {
   let { id } = route.params.item;
@@ -42,7 +42,8 @@ export default function EventDetail({ navigation: { goBack }, route }) {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false); //Controla el modal
   function eventEditor() {
-    navigation.navigate('Home');
+    const item = route.params.item;
+    navigation.navigate('EditEvent', { item: item });
   }
   
   
