@@ -276,7 +276,7 @@ export default function CreateEvent() {
         {errors.latitude && <FormError>{errors.latitude}</FormError>}
         {show && (<DateTimePicker value={new Date} mode="date" display="default" onChange={onDateChange} />)}
         {showTime && (<DateTimePicker value={new Date} mode="time" display="default" is24Hour={true} onChange={onTimeChange} /> )}
-        {input.image && <Image source={{ uri: input.image }} style={{ width: 200, height: 200 }} />}
+        {input.eventPic && <Image source={{ uri: input.eventPic }} style={{ width: 200, height: 200 }} />}
       <StyledButton onPress={() => validate(input)}>
         <TextButton>Enviar</TextButton>
       </StyledButton>
