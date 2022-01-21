@@ -2,9 +2,16 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components/native";
 import Payment from "../components/Payments";
-import { TextCardMedium, DetailInfo, GoBackButton } from "../generiComponents/GenericStyles";
+import {
+  TextCardMedium,
+  DetailInfo,
+  GoBackButton,
+  StyledButton,
+  TextButton,
+} from "../generiComponents/GenericStyles";
 import { backgroundColor, TextColor } from "../services/theme";
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
+import { addToCart } from "../stateManagement/actions/cartActions"
 import { useSelector,useDispatch } from "react-redux"
 import { useNavigation } from "@react-navigation/native";
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
@@ -73,6 +80,13 @@ export default function EventDetail({ navigation: { goBack }, route }) {
     </TextCardMedium>
   ));
 
+  const handleAddToCart = (e) =>{
+    e.preventDefault();
+    const cartEvent = event;
+    cartEvent.counter = 1;
+    dispatch(addToCart(cartEvent));
+  }
+
   return (
     <>
       <ContainerImg style={{ backgroundColor: "#5641abff" }}>
@@ -86,7 +100,7 @@ export default function EventDetail({ navigation: { goBack }, route }) {
         <GoBackButton>
           <MaterialCommunityIcons
             name="chevron-down-outline"
-            color={modes? '#EDEDED' : '#292929'}
+            color={modes ? "#EDEDED" : "#292929"}
             size={22}
             onPress={() => goBack()}
           />
@@ -109,7 +123,10 @@ export default function EventDetail({ navigation: { goBack }, route }) {
         </GoBackButton>:<></>}
         <BottomContainer>
           <TextName>{event.name}</TextName>
-          <TextCardMedium style={{bottom: "3%"}}>{event.description?.charAt(0).toUpperCase() + event.description?.slice(1)}</TextCardMedium>
+          <TextCardMedium style={{ bottom: "3%" }}>
+            {event.description?.charAt(0).toUpperCase() +
+              event.description?.slice(1)}
+          </TextCardMedium>
           <DetailInfo>
             <TextCardMedium>
               <MaterialCommunityIcons
@@ -117,7 +134,8 @@ export default function EventDetail({ navigation: { goBack }, route }) {
                 color={"#776BC7"}
                 size={25}
               />{" "}
-              {event.place?.charAt(0).toUpperCase() + event.place?.slice(1)}  {/*Este codigo capitaliza la primer letra*/}
+              {event.place?.charAt(0).toUpperCase() + event.place?.slice(1)}{" "}
+              {/*Este codigo capitaliza la primer letra*/}
             </TextCardMedium>
             <TextCardMedium>
               <MaterialCommunityIcons
@@ -153,13 +171,16 @@ export default function EventDetail({ navigation: { goBack }, route }) {
             </TextCardMedium>
             <TextCardMedium>{tags}</TextCardMedium>
           </DetailInfo>
-          <Payment
-            precio={event.price}
-            evento={event.name}
-            cantidad={5}
-            fecha={event.date}
-            hora={event.time}
-          />
+
+          <StyledButton
+            style={{ marginTop: "4%", backgroundColor: "#121212" }}
+            onPress={e=>handleAddToCart(e)}//navigate to shopping cart 
+          >
+            <TextButton style={{ color: "#EDEDED" }}>
+              Agregar al carrito
+            </TextButton>
+          </StyledButton>
+
         </BottomContainer>
       </ContainerImg>
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
