@@ -17,5 +17,4 @@ const getEventsReducer = (state = INITIAL_STATE, { type, payload }) => {
           return state;
     }  
   }
-
 export default getEventsReducer;

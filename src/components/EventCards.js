@@ -44,7 +44,6 @@ export function EventCards() {
   const events = useSelector(state => state.getEventsReducer.events);
   console.log(events)
   const modes = useSelector(state => state.darkModeReducer.darkMode);
-
   const navigation = useNavigation();
 
   const _renderItem = ({ item }) => {
