@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons';
+import Pay from '../components/Payments';
 
 const Footer = () => {
     const shopState = useSelector((state)=> state.shopReducer);
@@ -13,20 +14,20 @@ const Footer = () => {
       checkoutButtonStyle } = styles3;
 
     return (
-      <View style={containerStyle}>
-        <TotalComponent />
-        <View style={buttonContainerStyle}>
-          <View style={closeButtonStyle}>
-            <Text style={{ color: '#bbb' }}>Borrar carrito</Text>
-          </View>
-  
-          <View style={checkoutButtonStyle}>
-              
-            <Text style={{ color: '#fff' }}>Ir a pagar</Text>
-          </View>
-        </View>
-      </View>
-    );
+			<View style={containerStyle}>
+				<TotalComponent />
+				<View style={buttonContainerStyle}>
+					<View style={closeButtonStyle}>
+						<Text style={{ color: "#bbb" }}>Borrar carrito</Text>
+					</View>
+
+					{/* <TouchableOpacity style={checkoutButtonStyle}> */}
+						<Pay style={checkoutButtonStyle} />
+				
+					
+				</View>
+			</View>
+		);
   };
 
 const TotalComponent = () => {
