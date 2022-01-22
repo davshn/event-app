@@ -4,6 +4,9 @@ import { View, ScrollView, Text, StyleSheet ,Image} from "react-native";
 import styled from "styled-components/native";
 import { useDispatch, useSelector } from "react-redux"
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
+import { useNavigation } from "@react-navigation/native";
+import { GoBackButton,} from "../generiComponents/GenericStyles";
+import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 
 const StyledView = styled.ScrollView`
   background-color: ${backgroundColor};
@@ -12,12 +15,29 @@ const StyledView = styled.ScrollView`
 export default function ForYou() {
   const dispatch = useDispatch();
   const events = useSelector(state => state.getEventsReducer.events);
-
+  const user = useSelector((state) => state.authUserReducer);
   useEffect(() => dispatch(searchByFilters()), []);
-
   const modes = useSelector(state => state.darkModeReducer.darkMode);
+  const navigation = useNavigation();
+  
+   function userEditor() {
+    navigation.navigate('UserUpdate');
+  }
+  
   return (
     <StyledView>
+      {user.logged? (
+					<GoBackButton>
+						<MaterialCommunityIcons
+							name="hardware-chip-outline"
+							color={modes ? "#EDEDED" : "#292929"}
+							size={22}
+							onPress={() => userEditor()}
+						/>
+					</GoBackButton>
+				) : (
+					<></>
+				)}
       <ContainerImg style={{backgroundColor: "#5641abff"}} >
         <BgImage
           source={{
