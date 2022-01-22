@@ -28,7 +28,8 @@ export default function Register({ navigation }) {
     axios.post('https://find-spot.herokuapp.com/register/updateUser',user) //Envia por post la a crear
       .then((res) => {
         setInput(initialState);
-        navigation.navigate('Home');})
+        navigation.navigate('Home');
+      })
       .catch((res)=>setModalVisible(true));  
   };
   
