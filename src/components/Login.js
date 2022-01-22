@@ -50,7 +50,7 @@ export default function Login({navigation}) {
         {errors.password&&(<FormError style={{marginLeft: "4%"}}>{errors.password}</FormError>)}
       <SectionStyled>
         <ButtonGen title="Acceder" onPress={()=>validate(input)} textcolor={'#EDEDED'}/>
-        <TextStyled style={{ color: "#999999"}}>¿Olvidaste tu contraseña?</TextStyled>
+        <TextStyled style={{ color: "#999999"}} onPress={() => navigation.navigate('Forgot')}>¿Olvidaste tu contraseña?</TextStyled>
       </SectionStyled>
       <SectionStyled>
         <TextStyled style={{ color: "#999999" }}>¿No tienes una cuenta?</TextStyled>
