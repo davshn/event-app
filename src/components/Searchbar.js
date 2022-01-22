@@ -161,22 +161,7 @@ export default function Searchbar() {
           >
             Fecha final: {filters.finalDate}
           </SelectedDate>
-          {show && (
-            <DateTimePicker
-              value={new Date()}
-              mode="date"
-              display="default"
-              onChange={onChange}
-            />
-          )}
-          {show2 && (
-            <DateTimePicker
-              value={new Date()}
-              mode="date"
-              display="default"
-              onChange={onChange2}
-            />
-          )}
+         
           <SmallerText
             style={{ marginTop: "6%", marginBottom: "6%", fontSize: 16 }}
           >
@@ -245,7 +230,23 @@ export default function Searchbar() {
             onPress={() => filterAndSearch(filters)}
           >
             <TextButton>Buscar</TextButton>
-          </StyledButton>
+          </StyledButton> 
+          {show && (
+            <DateTimePicker
+              value={new Date()}
+              mode="date"
+              display="default"
+              onChange={onChange}
+            />
+          )}
+          {show2 && (
+            <DateTimePicker
+              value={new Date()}
+              mode="date"
+              display="default"
+              onChange={onChange2}
+            />
+          )}
         </ViewStyled>
       </Modal>
     </SearchbarView>

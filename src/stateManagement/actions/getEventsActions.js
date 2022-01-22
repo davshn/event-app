@@ -13,7 +13,6 @@ export const searchByFilters = (body) => {
   };
 };
 
-
 function sort(arr, type, sortType = "ascending"){
   let sorted = arr.sort(function(a, b) {
     if(type==="name"){
@@ -38,4 +37,3 @@ function sort(arr, type, sortType = "ascending"){
   }
   return sorted;
 };
-
