@@ -6,7 +6,7 @@ import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import Root from './Root';
 import CreateEvent from './components/CreateEvent';
-import { LogoTitle } from "./components/LogoTitle"
+import { LogoTitle, LogoTitle2 } from "./components/LogoTitle"
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Switch } from 'react-native-paper';
 import { useState } from 'react';
@@ -71,7 +71,7 @@ export default function Index() {
               );
             }}
           >
-            <Drawer.Screen name="Inicio" component={Root} />
+            <Drawer.Screen name="Inicio" options={{headerTitle: () => <LogoTitle2 />}} component={Root}/>
             {!logged ? (
               <Drawer.Screen name="Ingresar" component={Login} />
             ) : (

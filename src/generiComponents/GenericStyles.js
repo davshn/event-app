@@ -306,7 +306,7 @@ export const InicioFilterButton = styled.TouchableOpacity`
   border-radius: 10px;
   top: 10%;
   padding: 1%;
-  padding-top: 2%
+  padding-top: 2%;
   width: 25%;
   height: 70%;
   margin: 1%;
