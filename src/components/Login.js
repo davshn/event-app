@@ -60,8 +60,7 @@ export default function Login({navigation}) {
         {errors.password&&(<FormError style={{marginLeft: "4%"}}>{errors.password}</FormError>)}
       <SectionStyled>
         <ButtonGen title="Acceder" onPress={()=>validate(input)} textcolor={'#EDEDED'}/>
-        <TextStyled style={{ color: "#999999"}} >¿Olvidaste tu contraseña?</TextStyled>
-       <ButtonGen title="Recuperala" onPress={() => setModalForgot(true)} textcolor={'#EDEDED'} />
+        <TextStyled onPress={() => setModalForgot(true)} style={{ color: "#999999"}} >¿Olvidaste tu contraseña?</TextStyled>
       </SectionStyled>
       <SectionStyled>
         <TextStyled style={{ color: "#999999" }}>¿No tienes una cuenta?</TextStyled>
@@ -76,8 +75,8 @@ export default function Login({navigation}) {
         </ModalContStyled>
       </Modal>
       <Modal animationType="fade" transparent={true} visible={modalForgot}>
-        <ModalContStyled>
-          <ModalText>Correo electronico</ModalText>
+        <ModalContStyled style={{height: "30%", bottom: "3%"}}>
+          <ModalText>Ingrese su correo electronico</ModalText>
           <InputStyled value={mail} onChangeText={(ev)=>setMail(ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
           <ModalButtonStyled onPress={() => forgotPass(mail)}>
             <ButtonText>Aceptar</ButtonText>
