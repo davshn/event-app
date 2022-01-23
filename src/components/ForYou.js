@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 import { MyComponent } from "./ForYouCard.js";
+import { useNavigation } from "@react-navigation/native";
+import { GoBackButton,} from "../generiComponents/GenericStyles";
+import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 
 
 export default function ForYou() {
@@ -19,8 +22,26 @@ export default function ForYou() {
   }, []);
 
   const modes = useSelector(state => state.darkModeReducer.darkMode);
+  const navigation = useNavigation();
+  
+   function userEditor() {
+    navigation.navigate('UserUpdate');
+  }
+  
   return (
     <StyledView>
+      {user.logged? (
+					<GoBackButton>
+						<MaterialCommunityIcons
+							name="hardware-chip-outline"
+							color={modes ? "#EDEDED" : "#292929"}
+							size={22}
+							onPress={() => userEditor()}
+						/>
+					</GoBackButton>
+				) : (
+					<></>
+				)}
       <ContainerImg style={{backgroundColor: "#5641abff"}} >
         <BgImage
           source={{
