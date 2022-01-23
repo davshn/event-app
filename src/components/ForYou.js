@@ -8,7 +8,6 @@ import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 import { MyComponent } from "./ForYouCard.js";
 import { useNavigation } from "@react-navigation/native";
 import { GoBackButton,} from "../generiComponents/GenericStyles";
-import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 
 
 export default function ForYou() {
