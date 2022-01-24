@@ -55,6 +55,7 @@ export default function Index() {
                   <DrawerItemList {...props} />
                   {logged ? (
                     <DrawerItem
+                      labelStyle={{color: modes? '#EDEDED' : '#292929'}}
                       label="Cerrar sesion"
                       onPress={() => endSession(props)}
                     />
@@ -87,7 +88,11 @@ export default function Index() {
             ) : (
               <></>
             )}
-            <Drawer.Screen name="Carrito de Compras" component={Shopper} />
+             {logged ? (
+                <Drawer.Screen name="Carrito de Compras" component={Shopper} />
+            ) : (
+              <></>
+            )}
           </Drawer.Navigator>
         </ThemeProvider>
       </NavigationContainer>
