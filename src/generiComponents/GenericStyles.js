@@ -57,6 +57,7 @@ export const TextStyled = styled.Text`
   text-align: center;
   margin: 3% 0;
   color: ${TextColor};
+  text-decoration: underline;
 `;
 
 export const ViewStyled = styled.ScrollView`
