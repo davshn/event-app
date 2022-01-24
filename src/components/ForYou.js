@@ -33,10 +33,10 @@ export default function ForYou() {
         categories: e.categories.map((c) => c.name),
       };
     });
-    let result = interests.map((i) => {
+    let result = interests?.map((i) => {
       return events.filter((e) => e.categories.includes(i));
     });
-    return result[0];
+    result? result[0]: null;
   }
 
   useEffect(() => {
