@@ -13,6 +13,7 @@ export default function Payments(props) {
 
 	let infoTicket = shopItems.cartItems.map((e) => {
 		return {
+			eventId:e.id,
 			precio: e.price,
 			evento: e.name,
 			comprador: name,
