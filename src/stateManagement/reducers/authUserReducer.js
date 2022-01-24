@@ -1,4 +1,4 @@
-import {SET_USER,ERASE_USER}from '../actions/authUserActions';
+import {SET_USER,ERASE_USER, SET_INTERESTS}from '../actions/authUserActions';
 
 const INITIAL_STATE = {
     token: "",
@@ -19,6 +19,11 @@ const authUserReducer = (state = INITIAL_STATE, { type, payload }) => {
             verifyed: payload.verifyProfile,
             profilePick: payload.profilePic,
             logged:true,
+        }
+
+        case SET_INTERESTS: return {          
+            ...state,
+            interests: payload
         }
         
         case ERASE_USER: return {          
