@@ -13,30 +13,26 @@ export default function Payments(props) {
 
 	let infoTicket = shopItems.cartItems.map((e) => {
 		return {
-			eventId:e.id,
-			precio: e.price,
-			evento: e.name,
-			comprador: name,
-			cantidad: e.counter,
-			fecha: e.date,
-			hora: e.time,
+			eventId: e.id,
+			userId: user.id,
+			price: e.price,
+			eventName: e.name,
+			quantity: e.counter,
+			date: e.date,
+			time: e.time,
+			place: e.place,
 		};
 	});
 
 	infoTicket = [...infoTicket, { 
     itemCount: shopItems.itemCount,
     totalToPay: shopItems.totalToPay,
-// update:shopItems.update
+
   }];
-	// precio:price,
-	// evento:props.name,
-	// comprador:name ,
-	// cantidad:6,
-	// fecha:props.date,
-	// hora:props.time,
+	
 
 	useEffect(() => {
-		console.log(infoTicket);
+		console.log(user,'aaaaaaaa' ,shopItems);
 	}, []);
 
 	const pay = async () => {
