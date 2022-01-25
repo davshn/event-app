@@ -3,6 +3,10 @@ import { useEffect } from "react";
 import { View, Alert } from "react-native";
 import { useSelector } from "react-redux";
 import { StyledButton, TextButton } from "../generiComponents/GenericStyles";
+import axios from 'axios';
+
+
+
 
 export default function Payments(props) {
 	const user = useSelector((state) => state.authUserReducer);
@@ -13,34 +17,34 @@ export default function Payments(props) {
 
 	let infoTicket = shopItems.cartItems.map((e) => {
 		return {
-			eventId:e.id,
-			precio: e.price,
-			evento: e.name,
-			comprador: name,
-			cantidad: e.counter,
-			fecha: e.date,
-			hora: e.time,
+			eventId: e.id,
+			userId: user.id,
+			price: e.price,
+			eventName: e.name,
+			quantity: e.counter,
+			date: e.date,
+			time: e.time,
+			place: e.place,
 		};
 	});
 
 	infoTicket = [...infoTicket, { 
     itemCount: shopItems.itemCount,
     totalToPay: shopItems.totalToPay,
-// update:shopItems.update
-  }];
-	// precio:price,
-	// evento:props.name,
-	// comprador:name ,
-	// cantidad:6,
-	// fecha:props.date,
-	// hora:props.time,
 
-	useEffect(() => {
-		console.log(infoTicket);
-	}, []);
+  }];
+	
+
+	// useEffect(() => {
+	// 	console.log(user,'aaaaaaaa' ,shopItems);
+	// }, []);
 
 	const pay = async () => {
 		try {
+// 			const checkStock = await axios.get(`https://find-spot.herokuapp.com/stock/allCartItems`,infoTicket);
+// console.log(checkStock)
+
+
 			const response = await fetch(`https://find-spot.herokuapp.com/pay`, {
 				method: "POST",
 				body: JSON.stringify({ name ,price }),
