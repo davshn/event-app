@@ -3,11 +3,11 @@ import MapView from 'react-native-maps';
 import { backgroundColor } from "../services/theme";
 
 export const MapViewContainer = styled.View`
-  background-color: ${backgroundColor};
+background-color: ${backgroundColor};
 `;
 
 export const MapStyled = styled(MapView)`
-    height:88.5%;
+    height:89%;
 `;
 
 export const stylesDarkMode = [
