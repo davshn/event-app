@@ -186,7 +186,7 @@ export default function EventDetail({ navigation: { goBack }, route }) {
 					</DetailInfo>
 
 					<StyledButton
-						style={{ marginTop: "4%", backgroundColor: "#121212" }}
+						style={{ marginTop: "4%", backgroundColor: "#121212", width: "70%" }}
 						onPress={(e) => handleAddToCart(e)} 
 					>
 						<TextButton style={{ color: "#EDEDED" }}>

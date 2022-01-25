@@ -53,7 +53,7 @@ export default function Login({navigation}) {
   
   return (
     <ViewStyled>
-      <TitleStyled>findSpot</TitleStyled>
+      <TitleStyled style={{bottom: 20}}>findSpot</TitleStyled>
      <InputStyled value={input.email} onChangeText={(ev)=>hadleInputChange("email",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
         {errors.email&&(<FormError style={{marginLeft: "4%"}}>{errors.email}</FormError>)}
       <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>

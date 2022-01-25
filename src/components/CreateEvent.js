@@ -207,9 +207,11 @@ export default function CreateEvent() {
         placeholder="Nombre del evento"
       />
       {errors.name && <FormError>{errors.name}</FormError>}
-      <SelectedDate style={{width:"80%"}} onPress={showTimepicker}>
-        Hora : {input.time}
-      </SelectedDate>
+      {input.time? <SelectedDate style={{width:"80%", color: modes? '#EDEDED' : '#292929'}} onPress={showTimepicker}>
+       {input.time} hs
+      </SelectedDate> : <SelectedDate style={{width:"80%"}} onPress={showTimepicker}>
+        Hora
+      </SelectedDate>}
       {errors.time && <FormError>{errors.time}</FormError>}
       <StyledInput
         placeholderTextColor={"gray"}
@@ -240,9 +242,11 @@ export default function CreateEvent() {
         placeholder="Ciudad"
       />
       {errors.place && <FormError>{errors.place}</FormError>}
-      <SelectedDate style={{width:"80%"}} onPress={showDatepicker}>
-        Fecha : {input.date}
-      </SelectedDate>
+      {input.date? <SelectedDate style={{width:"80%", color: modes? '#EDEDED' : '#292929'}} onPress={showDatepicker}>
+       {input.date}
+      </SelectedDate> : <SelectedDate style={{width:"80%"}} onPress={showDatepicker}>
+       Fecha
+      </SelectedDate>}
       </StyledView2>
       
       <SmallerText>Categorías:</SmallerText>
