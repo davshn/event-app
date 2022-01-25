@@ -107,24 +107,23 @@ export default function ForYou() {
             )) : <></>}
           </View>
 
-          <OptionsView style={{ bottom: "4%" }}>
+          <OptionsView onPress={() => navigation.navigate("ListadoTickets")} style={{ bottom: "4%" }}>
             <MaterialCommunityIcons
               name="receipt"
               color={"#776BC7"}
               size={22}
             />
-            {/* LISTado de tickets al cual se accede por id  */}
             <StyledText> Entradas compradas</StyledText>
           </OptionsView>
           {user.logged ? (
-            <OptionsView style={{ bottom: "4%" }}>
+            <OptionsView onPress={() => userEditor()} style={{ bottom: "4%" }}>
               <MaterialCommunityIcons
                 name="settings-outline"
                 color={"#776BC7"}
                 size={22}
                 onPress={() => userEditor()}
               />
-              <StyledText onPress={() => userEditor()}>
+              <StyledText>
                 {" "}
                 Editar perfil
               </StyledText>
@@ -225,7 +224,7 @@ const StyledText = styled.Text`
   font-size: 15px;
   font-weight: bold;
 `;
-const OptionsView = styled.View`
+const OptionsView = styled.TouchableOpacity`
   flex-direction: row;
   height: 10%;
   width: 90%;
