@@ -36,6 +36,7 @@ export default function ForYou() {
     let result = interests?.map((i) => {
       return events.filter((e) => e.categories.includes(i));
     });
+
     if (result) return result[0]
     else return undefined
   }
@@ -226,7 +227,7 @@ const StyledText = styled.Text`
 `;
 const OptionsView = styled.View`
   flex-direction: row;
-  height: 10%
+  height: 10%;
   width: 90%;
   border: 1px solid #776BC7;
   border-radius: 10px;
