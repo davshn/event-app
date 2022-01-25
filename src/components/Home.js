@@ -55,7 +55,7 @@ export default function HomeScreen() {
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                   name="person-outline"
-                  color={"#5302de"}
+                  color={modes? "#776BC7" : "#5302de"}
                   size={size}
                 />
               ),

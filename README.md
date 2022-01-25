@@ -18,7 +18,7 @@ Nuestro proyecto surge de la necesidad de encontrar una plataforma móvil que pe
 * PostgreSQL
 * Librerias destacadas: `react native paper`, `Json web token authentication`, `Google maps api`, 
 
-# Documentación para inicilizar la app 
+# Documentación para inicializar la app 
 
 ## Primeros Pasos
 

@@ -1,9 +1,7 @@
-import { useEffect } from "react";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 import { EventItem, EventImage, CardInfo, CardInfoText, EventItemContainer } from "../generiComponents/GenericStyles";
-import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 import { View } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 
@@ -43,18 +41,9 @@ const Item = ({ item }) => (
 );
 
 export function EventCards() {
-  const dispatch = useDispatch();
   const events = useSelector(state => state.getEventsReducer.events);
+ 
   const modes = useSelector(state => state.darkModeReducer.darkMode);
-
-  useEffect(() => dispatch(searchByFilters()), []);
-
-
-
-
-
-
-
   const navigation = useNavigation();
 
 

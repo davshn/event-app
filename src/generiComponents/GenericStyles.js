@@ -12,52 +12,52 @@ import MapView from 'react-native-maps';
 
 
 //Event detail CSS
-export const TextCardBig = styled.Text`
-  font-weight: bold;
-  text-decoration: underline;
-  font-size: 23px;
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 2.5px;
-  color: ${TextColor};
-`;
-
 export const TextCardMedium = styled.Text`
   text-align: auto;
-  font-size: 14px;
+  font-size: 16px;
   text-align: left;
   margin-top: 2.5px;
   margin-bottom: 2.5px;
   color: ${TextColor};
-`;
-
-export const TextCardSmall = styled.Text`
-  font-weight: 600;
-  font-size: 14px;
-  text-align: left;
-  margin-top: 2.5px;
-  margin-bottom: 2.5px;
-  color: ${TextColor};
-`;
-
-export const DetailView = styled.View`
-  margin: 20px;
-  border: 1px solid #776BC7;;
-  border-radius: 20px;
-  padding: 10px;
-  height: 100%;
 `;
 
 export const DetailInfo = styled.View`
-  margin: 20px;
-  height: 130px;
+  margin: 5%;
+  justify-content: space-evenly;
+  height: 40%;
+  bottom: 1%
 `;
+
+export const GoBackButton = styled.View`
+  background-color: ${backgroundColor};
+  height: 4%;
+  width: 8%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  margin-top: 5%;
+  margin-left: 80%;
+`
+export const GoBackButton2 = styled.View`
+  background-color: ${backgroundColor};
+  width: 12%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  margin-top: 5%;
+  position: absolute;
+  left: 88%;
+  height: 45%;
+  bottom: 50%;
+  `
+
 
 export const TextStyled = styled.Text`
   font-size: 14px;
   text-align: center;
   margin: 3% 0;
   color: ${TextColor};
+  text-decoration: underline;
 `;
 
 export const ViewStyled = styled.ScrollView`
@@ -75,17 +75,6 @@ export const InputStyled = styled.TextInput`
   align-self: center;
   color:${TextColor};
 `;
-
-export const FormStyled = styled.View`
-  `
-// `;
-// border-bottom-width: 1px;
-//   border-bottom-color: #999999;
-//   margin: 3% 0;
-//   width: 100%;
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
 
 export const FormError = styled.Text`
   color: red;
@@ -186,6 +175,7 @@ export const StyledButton = styled.TouchableOpacity`
   margin-bottom: 30px;
   border-radius: 10px;
   width: 88%;
+  padding: 1%
 `;
 
 export const TextButton = styled.Text`
@@ -218,7 +208,7 @@ export const ProfilePic = styled.Image`
 export const Logo = styled.View`
   margin: auto;
   flex-direction: row;
-  align-self: center;
+  align-items: center;
 `;
 
 export const StyledText = styled.Text`
@@ -273,7 +263,7 @@ width: 100%;
 
 export const EventImage = styled.Image`
   width: 100%;
-  height: 200px;
+  height: 175px;
   margin: auto;
 `;
 
@@ -306,22 +296,25 @@ export const ViewBackground = styled.View`
 export const SearchbarView = styled.View`
 background-color: ${backgroundColor};
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
-  height: 15%;
+  height: 11%;
   justify-content: center;
-  padding-bottom: 10%;
+  padding-bottom: 1%;
 `;
 
 export const InicioFilterButton = styled.TouchableOpacity`
   background-color: ${backgroundColor};
   border-radius: 10px;
+  top: 10%;
   padding: 1%;
+  padding-top: 2%;
   width: 25%;
   height: 70%;
   margin: 1%;
   border: 1.5px solid #776BC7;
-  align-self: center;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
   justify-content: center;
 `;
 export const InicioSearchInput = styled.TextInput`
@@ -337,4 +330,5 @@ export const InicioSearchInput = styled.TextInput`
 export const InicioButtonText = styled.Text`
   color: ${TextColor};
   text-align: center;
+  margin-top: 4%;
 `;

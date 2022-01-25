@@ -141,7 +141,7 @@ export default function Register({ navigation }) {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
-        aspect: [4, 3],
+        aspect: [3, 3],
         quality: 1,
       });
 
@@ -166,126 +166,75 @@ export default function Register({ navigation }) {
 
     fetch("https://api.cloudinary.com/v1_1/findspot/image/upload", {
       method: "POST",
-      body: data,
-    })
-      .then((res) => res.json())
-      .then((data) =>
-        setInput((prev) => ({ ...prev, image: data.secure_url }))
-      );
-  };
+      body: data
+    }).then(res => res.json())
+    .then(data => setInput(prev => ({ ...prev, "profilePic": data.secure_url })))
+  }
+
 
   return (
     <ViewBackground>
       <StyledView>
         <StyledTitle> Registrarse</StyledTitle>
-        <InputStyled
-          value={input.name}
-          onChangeText={(ev) => hadleInputChange("name", ev)}
-          placeholder="Nombre completo"
-          placeholderTextColor="gray"
-        />
-        {errors.name && <FormError>{errors.name}</FormError>}
-        <InputStyled
-          value={input.email}
-          onChangeText={(ev) => hadleInputChange("email", ev)}
-          placeholder="Correo"
-          placeholderTextColor="gray"
-          keyboardType="email-address"
-        />
-        {errors.email && <FormError>{errors.email}</FormError>}
-        <InputStyled
-          value={input.password}
-          onChangeText={(ev) => hadleInputChange("password", ev)}
-          placeholder="Contraseña"
-          placeholderTextColor="gray"
-          secureTextEntry
-        />
-        {errors.password && <FormError>{errors.password}</FormError>}
-        <InputStyled
-          value={input.passwordRep}
-          onChangeText={(ev) => hadleInputChange("passwordRep", ev)}
-          placeholder="Repite la contraseña"
-          placeholderTextColor="gray"
-          secureTextEntry
-        />
-        {errors.passwordRep && <FormError>{errors.passwordRep}</FormError>}
-        <SelectedDate
-          style={{ width: "90%", alignSelf: "center" }}
-          onPress={showDatepicker}
-        >
-          Año de nacimiento: {input.dateOfBirth}
-        </SelectedDate>
-        {errors.dateOfBirth && <FormError>{errors.dateOfBirth}</FormError>}
-        <AgregarFotoButton onPress={pickImage}>
-          <TextButton color={"#EDEDED"}>Agregar foto de perfil</TextButton>
-        </AgregarFotoButton>
-        {input.image && <ProfilePic source={{ uri: input.image }} />}
-        <SmallerText>Categorías:</SmallerText>
-        <CustomMultiPicker
-          options={categories}
-          search={false}
-          multiple={true}
-          placeholder={"Search"}
-          placeholderTextColor={"#757575"}
-          returnValue={"label"}
-          callback={(res) => {
-            selected = res;
-          }}
-          rowBackgroundColor={modes ? "#292929" : "#EDEDED"}
-          rowHeight={40}
-          rowRadius={5}
-          searchIconName="ios-checkmark"
-          searchIconColor="red"
-          searchIconSize={30}
-          iconColor={"#776BC7"}
-          textColor={modes ? "#EDEDED" : "#292929"}
-          iconSize={26}
-          selectedIconName={"ios-checkmark-circle-outline"}
-          unselectedIconName={"ios-radio-button-off-outline"}
-          scrollViewHeight={340}
-          selected={[]}
-          border={"#776BC7"}
-        />
-        <TextStyled style={{ color: "#999999" }}>
-          Al registrarte, estarás aceptando nuestros{" "}
-          <TermsText onPress={() => setTermsModalVisible(true)}>
-            términos y condiciones
-          </TermsText>
-        </TextStyled>
-        <ButtonGen
-          textcolor={"#EDEDED"}
-          title="Enviar"
-          onPress={() => validate(input)}
-        />
-
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={termsmodalVisible}
-        >
-          <TermsModal>
-            <TermsConditions />
-            <ModalButtonStyled onPress={() => setTermsModalVisible(false)}>
-              <ButtonText>Aceptar</ButtonText>
-            </ModalButtonStyled>
-          </TermsModal>
-        </Modal>
-        <Modal animationType="fade" transparent={true} visible={modalVisible}>
-          <ModalContStyled>
-            <ModalText>Verifica tus datos</ModalText>
-            <ModalButtonStyled onPress={() => setModalVisible(false)}>
-              <ButtonText>Aceptar</ButtonText>
-            </ModalButtonStyled>
-          </ModalContStyled>
-        </Modal>
-        {show && (
-          <DateTimePicker
-            value={new Date()}
-            mode="date"
-            display="default"
-            onChange={onChange}
-          />
-        )}
+        <InputStyled value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre completo" placeholderTextColor='gray' />
+        {errors.name&&(<FormError>{errors.name}</FormError>)}
+        <InputStyled value={input.email} onChangeText={(ev)=>hadleInputChange("email",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
+        {errors.email&&(<FormError>{errors.email}</FormError>)}
+        <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
+        {errors.password&&(<FormError>{errors.password}</FormError>)}
+        <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
+        {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
+        <SelectedDate style={{width: "90%", alignSelf: "center"}} onPress={showDatepicker}>Año de nacimiento: {input.dateOfBirth}</SelectedDate>
+        {errors.dateOfBirth&&(<FormError>{errors.dateOfBirth}</FormError>)}
+      <AgregarFotoButton onPress={pickImage}>
+        <TextButton color={'#EDEDED'}>Agregar foto de perfil</TextButton>
+      </AgregarFotoButton>
+      {input.profilePic && <ProfilePic source={{ uri: input.profilePic }}/>}
+      <SmallerText>Categorías:</SmallerText>
+      <CustomMultiPicker
+        options={categories}
+        search={false} 
+        multiple={true}
+        placeholder={"Search"}
+        placeholderTextColor={"#757575"}
+        returnValue={"label"}
+        callback={(res) => {
+          selected = res;
+        }}
+        rowBackgroundColor={modes? '#292929' : '#EDEDED'}
+        rowHeight={40}
+        rowRadius={5}
+        searchIconName="ios-checkmark"
+        searchIconColor="red"
+        searchIconSize={30}
+        iconColor={"#776BC7"}
+        textColor={modes? '#EDEDED' : '#292929'}
+        iconSize={26}
+        selectedIconName={"ios-checkmark-circle-outline"}
+        unselectedIconName={"ios-radio-button-off-outline"}
+        scrollViewHeight={340}
+        selected={[]}
+        border={"#776BC7"}
+      />
+      <TextStyled style={{ color: "#999999"}}>Al registrarte, estarás aceptando nuestros <TermsText onPress={() => setTermsModalVisible(true)}>términos y condiciones</TermsText></TextStyled>
+      <ButtonGen textcolor={'#EDEDED'} title="Enviar" onPress={() => validate(input)} />
+      <Modal animationType="fade" transparent={true} visible={termsmodalVisible}>
+        <TermsModal>
+          <TermsConditions/>
+          <ModalButtonStyled onPress={() => setTermsModalVisible(false)}>
+            <ButtonText>Aceptar</ButtonText>
+          </ModalButtonStyled>
+        </TermsModal>
+      </Modal>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <ModalContStyled>
+          <ModalText>Verifica tus datos</ModalText>
+          <ModalButtonStyled onPress={() => setModalVisible(false)}>
+            <ButtonText>Aceptar</ButtonText>
+          </ModalButtonStyled>
+        </ModalContStyled>
+      </Modal>
+        {show && (<DateTimePicker value={new Date()} mode='date' display="default" onChange={onChange} /> )}     
       </StyledView>
     </ViewBackground>
   );

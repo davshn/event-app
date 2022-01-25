@@ -38,7 +38,7 @@ import { searchByFilters } from '../stateManagement/actions/getEventsActions';
 
 
 var selected = [];
-export default function CreateEvent() {
+export default function EditEvent({route}) {
   const user = useSelector((state) => state.authUserReducer);
   const categories = useSelector((state) => state.getCategoriesReducer.categories);
   const modes = useSelector(state => state.darkModeReducer.darkMode);
@@ -46,20 +46,21 @@ export default function CreateEvent() {
   const [mapVisible, setMapVisible] = useState(false); //Controla el modal de mapas
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
+  const event = route.params.item;
   const initialState = {
-    name: "",
-    description: "",
-    place: "",
-    price: "",
-    date: "",
-    time: "",
+    id:event.id,
+    name: event.name,
+    description: event.description,
+    place: event.place,
+    price: event.price,
+    date: event.date,
+    time: event.time,
     creators: user.id,
-    eventPic: null,
+    eventPic: event.eventPic,
     eventVid:null,
     longitude: "",
     latitude: "",
-    capacity:null,
+    capacity: event.capacity.toString(),
     token: user.token,
   };
   const [input, setInput] = useState(initialState);
@@ -69,7 +70,7 @@ export default function CreateEvent() {
   function create(event) {
     event.category = selected;
     axios
-      .post("https://find-spot.herokuapp.com/events", event)
+      .post("https://find-spot.herokuapp.com/events/updateEvent", event)
       .then((res) => {
         dispatch(searchByFilters(state));
         setInput(initialState)
@@ -275,8 +276,8 @@ export default function CreateEvent() {
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <UploadPic onPress={()=>setMapVisible(true)}>Agregar ubicacion</UploadPic>
         {errors.latitude && <FormError>{errors.latitude}</FormError>}
-        {show && (<DateTimePicker minimumDate={new Date()} value={new Date()} mode="date" display="default" onChange={onDateChange} />)}
-        {showTime && (<DateTimePicker value={new Date()} mode="time" display="default" is24Hour={true} onChange={onTimeChange} /> )}
+        {show && (<DateTimePicker value={new Date} mode="date" display="default" onChange={onDateChange} />)}
+        {showTime && (<DateTimePicker value={new Date} mode="time" display="default" is24Hour={true} onChange={onTimeChange} /> )}
         {input.eventPic && <Image source={{ uri: input.eventPic }} style={{ width: 200, height: 200 }} />}
       <StyledButton onPress={() => validate(input)}>
         <TextButton>Enviar</TextButton>

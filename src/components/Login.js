@@ -16,8 +16,10 @@ export default function Login({navigation}) {
   };
   
   const [input, setInput] = useState(initialState); //Crea el estado que contiene los datos
-  const [errors,setErrors] = useState({});  //Crea el estado que contendrá los errores
+  const [errors, setErrors] = useState({});  //Crea el estado que contendrá los errores
+  const [modalForgot, setModalForgot] = useState(false); //Controla el modal Forgot
   const [modalVisible, setModalVisible] = useState(false); //Controla el modal de error al loguear
+  const [mail, setMail] = useState("");
   
   function loginUser(user){
       axios.post('https://find-spot.herokuapp.com/login',user) //Envia por post la a crear
@@ -41,6 +43,14 @@ export default function Login({navigation}) {
     setInput(prev => ({ ...prev, [input]: e }))
   };
   
+  function forgotPass(email) {
+  axios.post('https://find-spot.herokuapp.com/forgot',{email:email}) //Envia por post la a crear
+        .then((res) => {
+          setModalForgot(false);
+        })
+        .catch((res)=>setModalForgot(false));  
+  }
+  
   return (
     <ViewStyled>
       <TitleStyled>findSpot</TitleStyled>
@@ -50,7 +60,7 @@ export default function Login({navigation}) {
         {errors.password&&(<FormError style={{marginLeft: "4%"}}>{errors.password}</FormError>)}
       <SectionStyled>
         <ButtonGen title="Acceder" onPress={()=>validate(input)} textcolor={'#EDEDED'}/>
-        <TextStyled style={{ color: "#999999"}}>¿Olvidaste tu contraseña?</TextStyled>
+        <TextStyled onPress={() => setModalForgot(true)} style={{ color: "#999999"}} >¿Olvidaste tu contraseña?</TextStyled>
       </SectionStyled>
       <SectionStyled>
         <TextStyled style={{ color: "#999999" }}>¿No tienes una cuenta?</TextStyled>
@@ -60,6 +70,15 @@ export default function Login({navigation}) {
         <ModalContStyled>
           <ModalText>Usuario o contraseña incorrectos</ModalText>
           <ModalButtonStyled onPress={() => setModalVisible(false)}>
+            <ButtonText>Aceptar</ButtonText>
+          </ModalButtonStyled>
+        </ModalContStyled>
+      </Modal>
+      <Modal animationType="fade" transparent={true} visible={modalForgot}>
+        <ModalContStyled style={{height: "30%", bottom: "3%"}}>
+          <ModalText>Ingrese su correo electronico</ModalText>
+          <InputStyled value={mail} onChangeText={(ev)=>setMail(ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
+          <ModalButtonStyled onPress={() => forgotPass(mail)}>
             <ButtonText>Aceptar</ButtonText>
           </ModalButtonStyled>
         </ModalContStyled>

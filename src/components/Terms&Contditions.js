@@ -1,9 +1,12 @@
 import { ScrollView, Text } from "react-native";
+import { useSelector } from 'react-redux';
 
 export function TermsConditions() {
+  const modes = useSelector(state => state.darkModeReducer.darkMode);
+
   return (
     <ScrollView style={{marginBottom: "7%"}}>
-        <Text style={{fontSize: 17}}>
+        <Text style={{fontSize: 17, color:  modes? '#EDEDED' : '#292929'}}>
           Construyendo una Comunidad FindSpot es un lugar donde cualquiera
           puede crear o encontrar experiencias en directo que alimenten sus
           pasiones. Como organización que se preocupa por la diversidad de
