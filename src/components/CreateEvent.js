@@ -279,9 +279,11 @@ export default function CreateEvent() {
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <UploadPic onPress={()=>setMapVisible(true)}>Agregar ubicacion</UploadPic>
         {errors.latitude && <FormError>{errors.latitude}</FormError>}
-        {show && (<DateTimePicker value={new Date} mode="date" display="default" onChange={onDateChange} />)}
-        {showTime && (<DateTimePicker value={new Date} mode="time" display="default" is24Hour={true} onChange={onTimeChange} /> )}
+         
+        {show && (<DateTimePicker minimumDate={new Date()} value={new Date()} mode="date" display="default" onChange={onDateChange} />)}
+        {showTime && (<DateTimePicker value={new Date()} mode="time" display="default" is24Hour={true} onChange={onTimeChange} /> )}
         {input.eventPic && <Image source={{ uri: input.eventPic }} style={{ width: "85%", height: 180, alignSelf: "center", marginBottom: "5%", marginTop: "1%", borderRadius: 10 }} />}
+
       <StyledButton onPress={() => validate(input)}>
         <TextButton>Enviar</TextButton>
       </StyledButton>
