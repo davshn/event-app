@@ -11,13 +11,6 @@ import registerNNPushToken from "native-notify";
 export default function App() {
 	//NOTIFICATIONS
 	let pushDataObject = registerNNPushToken(1027, "QDhK0aqm5Kl4RbiDFPKh5U");
-	//ANALYTICS
-
-	// useEffect(() => {
-	// 	// console.log(pushDataObject);
-
-	// });
-
 	return (
 		<>
 			<Provider store={store}>
