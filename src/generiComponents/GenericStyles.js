@@ -215,7 +215,6 @@ export const StyledText = styled.Text`
   color: ${TextColor};
 `
 
-
 export const SelectedDate = styled.Text`
   border-radius: 15px;
   border: 0.5px solid grey;
@@ -402,3 +401,12 @@ export const RowViews = styled.View`
   //     borderRadius: 10,
   //   }
   // };
+
+  export const OptionsView = styled.View`
+  width: 90%;
+  border: 1px solid #776BC7;
+  align-self: center;
+  border-radius: 10px;
+  margin-vertical: 1%;
+  padding: 4%
+`;
