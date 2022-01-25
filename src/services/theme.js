@@ -16,3 +16,8 @@ export const ImputColor = theme('mode', {
   light: 'gray',
   dark: '#EDEDED',
 });
+
+export const CartBorder = theme('mode', {
+  light: '#e2e2e2',
+  dark: '#1F1F1F',
+});
