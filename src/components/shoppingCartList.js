@@ -1,19 +1,9 @@
 import React from "react";
-import {
-	SafeAreaView,
-	View,
-	FlatList,
-	StyleSheet,
-	Text,
-	StatusBar,
-	Image,
-} from "react-native";
+import { SafeAreaView, View, FlatList, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
-import {
-	addToCart,
-	removeFromCart,
-} from "../stateManagement/actions/cartActions";
+import { addToCart, removeFromCart } from "../stateManagement/actions/cartActions";
+import { CartImage, Counter, ItemContainer, Title } from "../generiComponents/GenericStyles";
 
 const ShoppingList = () => {
 	const shopState = useSelector((state) => state.shopReducer);
@@ -45,7 +35,7 @@ const ShoppingList = () => {
 		);
 
 	return (
-		<SafeAreaView style={styles.container}>
+		<SafeAreaView style={{flex: 5}}>
 			<FlatList
 				data={events}
 				renderItem={renderItem}
@@ -64,80 +54,59 @@ const Item = ({
 	handleAddToCart,
 	handleRemoveFromCart,
 }) => (
-	<View style={styles.itemContanier}>
-		<Image source={{ uri: image }} style={styles.imageStyle} />
+	<ItemContainer style={styles.itemContanier}>
+		<CartImage source={{ uri: image }}/>
 
-		<View style={styles.item}>
-			<Text style={styles.title}>{title}</Text>
-			<Text style={styles.price}>${price}</Text>
+		<View style={{padding: 10}}>
+			<Title>{title}</Title>
+			<Title>${price}</Title>
 		</View>
 
-		<View style={styles.counterStyle}>
+		<Counter>
 			<Icon.Button
 				name="ios-remove"
-				size={25}
+				size={18}
 				color="#fff"
-				backgroundColor="#fff"
+				borderRadius={15}
 				style={{
-					borderRadius: 15,
-					backgroundColor: "#bbb",
-					height: 30,
+					justifyContent: "center",
+					alignItems: "center",
+					backgroundColor: "#776bc7ff",
+					height: "45%",
 					width: 30,
 				}}
-				iconStyle={{ marginRight: 0 }}
+				iconStyle={{ alignSelf: "center",marginRight: 0, bottom: "15%", right: "8%" }}
 				onPress={(e) => handleRemoveFromCart(e, item)}
 			/>
 
-			<Text>{counter}</Text>
+			<Title>{counter}</Title>
 
 			<Icon.Button
 				name="ios-add"
-				size={25}
+				size={18}
 				color="#fff"
-				backgroundColor="#fff"
+				borderRadius={15}
 				style={{
-					borderRadius: 15,
-					backgroundColor: "#bbb",
-					height: 30,
+					justifyContent: "center",
+					alignItems: "center",
+					backgroundColor: "#776bc7ff",
+					height: "45%",
 					width: 30,
 				}}
-				iconStyle={{ marginRight: 0 }}
+				iconStyle={{ alignSelf: "center",marginRight: 0, bottom: "15%", right: "8%" }}
 				onPress={(e) => handleAddToCart(e, item)}
 			/>
-		</View>
-	</View>
+		</Counter>
+	</ItemContainer>
 );
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 5,
-		marginTop: StatusBar.currentHeight || 0,
-	},
 	itemContanier: {
 		flex: 4,
 		flexDirection: "row",
-		backgroundColor: "#EDEDED",
 		marginVertical: 8,
 		marginHorizontal: 0,
-	},
-	item: {
-		padding: 10,
-	},
-	title: {
-		fontSize: 16,
-	},
-	imageStyle: {
-		width: 50,
-		height: 50,
-		marginVertical: 8,
-		marginHorizontal: 8,
-	},
-	counterStyle: {
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "space-around",
-		alignItems: "center",
-	},
-});
+	}
+})
 
 export default ShoppingList;

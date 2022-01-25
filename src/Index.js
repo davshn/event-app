@@ -31,7 +31,7 @@ export default function Index() {
         drawerActiveTintColor: modes? '#EDEDED' : '#EDEDED',
         drawerActiveBackgroundColor: "#776BC7",
         drawerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'},
-        headerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'},
+        headerStyle: {backgroundColor: modes? '#292929' : '#EDEDED', elevation: 0},
         
     }
 
