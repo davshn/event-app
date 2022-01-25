@@ -207,9 +207,11 @@ export default function CreateEvent() {
         placeholder="Nombre del evento"
       />
       {errors.name && <FormError>{errors.name}</FormError>}
-      <SelectedDate style={{width:"80%"}} onPress={showTimepicker}>
-        Hora : {input.time}
-      </SelectedDate>
+      {input.time? <SelectedDate style={{width:"80%", color: modes? '#EDEDED' : '#292929'}} onPress={showTimepicker}>
+       {input.time} hs
+      </SelectedDate> : <SelectedDate style={{width:"80%"}} onPress={showTimepicker}>
+        Hora
+      </SelectedDate>}
       {errors.time && <FormError>{errors.time}</FormError>}
       <StyledInput
         placeholderTextColor={"gray"}
@@ -240,9 +242,11 @@ export default function CreateEvent() {
         placeholder="Ciudad"
       />
       {errors.place && <FormError>{errors.place}</FormError>}
-      <SelectedDate style={{width:"80%"}} onPress={showDatepicker}>
-        Fecha : {input.date}
-      </SelectedDate>
+      {input.date? <SelectedDate style={{width:"80%", color: modes? '#EDEDED' : '#292929'}} onPress={showDatepicker}>
+       {input.date}
+      </SelectedDate> : <SelectedDate style={{width:"80%"}} onPress={showDatepicker}>
+       Fecha
+      </SelectedDate>}
       </StyledView2>
       
       <SmallerText>Categorías:</SmallerText>
@@ -275,9 +279,11 @@ export default function CreateEvent() {
       <UploadPic onPress={pickImage}>Subir foto</UploadPic>
       <UploadPic onPress={()=>setMapVisible(true)}>Agregar ubicacion</UploadPic>
         {errors.latitude && <FormError>{errors.latitude}</FormError>}
+         
         {show && (<DateTimePicker minimumDate={new Date()} value={new Date()} mode="date" display="default" onChange={onDateChange} />)}
         {showTime && (<DateTimePicker value={new Date()} mode="time" display="default" is24Hour={true} onChange={onTimeChange} /> )}
-        {input.eventPic && <Image source={{ uri: input.eventPic }} style={{ width: 200, height: 200 }} />}
+        {input.eventPic && <Image source={{ uri: input.eventPic }} style={{ width: "85%", height: 180, alignSelf: "center", marginBottom: "5%", marginTop: "1%", borderRadius: 10 }} />}
+
       <StyledButton onPress={() => validate(input)}>
         <TextButton>Enviar</TextButton>
       </StyledButton>

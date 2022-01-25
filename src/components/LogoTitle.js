@@ -30,7 +30,7 @@ export function LogoTitle2() {
 			/>
 			<StyledText
 				onPress={() => navigation.navigate("Home")}
-				style={{ fontSize: 20, fontWeight: "bold", marginRight: "40%" }}>
+				style={{ fontSize: 20, fontWeight: "bold", marginRight: "38%" }}>
 				findSpot
 			</StyledText>
 			<MaterialCommunityIcons

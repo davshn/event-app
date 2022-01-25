@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
-import { InputStyled, FormError, StyledTitle, StyledView, ViewBackground, AgregarFotoButton, TextButton, ProfilePic, TextStyled, TermsText, TermsModal } from '../generiComponents/GenericStyles';
+import { InputStyled, FormError, StyledTitle, ViewBackground, StyledView, AgregarFotoButton, TextButton, ProfilePic, TextStyled, TermsText, TermsModal } from '../generiComponents/GenericStyles';
 import * as ImagePicker from 'expo-image-picker';
-import {Alert} from 'react-native' ; 
+import {Alert, View} from 'react-native' ; 
 import axios from 'axios';
 import { Modal,Text } from 'react-native';
 import { ModalContStyled, ModalText, ModalButtonStyled, ButtonText } from '../generiComponents/ModalGen';
 import { useSelector } from "react-redux"
 import { TermsConditions } from "./Terms&Contditions"
+import styled from "styled-components/native";
+import { backgroundColor } from "../services/theme";
 
 export default function Register({ navigation }) {
   const user = useSelector((state) => state.authUserReducer);
@@ -86,21 +88,21 @@ export default function Register({ navigation }) {
 
 
   return (
-    <ViewBackground>
+    <ViewBackground style= {{height: "100%"}}>
       <StyledView>
-        <StyledTitle> Registrarse</StyledTitle>
-        <InputStyled value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre completo" placeholderTextColor='gray' />
-        {errors.name&&(<FormError>{errors.name}</FormError>)}
-        <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
-        {errors.password&&(<FormError>{errors.password}</FormError>)}
-        <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
-        {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
+        <StyledTitle style={{marginBottom: 30, marginTop: 20}}> Actualizar perfil</StyledTitle>
+          <InputStyled value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre completo" placeholderTextColor='gray' />
+          {errors.name&&(<FormError>{errors.name}</FormError>)}
+          <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
+          {errors.password&&(<FormError>{errors.password}</FormError>)}
+          <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
+          {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
       <AgregarFotoButton onPress={pickImage}>
-        <TextButton color={'#EDEDED'}>Agregar foto de perfil</TextButton>
+        <TextButton color={'#EDEDED'}>Cambiar foto de perfil</TextButton>
       </AgregarFotoButton>
-      {input.profilePic && <ProfilePic source={{ uri: input.profilePic }}/>}
-     <TextStyled style={{ color: "#999999"}}><TermsText onPress={() => setTermsModalVisible(true)}>términos y condiciones</TermsText></TextStyled>
-      <ButtonGen textcolor={'#EDEDED'} title="Enviar" onPress={() => validate(input)} />
+      {input.profilePic ? <ProfilePic source={{ uri: input.profilePic }}/> : <View style={{height: 150, margin: "7%"}}></View>}
+     <TextStyled ><TermsText style={{ color: "#999999"}} onPress={() => setTermsModalVisible(true)}>Términos y condiciones</TermsText></TextStyled>
+      <ButtonGen style={{top: "10%"}} textcolor={'#EDEDED'} title="Enviar" onPress={() => validate(input)} /> 
       <Modal animationType="fade" transparent={true} visible={termsmodalVisible}>
         <TermsModal>
           <TermsConditions/>

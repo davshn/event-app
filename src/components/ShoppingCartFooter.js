@@ -1,101 +1,53 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 import { useSelector } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons';
 import Pay from '../components/Payments';
+import { CartText, FooterStyled, RowViews, BorrarCarrito } from '../generiComponents/GenericStyles';
 
 const Footer = () => {
     const shopState = useSelector((state)=> state.shopReducer);
     const events = shopState.cartItems;
-    const { 
-      containerStyle, 
-      buttonContainerStyle, 
-      closeButtonStyle, 
-      checkoutButtonStyle } = styles3;
 
     return (
-			<View style={containerStyle}>
+			<FooterStyled>
 				<TotalComponent />
-				<View style={buttonContainerStyle}>
-					<View style={closeButtonStyle}>
-						<Text style={{ color: "#bbb" }}>Borrar carrito</Text>
-					</View>
+				<RowViews style={{paddingTop: "4%"}}>
+					<BorrarCarrito>
+						<Text style={{ color: "#817c99ff" }}>Borrar carrito</Text>
+					</BorrarCarrito>
 
 					{/* <TouchableOpacity style={checkoutButtonStyle}> */}
-						<Pay style={checkoutButtonStyle} />
-				
+						<Pay/>
+
 					
-				</View>
-			</View>
+				</RowViews>
+			</FooterStyled>
 		);
   };
 
+
 const TotalComponent = () => {
-    const { containerStyle, goodsStyle, totalStyle } = styles5;
+    const modes = useSelector(state => state.darkModeReducer.darkMode); // (para los estilos)
     const shopState = useSelector((state)=> state.shopReducer);
     const events = shopState.cartItems;
     const totalToPay = shopState.totalToPay;
     const itemCount = shopState.itemCount;
 
     return (
-      <View style={containerStyle}>
-        <View style={goodsStyle}>
-          <Icon name="ios-cart" size={20} style={{ marginRight: 8 }} />
-          <Text>{itemCount} items</Text>
-        </View>
+      <RowViews style={{paddingTop: "4%"}}>
+        <RowViews >
+          <Icon name="ios-cart" size={20} style={{ marginRight: "2.5%", color: modes? '#EDEDED' : '#292929' }} />
+          <CartText>{itemCount} items</CartText>
+        </RowViews>
   
-        <View style={totalStyle}>
-          <Text>Total - </Text>
-          <Text>${totalToPay}</Text>
-        </View>
-      </View>
+        <RowViews>
+          <CartText>Total - </CartText>
+          <CartText>${totalToPay}</CartText>
+        </RowViews>
+      </RowViews>
     );
   };
 
-  const styles3 = {
-    containerStyle: {
-      flex: 1,
-      paddingRight: 15,
-      paddingLeft: 15,
-      borderTopWidth: 1,
-      borderColor: '#e2e2e2',
-    },
-    buttonContainerStyle: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      paddingTop: 15,
-    },
-    closeButtonStyle: {
-      backgroundColor: '#EDEDED',
-      padding: 10,
-      paddingRight: 30,
-      paddingLeft: 30,
-      borderRadius: 10,
-    }, 
-    checkoutButtonStyle: {
-      textcolor: '#EDEDED',
-      backgroundColor: '#776BC7',
-      padding: 10,
-      paddingRight: 60,
-      paddingLeft: 60,
-      borderRadius: 10,
-    }
-  };
-
-  const styles5 = {
-    containerStyle: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      paddingTop: 15
-    },
-    goodsStyle: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-    totalStyle: {
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    }
-  };
 
   export default Footer;

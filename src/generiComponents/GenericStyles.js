@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { backgroundColor, TextColor, InputColor } from "../services/theme";
+import { backgroundColor, TextColor, InputColor, CartBorder } from "../services/theme";
 import MapView from 'react-native-maps';
 
 /* CSS HEX */
@@ -293,6 +293,7 @@ export const MapViewContainer = styled.ScrollView`
 export const ViewBackground = styled.View`
   background-color: ${backgroundColor};
 `;
+
 export const SearchbarView = styled.View`
 background-color: ${backgroundColor};
   display: flex;
@@ -317,6 +318,7 @@ export const InicioFilterButton = styled.TouchableOpacity`
   align-content: center;
   justify-content: center;
 `;
+
 export const InicioSearchInput = styled.TextInput`
   background-color: ${backgroundColor};
   border-radius: 10px;
@@ -332,3 +334,71 @@ export const InicioButtonText = styled.Text`
   text-align: center;
   margin-top: 4%;
 `;
+
+export const HeaderStyle = styled.View`
+  background-color: ${backgroundColor};
+  flex: 0.4;
+  padding: 2%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px #776bc7ff;
+  elevation: 2;
+`// 
+
+export const ItemContainer = styled.View`
+  background-color: ${backgroundColor};
+  elevation: 5;
+`
+export const Title = styled.Text`
+  font-size: 16px;
+  color: ${TextColor};
+`
+
+export const CartImage = styled.Image`
+  width: 15%;
+	height: 80%;
+	margin-vertical: 3%;
+	margin-horizontal: 2.2%; 
+  border-radius: 10px;
+  align-self: center; 
+`
+
+export const Counter = styled.View`
+  flex: 1px;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+`
+
+export const FooterStyled = styled.View`
+  flex: 1px;
+  padding-right: 4%;
+  padding-left: 4%;
+  border: 1px ${CartBorder};
+`
+
+export const CartText = styled.Text`
+  color: ${TextColor};
+`
+export const RowViews = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`
+  export const BorrarCarrito = styled.View`
+  background-color: ${backgroundColor};
+  padding: 3%;
+  border-radius: 10px;
+`
+
+  // *pagarbutton
+  // const styles3 = {         
+  //   checkoutButtonStyle: {
+  //     textcolor: '#EDEDED',
+  //     backgroundColor: '#776BC7',
+  //     padding: 10,
+  //     paddingRight: 60,
+  //     paddingLeft: 60,
+  //     borderRadius: 10,
+  //   }
+  // };

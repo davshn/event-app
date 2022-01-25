@@ -75,9 +75,9 @@ export default function Payments(props) {
 	};
 
 	return (
-		<View>
+		<View style={{ right: "2%", bottom: "1%"}}>
 			<StyledButton
-				style={{ marginTop: "4%", backgroundColor: "#121212" }}
+				style={{ marginTop: "4%", backgroundColor: "#121212", width: "100%" }}
 				onPress={pay}>
 				<TextButton style={{ color: "#EDEDED" }}>Pagar</TextButton>
 			</StyledButton>

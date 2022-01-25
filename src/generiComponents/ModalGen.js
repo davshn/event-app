@@ -7,7 +7,7 @@ export const ModalContStyled = styled.View`
     height: 20%;
     margin: 10%;
     margin-top: 70%;
-    padding: 1%;
+    padding: 2%;
     background-color:${backgroundColor};
     border-radius:10px;
     border: 1.5px solid #776BC7;
