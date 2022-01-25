@@ -43,13 +43,13 @@ export default function Payments(props) {
 		try {
 			// crashea 1 vez cuando intenta chequear stock, y al reiniciar, siempre devuelve true
 
-			// // aca pregunto al back si hay stock de los productos de mi carrito
- 			// const result = await axios.get(`https://find-spot.herokuapp.com/stock/allCartItems`, infoTicket);
-			// const checkStock = result.data
-			// console.log(user.id)
-			// console.log(infoTicket)
-			// console.log(checkStock)	// ver porque siempre devuelve true
-			// // aca iria la logica del stock pero siempre devuelve true
+			// aca pregunto al back si hay stock de los productos de mi carrito
+ 			const result = await axios.get(`https://find-spot.herokuapp.com/stock/allCartItems`, infoTicket);
+			const checkStock = result.data
+			console.log(user.id)
+			console.log(infoTicket)
+			console.log(checkStock)	// ver porque siempre devuelve true
+			// aca iria la logica del stock pero siempre devuelve true
 			
 
 			const response = await fetch(`https://find-spot.herokuapp.com/pay`, {
@@ -77,11 +77,11 @@ export default function Payments(props) {
 			if (presentSheet.error) return Alert.alert(presentSheet.error.message);
 
 			if (response.ok) {
-				if (response.ok) {
-					const generateTicket = await axios.post("https://find-spot.herokuapp.com/infoTicket//createTicket",infoTicket);
-					const newGenerateTicket = generateTicket.data
-					console.log(newGenerateTicket.message) // no borren ni comenten este console log
-				};
+
+				const generateTicket = await axios.post("https://find-spot.herokuapp.com/infoTicket/createTicket",infoTicket);
+				const newGenerateTicket = generateTicket.data
+				console.log(newGenerateTicket.message) // no borren ni comenten este console log
+				
 
 			Alert.alert("Compra realizada con éxito!");
 			}
