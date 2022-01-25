@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
 import { TextColor } from "../services/theme";
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
@@ -84,9 +84,3 @@ export const MyComponent = ({ name, pic, date, time, price }) => {
 )};
 
 export default MyComponent;
-
-//
-//     <Card.Content>
-//
-//       <Paragraph>Card content</Paragraph>
-//     </Card.Content>

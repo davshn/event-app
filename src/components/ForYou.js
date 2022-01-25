@@ -1,6 +1,6 @@
 import { backgroundColor, TextColor } from "../services/theme.js";
 import React, { useEffect } from "react";
-import { View, ScrollView, Text, VirtualizedList } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { useDispatch, useSelector } from "react-redux";
 import { searchByFilters } from "../stateManagement/actions/getEventsActions";
@@ -36,8 +36,10 @@ export default function ForYou() {
     let result = interests?.map((i) => {
       return events.filter((e) => e.categories.includes(i));
     });
-    result? result[0]: null;
+    if (result) return result[0]
+    else return undefined
   }
+  var filterEvents = filteredEvents(events)
 
   useEffect(() => {
     getInterests(user.id);
@@ -129,7 +131,7 @@ export default function ForYou() {
           ) : (
             <></>
           )}
-          {filteredEvents(events) ? (
+          {filterEvents ? (
             <>
               <View
                 style={{
@@ -155,17 +157,18 @@ export default function ForYou() {
                 }}
                 horizontal
               >
-                {filteredEvents(events).map((e, x) => (
-                  <MyComponent
-                    key={x}
-                    name={e.name}
-                    date={e.date}
-                    time={e.time}
-                    pic={e.eventPic}
-                    price={e.price}
-                    onPress={() => navigation.navigate("Detail")}
-                  />
-                ))}
+                {filterEvents.map((e, x) => {
+                  return(
+                    <TouchableOpacity key={x} onPress={() => navigation.navigate("Detail", { item: e })}>
+                      <MyComponent
+                        name={e.name}
+                        date={e.date}
+                        time={e.time}
+                        pic={e.eventPic}
+                        price={e.price}
+                      />
+                    </TouchableOpacity> 
+                )})}
               </ScrollView>
             </>
           ) : (
