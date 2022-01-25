@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import ButtonGen from '../generiComponents/ButtonGen';
-import { InputStyled, FormError, StyledTitle, StyledView, ViewBackground, AgregarFotoButton, TextButton, ProfilePic, TextStyled, TermsText, TermsModal } from '../generiComponents/GenericStyles';
+import { InputStyled, FormError, StyledTitle, ViewBackground, AgregarFotoButton, TextButton, ProfilePic, TextStyled, TermsText, TermsModal } from '../generiComponents/GenericStyles';
 import * as ImagePicker from 'expo-image-picker';
-import {Alert} from 'react-native' ; 
+import {Alert, View} from 'react-native' ; 
 import axios from 'axios';
 import { Modal,Text } from 'react-native';
 import { ModalContStyled, ModalText, ModalButtonStyled, ButtonText } from '../generiComponents/ModalGen';
 import { useSelector } from "react-redux"
 import { TermsConditions } from "./Terms&Contditions"
+import styled from "styled-components/native";
+import { backgroundColor } from "../services/theme";
 
 export default function Register({ navigation }) {
   const user = useSelector((state) => state.authUserReducer);
@@ -86,21 +88,23 @@ export default function Register({ navigation }) {
 
 
   return (
-    <ViewBackground>
-      <StyledView>
-        <StyledTitle> Registrarse</StyledTitle>
-        <InputStyled value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre completo" placeholderTextColor='gray' />
-        {errors.name&&(<FormError>{errors.name}</FormError>)}
-        <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
-        {errors.password&&(<FormError>{errors.password}</FormError>)}
-        <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
-        {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
+    <ViewBackground style= {{height: 680}}>
+      <StyledView  style={{justifyContent: "space-evenly", height: "90%"}}>
+        <StyledTitle style={{bottom: "8%"}}> Actualizar perfil</StyledTitle>
+        <View style={{bottom: "4%"}}>
+          <InputStyled value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre completo" placeholderTextColor='gray' />
+          {errors.name&&(<FormError>{errors.name}</FormError>)}
+          <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
+          {errors.password&&(<FormError>{errors.password}</FormError>)}
+          <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
+          {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
+        </View>
       <AgregarFotoButton onPress={pickImage}>
-        <TextButton color={'#EDEDED'}>Agregar foto de perfil</TextButton>
+        <TextButton color={'#EDEDED'}>Cambiar foto de perfil</TextButton>
       </AgregarFotoButton>
       {input.profilePic && <ProfilePic source={{ uri: input.profilePic }}/>}
-     <TextStyled style={{ color: "#999999"}}><TermsText onPress={() => setTermsModalVisible(true)}>términos y condiciones</TermsText></TextStyled>
-      <ButtonGen textcolor={'#EDEDED'} title="Enviar" onPress={() => validate(input)} />
+     <TextStyled ><TermsText style={{ color: "#999999"}} onPress={() => setTermsModalVisible(true)}>Términos y condiciones</TermsText></TextStyled>
+      <ButtonGen textcolor={'#EDEDED'} title="Enviar" onPress={() => validate(input)} /> 
       <Modal animationType="fade" transparent={true} visible={termsmodalVisible}>
         <TermsModal>
           <TermsConditions/>
@@ -121,3 +125,12 @@ export default function Register({ navigation }) {
     </ViewBackground>
   );
 }
+
+const StyledView = styled.View`
+  margin: 6%;
+  border: 0.5px solid grey;
+  padding: 4%;
+  border-radius: 10px;
+  padding-bottom: 10px;
+  background-color:${backgroundColor};
+`;
