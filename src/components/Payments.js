@@ -3,6 +3,10 @@ import { useEffect } from "react";
 import { View, Alert } from "react-native";
 import { useSelector } from "react-redux";
 import { StyledButton, TextButton } from "../generiComponents/GenericStyles";
+import axios from 'axios';
+
+
+
 
 export default function Payments(props) {
 	const user = useSelector((state) => state.authUserReducer);
@@ -31,12 +35,16 @@ export default function Payments(props) {
   }];
 	
 
-	useEffect(() => {
-		console.log(user,'aaaaaaaa' ,shopItems);
-	}, []);
+	// useEffect(() => {
+	// 	console.log(user,'aaaaaaaa' ,shopItems);
+	// }, []);
 
 	const pay = async () => {
 		try {
+// 			const checkStock = await axios.get(`https://find-spot.herokuapp.com/stock/allCartItems`,infoTicket);
+// console.log(checkStock)
+
+
 			const response = await fetch(`https://find-spot.herokuapp.com/pay`, {
 				method: "POST",
 				body: JSON.stringify({ name ,price }),
