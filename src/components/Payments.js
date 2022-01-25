@@ -28,16 +28,11 @@ export default function Payments(props) {
     totalToPay: shopItems.totalToPay,
 // update:shopItems.update
   }];
-	// precio:price,
-	// evento:props.name,
-	// comprador:name ,
-	// cantidad:6,
-	// fecha:props.date,
-	// hora:props.time,
 
-	useEffect(() => {
-		console.log(infoTicket);
-	}, []);
+
+	// useEffect(() => {
+	// 	console.log(infoTicket);
+	// }, []);
 
 	const pay = async () => {
 		try {
