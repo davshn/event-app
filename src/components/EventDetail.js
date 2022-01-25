@@ -21,7 +21,7 @@ import {
   ModalButtonStyled,
   ButtonText,
 } from "../generiComponents/ModalGen";
-import { Modal } from "react-native";
+import { Modal, View } from "react-native";
 
 const initialState = {
   //Estado inicial para usuarios
@@ -228,12 +228,14 @@ export default function EventDetail({ navigation: { goBack }, route }) {
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <ModalContStyled>
           <ModalText>¿Deseas eliminar el evento de forma permanente?</ModalText>
-          <ModalButtonStyled onPress={() => eventDelete()}>
+		  <View style={{flexDirection: "row"}}>
+			  <ModalButtonStyled onPress={() => eventDelete()}>
             <ButtonText>Aceptar</ButtonText>
           </ModalButtonStyled>
           <ModalButtonStyled onPress={() => setModalVisible(false)}>
             <ButtonText>Cancelar</ButtonText>
           </ModalButtonStyled>
+		  </View>
         </ModalContStyled>
       </Modal>
 
