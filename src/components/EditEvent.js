@@ -140,12 +140,14 @@ export default function EditEvent({route}) {
   }
 
   const onDateChange = (event, selectedDate) => {
+    setByTimezone(selectedDate);
     const currentDate = selectedDate;
     setShow(Platform.OS === "ios");
     if (currentDate) { setInput((prev) => ({ ...prev, date: currentDate.toISOString().slice(0, -14) })) };
   };
   
   const onTimeChange = (event, selectedTime) => {
+    setByTimezone(selectedTime);
     const currentTime = selectedTime;
     setShowTime(Platform.OS === "ios");
     if (currentTime) { setInput((prev) => ({ ...prev, time: currentTime.toISOString().slice(11, -8) })) };
@@ -195,7 +197,11 @@ export default function EditEvent({route}) {
     }).then(res => res.json())
     .then(data => setInput(prev => ({ ...prev, "eventPic": data.secure_url })))
   }
-
+  const setByTimezone = (time) => {
+    const date = new Date()
+    const difference = -date.getTimezoneOffset() / 60
+    time.setHours(time.getHours() + difference)
+}
   return (
     <ViewBackground>
       <StyledView>

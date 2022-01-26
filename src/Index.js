@@ -14,25 +14,22 @@ import { setDarkModeOn, setDarkModeOff } from './stateManagement/actions/darkMod
 import { eraseUser } from './stateManagement/actions/authUserActions';
 import Shopper from './components/ShoppingCart';
 
-
-
 const Drawer = createDrawerNavigator();
 
 export default function Index() {
-    const modes = useSelector(state => state.darkModeReducer.darkMode);
-    const logged = useSelector(state => state.authUserReducer.logged);
-    const dispatch = useDispatch();
-    const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const modes = useSelector(state => state.darkModeReducer.darkMode);
+  const logged = useSelector(state => state.authUserReducer.logged);
+  const dispatch = useDispatch();
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
     
-    const DrawerOptions = {   // drawer styles
-        headerTitle: () => <LogoTitle />,
-        drawerInactiveTintColor: modes? '#EDEDED' : '#292929',
-        drawerInactiveBackgroundColor: modes? '#292929' : '#EDEDED',
-        drawerActiveTintColor: modes? '#EDEDED' : '#EDEDED',
-        drawerActiveBackgroundColor: "#776BC7",
-        drawerStyle: {backgroundColor: modes? '#292929' : '#EDEDED'},
-        headerStyle: {backgroundColor: modes? '#292929' : '#EDEDED', elevation: 0},
-        
+  const DrawerOptions = {   // drawer styles
+    headerTitle: () => <LogoTitle />,
+    drawerInactiveTintColor: modes ? '#EDEDED' : '#292929',
+    drawerInactiveBackgroundColor: modes ? '#292929' : '#EDEDED',
+    drawerActiveTintColor: modes ? '#EDEDED' : '#EDEDED',
+    drawerActiveBackgroundColor: "#776BC7",
+    drawerStyle: { backgroundColor: modes ? '#292929' : '#EDEDED' },
+    headerStyle: { backgroundColor: modes ? '#292929' : '#EDEDED', elevation: 0 },
     }
 
     const onToggleSwitch = () => {
@@ -43,7 +40,8 @@ export default function Index() {
     const endSession = (props) => {
         props.navigation.navigate("Inicio");
         dispatch(eraseUser());
-    };
+  };
+  
     return (
       <NavigationContainer>
         <ThemeProvider theme={{ mode: modes ? "dark" : "light" }}>

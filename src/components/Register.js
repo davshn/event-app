@@ -72,6 +72,7 @@ export default function Register({ navigation }) {
   }
     
   const onChange = (event, selectedDate) => {             //Guarda la fecha seleccionada
+    setByTimezone(selectedDate);
     const currentDate = selectedDate;
     setShow(Platform.OS === 'ios');
     if (currentDate) { setInput(prev => ({ ...prev, "dateOfBirth": currentDate.toISOString().slice(0, -14) })) };
@@ -117,7 +118,11 @@ export default function Register({ navigation }) {
     .then(data => setInput(prev => ({ ...prev, "profilePic": data.secure_url })))
   }
 
-
+  const setByTimezone = (time) => {
+    const date = new Date()
+    const difference = -date.getTimezoneOffset() / 60
+    time.setHours(time.getHours() + difference)
+  }
   return (
     <ViewBackground>
       <StyledView>
