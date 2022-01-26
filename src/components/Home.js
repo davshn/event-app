@@ -25,6 +25,7 @@ export default function HomeScreen() {
             name="Inicio"
             component={StartScreen}
             options={{
+              tabBarLabel:"",
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                   name="home-outline"
@@ -39,6 +40,7 @@ export default function HomeScreen() {
             name="Explorar"
             component={Explore}
             options={{
+              tabBarLabel:"",
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                   name="globe-outline"
@@ -52,6 +54,7 @@ export default function HomeScreen() {
             name="Para ti"
             component={ForYou}
             options={{
+              tabBarLabel:"",
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                   name="person-outline"

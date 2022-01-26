@@ -118,6 +118,7 @@ export default function Searchbar() {
         onChangeText={(ev) => hadleInputChange("name", ev)}
         placeholder="Busca tu evento"
         placeholderTextColor={modes ? "#EDEDED" : "#292929"}
+        color={modes ? "#EDEDED" : "#292929"}
         onSubmitEditing={() => filterAndSearch(filters)}
       />
       <InicioFilterButton onPress={() => setFiltersVisible(true)}>
