@@ -1,9 +1,10 @@
 import { useStripe } from "@stripe/stripe-react-native";
 import { useEffect } from "react";
 import { View, Alert } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch} from "react-redux";
 import { StyledButton, TextButton } from "../generiComponents/GenericStyles";
 import axios from 'axios';
+import { reset } from "../stateManagement/actions/cartActions"
 
 
 
@@ -11,9 +12,15 @@ import axios from 'axios';
 export default function Payments(props) {
 	const user = useSelector((state) => state.authUserReducer);
 	const shopItems = useSelector((state) => state.shopReducer);
-  const price = shopItems.totalToPay
+  	const price = shopItems.totalToPay
 	let name = user.name;
 	const stripe = useStripe();
+	const dispatch = useDispatch();
+
+		
+	const handleReset = () => {
+		dispatch(reset());
+	};
 
 	let infoTicket = shopItems.cartItems.map((e) => {
 		return {
@@ -45,15 +52,11 @@ export default function Payments(props) {
 			// pregunto al back si hay stock de los productos de mi carrito
  			const result = await axios.post(`https://find-spot.herokuapp.com/stock/allCartItems`, infoTicket);
 			const checkStock = result.data
-			// console.log(user.id)
-			// console.log(infoTicket)
-			// console.log(checkStock)	
 			
 			if (!checkStock) {
 				return Alert.alert("No hay stock disponible para algún item del carrito de compras")
 			}
 			
-
 			
 			// inicia la petición para el pago del carrito
 			const response = await fetch(`https://find-spot.herokuapp.com/pay`, {
@@ -86,9 +89,8 @@ export default function Payments(props) {
 				const generateTicket = await axios.post("https://find-spot.herokuapp.com/infoTicket/createTicket",infoTicket);
 				const newGenerateTicket = generateTicket.data
 				console.log(newGenerateTicket.message) // no borren ni comenten este console log
-				
-
-			Alert.alert("Compra realizada con éxito!");
+				handleReset()
+				Alert.alert("Compra realizada con éxito!");
 			}
 		} catch (error) {
 			console.error(error);
