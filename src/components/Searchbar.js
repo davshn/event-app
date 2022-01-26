@@ -81,6 +81,7 @@ export default function Searchbar() {
 
   const onChange = (event, selectedDate) => {
     //Guarda la fecha seleccionada
+    setByTimezone(selectedDate);
     const currentDate = selectedDate;
     setShow(Platform.OS === "ios");
     if (currentDate) {
@@ -93,6 +94,7 @@ export default function Searchbar() {
 
   const onChange2 = (event, selectedDate) => {
     //Guarda la fecha seleccionada
+    setByTimezone(selectedDate);
     const currentDate = selectedDate;
     setShow2(Platform.OS === "ios");
     if (currentDate) {
@@ -103,6 +105,12 @@ export default function Searchbar() {
     }
   };
 
+    const setByTimezone = (time) => {
+    const date = new Date()
+    const difference = -date.getTimezoneOffset() / 60
+    time.setHours(time.getHours() + difference)
+  }
+  
   return (
     <SearchbarView>
       <InicioSearchInput
