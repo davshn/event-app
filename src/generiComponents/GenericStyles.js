@@ -297,7 +297,7 @@ export const SearchbarView = styled.View`
 background-color: ${backgroundColor};
   display: flex;
   flex-direction: row;
-  height: 11%;
+  height: 69px;
   justify-content: center;
   padding-bottom: 1%;
 `;

@@ -55,7 +55,7 @@ const Item = ({
 	handleRemoveFromCart,
 }) => (
 	<ItemContainer style={styles.itemContanier}>
-		<CartImage source={{ uri: image }}/>
+		<CartImage source={{ uri: image || "https://i.pinimg.com/564x/55/05/b7/5505b700ffbba3f9190799cb0c532535.jpg" }}/>
 
 		<View style={{padding: 10}}>
 			<Title>{title}</Title>

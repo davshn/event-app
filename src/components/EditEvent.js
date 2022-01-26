@@ -290,7 +290,7 @@ export default function EditEvent({route}) {
         {showTime && (<DateTimePicker value={new Date} mode="time" display="default" is24Hour={true} onChange={onTimeChange} /> )}
         {input.eventPic && <Image source={{ uri: input.eventPic }} style={{ width: "85%", height: 180, alignSelf: "center", marginBottom: "5%", marginTop: "1%", borderRadius: 10 }} />}
       <StyledButton onPress={() => validate(input)}>
-        <TextButton>Enviar</TextButton>
+        <TextButton>Actualizar</TextButton>
       </StyledButton>
       <Modal animationType="fade" transparent={true} visible={mapVisible}>
         <MapViewContainer>
