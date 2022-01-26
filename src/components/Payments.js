@@ -41,17 +41,21 @@ export default function Payments(props) {
 
 	const pay = async () => {
 		try {
-			// crashea 1 vez cuando intenta chequear stock, y al reiniciar, siempre devuelve true
-
-			// aca pregunto al back si hay stock de los productos de mi carrito
- 			const result = await axios.get(`https://find-spot.herokuapp.com/stock/allCartItems`, infoTicket);
+			
+			// pregunto al back si hay stock de los productos de mi carrito
+ 			const result = await axios.post(`https://find-spot.herokuapp.com/stock/allCartItems`, infoTicket);
 			const checkStock = result.data
-			console.log(user.id)
-			console.log(infoTicket)
-			console.log(checkStock)	// ver porque siempre devuelve true
-			// aca iria la logica del stock pero siempre devuelve true
+			// console.log(user.id)
+			// console.log(infoTicket)
+			// console.log(checkStock)	
+			
+			if (!checkStock) {
+				return Alert.alert("No hay stock disponible para algún item del carrito de compras")
+			}
 			
 
+			
+			// inicia la petición para el pago del carrito
 			const response = await fetch(`https://find-spot.herokuapp.com/pay`, {
 				method: "POST",
 				body: JSON.stringify({ name ,price }),
@@ -76,6 +80,7 @@ export default function Payments(props) {
 
 			if (presentSheet.error) return Alert.alert(presentSheet.error.message);
 
+			// genero el ticket por cada item del carrito
 			if (response.ok) {
 
 				const generateTicket = await axios.post("https://find-spot.herokuapp.com/infoTicket/createTicket",infoTicket);
