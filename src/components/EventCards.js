@@ -10,7 +10,7 @@ const Item = ({ item }) => (
   <EventItem>
     <EventImage
       source={{
-        uri: item.eventPic || "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg"
+        uri: item.eventPic || "https://i.pinimg.com/564x/55/05/b7/5505b700ffbba3f9190799cb0c532535.jpg"
       }}
     />
     <CardInfo>
