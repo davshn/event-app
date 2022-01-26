@@ -150,6 +150,14 @@ export default function EventDetail({ navigation: { goBack }, route }) {
             </TextCardMedium>
             <TextCardMedium>
               <MaterialCommunityIcons
+                name="clipboard-outline"
+                color={"#776BC7"}
+                size={25}
+              />{" "}
+              {event.availableStock + " entradas disponibles"}
+            </TextCardMedium>
+            <TextCardMedium>
+              <MaterialCommunityIcons
                 name="logo-usd"
                 color={"#776BC7"}
                 size={25}
