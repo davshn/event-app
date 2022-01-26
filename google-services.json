@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "748584117209",
+    "project_id": "findspot-5790c",
+    "storage_bucket": "findspot-5790c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748584117209:android:f672a9b47f8d093472afc8",
+        "android_client_info": {
+          "package_name": "com.eventapp.eventapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748584117209-sb41so8lreaokbqcqpnl3ockakus1mn5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRJpxvqrHejiuMc63LmrMrQ3uHH5r_znE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748584117209-sb41so8lreaokbqcqpnl3ockakus1mn5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

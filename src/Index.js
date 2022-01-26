@@ -1,4 +1,4 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import Login from "./components/Login";
 import Register from './components/Register';
 import { useSelector,useDispatch } from 'react-redux';

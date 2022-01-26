@@ -33,11 +33,8 @@ export default function Payments(props) {
     totalToPay: shopItems.totalToPay,
 
   }];
-	
 
-	// useEffect(() => {
-	// 	console.log(user,'aaaaaaaa' ,shopItems);
-	// }, []);
+
 
 	const pay = async () => {
 		try {

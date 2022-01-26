@@ -17,7 +17,9 @@ export const Receipt = () => {
     >
         <View style={{height:"90%", justifyContent:"center"}}>
           {/* a partir de aca meten la data */}
-          <Text style={{alignSelf: "center"}}>HOLa</Text>  
+          
+
+          
         </View>
     
     </ZigzagView>

@@ -46,6 +46,10 @@ export function EventCards() {
   const modes = useSelector(state => state.darkModeReducer.darkMode);
   const navigation = useNavigation();
 
+
+
+
+
   const _renderItem = ({ item }) => {
     return (
       <EventItemContainer onPress={() => navigation.navigate("Detail", { item: item })}>
@@ -57,6 +61,7 @@ export function EventCards() {
   
 
   return (
+    
     <FlatList
       style={{backgroundColor: modes? '#292929' : '#EDEDED'}}
       data={events}
