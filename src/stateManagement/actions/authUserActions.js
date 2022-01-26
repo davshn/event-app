@@ -1,6 +1,7 @@
 export const SET_USER = 'SET_USER';
 export const ERASE_USER = 'ERASE_USER';
 export const SET_INTERESTS = "SET_INTERESTS"
+export const GET_TICKETS = 'GET_TICKETS'
 
 //Acciones del estado de autenticacion
 
@@ -18,4 +19,16 @@ export function eraseUser() {
 
 export function setInterests(payload) {
     return ({ type: SET_INTERESTS, payload: payload });
+}
+
+
+export const getTickets = (id) => {
+    return async function (dispatch) {
+        try {
+            const response = await axios.post('https://find-spot.herokuapp.com/infoTicket', { userId:id })
+            return dispatch({ type: GET_TICKETS, payload: response.data });
+        }   catch (error) {
+            return "Not found";
+        }
+    };
 }

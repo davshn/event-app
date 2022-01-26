@@ -1,18 +1,11 @@
 import { FlatList } from "react-native-gesture-handler";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { OptionsView, StyledText, StyledTitle, ViewBackground } from "../generiComponents/GenericStyles";
+import { useEffect } from "react";
+import { getTickets } from "../stateManagement/actions/authUserActions";
 
-/* AQUI SE HACE EL GETALL QUE DEVUELVE todos LOS TICKETS POR PERSONA  */
-let events = [
-  { key: "Iron Man" },
-  { key: "Thor" },
-  { key: "Captain America" },
-  { key: "Hulk" },
-  { key: "Black Widow" },
-  { key: "Hawkeye" },
-];
 
 const Item = ({ item }) => (
   <OptionsView>
@@ -21,9 +14,13 @@ const Item = ({ item }) => (
 );
 
 export const TicketList = () => {
-  const modes = useSelector((state) => state.darkModeReducer.darkMode);
+  const dispatch = useDispatch();
+  const modes = useSelector((state) => state.darkModeReducer.darkMode); // estilos
+  const tickets = useSelector((state) => state.authUserReducer.tickets)
+  const user = useSelector((state) => state.authUserReducer);
   const navigation = useNavigation();
-  
+
+  useEffect(() => {dispatch(getTickets(user.id))})
 
   const _renderItem = ({ item }) => {
     return (
@@ -45,7 +42,7 @@ export const TicketList = () => {
           backgroundColor: modes ? "#292929" : "#EDEDED",
           height: "100%",
         }}
-        data={events}
+        data={tickets}
         renderItem={_renderItem}
         keyExtractor={() => key++}
         navigation={navigation}

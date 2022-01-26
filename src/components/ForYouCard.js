@@ -27,7 +27,7 @@ export const MyComponent = ({ name, pic, date, time, price }) => {
       source={{
         uri:
           pic ||
-          "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_1280.jpg",
+          "https://i.pinimg.com/564x/55/05/b7/5505b700ffbba3f9190799cb0c532535.jpg",
       }}
     />
     <View style={{ display: "flex", flexDirection: "row", width:"100%", height: "36%", padding: "3%" }}>
