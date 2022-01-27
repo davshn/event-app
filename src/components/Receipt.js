@@ -17,18 +17,18 @@ export const Receipt = ({navigation : { goBack }, route}) => {
         padding="7%"
     >
         <View style={{height:"90%", padding: "15%", paddingHorizontal: "10%"}}>
-          <StyledText style={{fontSize: 28, alignSelf: "center"}}>findSpot®</StyledText>
+          <StyledText onPress={() => console.log(ticket)} style={{fontSize: 28, alignSelf: "center"}}>findSpot®</StyledText>
           <StyledText style={{alignSelf: "center", marginTop: 7, fontSize: 16}}>{ticket.place}</StyledText>
           <StyledText style={{marginTop: 10}}>{ticket.date}</StyledText>
           <StyledText style={{marginTop: 8}}>{ticket.time}</StyledText>
           <StyledText style={{fontSize: 20, alignSelf: "center", marginTop: 16}}>RECIBO</StyledText>
           <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 20}}>
           <StyledText>{ticket.quantity} Entrada para {ticket.eventName}</StyledText>
-          <StyledText>${ticket.price}</StyledText>
+          <StyledText>${ticket.price * ticket.quantity}</StyledText>
           </View>
           <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 10, alignItems:"center"}}>
           <StyledText style={{fontSize: 20}}>Total</StyledText>
-          <StyledText>${ticket.price}</StyledText>
+          <StyledText>${ticket.price * ticket.quantity}</StyledText>
           </View>
           <View style={{alignItems: "center", top: "10%"}}>
             <QRCode value= {ticket.idTicket} size={140}/>
