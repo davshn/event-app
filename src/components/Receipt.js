@@ -1,13 +1,21 @@
-import { View } from "react-native"
+import { View , Image} from "react-native"
 import ZigzagView from "react-native-zigzag-view"
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { StyledText } from "../generiComponents/GenericStyles";
 import QRCode from 'react-native-qrcode-svg';
+import React from "react";
 
 export const Receipt = ({navigation : { goBack }, route}) => {
   const modes = useSelector((state) => state.darkModeReducer.darkMode);
   const ticket = route.params.item;
-  
+
+  let newTime = ticket.time.slice(0, 5)
+
+  let stringQR = `idUsuario: ${ticket.idTicket}, Evento: ${ticket.eventName}, Fecha: ${ticket.date}, Hora: ${ticket.time},
+   Cantidad de entradas: ${ticket.quantity}}`
+
+
   return (
     <ZigzagView
         backgroundColor={modes ? "#292929" : "#EDEDED"}
@@ -19,22 +27,30 @@ export const Receipt = ({navigation : { goBack }, route}) => {
         <View style={{height:"90%", padding: "15%", paddingHorizontal: "10%"}}>
           <StyledText onPress={() => console.log(ticket)} style={{fontSize: 28, alignSelf: "center"}}>findSpot®</StyledText>
           <StyledText style={{alignSelf: "center", marginTop: 7, fontSize: 16}}>{ticket.place}</StyledText>
-          <StyledText style={{marginTop: 10}}>{ticket.date}</StyledText>
-          <StyledText style={{marginTop: 8}}>{ticket.time}</StyledText>
+          <StyledText style={{marginTop: 10}}>Fecha: {ticket.date}</StyledText>
+          <StyledText style={{marginTop: 8}}>Hora: {newTime} hs</StyledText>
           <StyledText style={{fontSize: 20, alignSelf: "center", marginTop: 16}}>RECIBO</StyledText>
           <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 20}}>
-          <StyledText>{ticket.quantity} Entrada para {ticket.eventName}</StyledText>
-          <StyledText>${ticket.price * ticket.quantity}</StyledText>
+          <StyledText>Ticket "{ticket.eventName}" x {ticket.quantity} </StyledText>
+          <StyledText>${ticket.price + " c/u"}</StyledText>
           </View>
           <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 10, alignItems:"center"}}>
-          <StyledText style={{fontSize: 20}}>Total</StyledText>
+          <StyledText style={{fontSize: 20}}>Total abonado</StyledText>
           <StyledText>${ticket.price * ticket.quantity}</StyledText>
           </View>
           <View style={{alignItems: "center", top: "10%"}}>
-            <QRCode value= {ticket.idTicket} size={140}/>
+            <QRCode value= {stringQR} size={160}/>
             <StyledText style={{fontSize: 10, marginTop: 5}}>{ticket.idTicket}</StyledText>
           </View>
-          
+          <View>
+			    <Image
+				    style={{ width: 60, height: 60, borderRadius: 10, alignSelf:"center", top: "125%"}}
+				    source={require("../public/logo.png")}
+			    />
+
+          </View>
+			
+
         </View>
     </ZigzagView>
   )

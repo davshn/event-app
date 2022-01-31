@@ -33,7 +33,7 @@ const Item = ({ item }) => (
                       color={"#776BC7"}
                       size={25}
                     />
-          <CardInfoText>{item.time} hs.</CardInfoText>
+          <CardInfoText>{item.time.slice(0,5)} hs.</CardInfoText>
         </View>
       </View>
     </CardInfo>
