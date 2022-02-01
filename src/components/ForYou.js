@@ -36,8 +36,8 @@ export default function ForYou() {
     let result = interests?.map((i) => {
       return events.filter((e) => e.categories.includes(i));
     });
-
-    if (result) return result[0]
+    // result es un array con varios array con 1 objeto c/u. Abajo le aplico .flat() para sacarle los array y que mande bien la info
+    if (result) return result.flat()
     else return undefined
   }
   var filterEvents = filteredEvents(events)
@@ -163,7 +163,7 @@ export default function ForYou() {
                       <MyComponent
                         name={e.name}
                         date={e.date}
-                        time={e.time}
+                        time={e.time.slice(0,5)}
                         pic={e.eventPic}
                         price={e.price}
                       />

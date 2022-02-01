@@ -138,7 +138,7 @@ export default function EventDetail({ navigation: { goBack }, route }) {
                 color={"#776BC7"}
                 size={25}
               />{" "}
-              {event.time}
+              {event.time?.slice(0,5)} hs.
             </TextCardMedium>
             <TextCardMedium>
               <MaterialCommunityIcons
