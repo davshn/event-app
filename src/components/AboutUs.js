@@ -1,4 +1,4 @@
-import { SectionStyled,TextStyled,ViewStyled,InputStyled,FormError,TitleStyled, StyledText, OptionsView} from '../generiComponents/GenericStyles';
+import { SectionStyled,TextStyled,ViewStyled,TitleStyled, StyledText, OptionsView, Title} from '../generiComponents/GenericStyles';
 import { Image } from "react-native";
 
 
@@ -6,9 +6,11 @@ import { Image } from "react-native";
 export default function aboutUs(){
     return (
         <ViewStyled style={{}}>
-            <TitleStyled style={{bottom: 20}}>findSpot</TitleStyled>
-            <StyledText>
-                Desarrolladores de findSpot
+            <StyledText style={{paddingLeft: "5%" , paddingRight: "5%" , textAlign: "justify"}}>
+            Nuestro proyecto surge de la necesidad de encontrar una plataforma móvil que permita conectar a personas de gustos similares, con experiencias únicas.
+            </StyledText>
+            <StyledText style={{paddingLeft: "5%", paddingTop: "3%", paddingBottom: "3%", fontWeight: "bold", textDecorationLine: "underline" }}>
+            Los desarrolladores de findSpot son:
             </StyledText>
             <OptionsView style={{ flexDirection: "row", justifyContent: "space-around" }}>
                 <Image 
@@ -16,7 +18,7 @@ export default function aboutUs(){
                 style={{width: 60, height: 60, borderRadius: 99}}>
                 </Image>
                 <StyledText style={{textAlignVertical: "center", textAlign: "center", fontSize: 20}}>
-                    Camila Sosa
+                    Camila L. Sosa
                 </StyledText>
             </OptionsView>
             <OptionsView style={{ flexDirection: "row", justifyContent: "space-around" }}>
@@ -34,7 +36,7 @@ export default function aboutUs(){
                 style={{width: 60, height: 60, borderRadius: 99}}>
                 </Image>
                 <StyledText style={{textAlignVertical: "center", textAlign: "center", fontSize: 20}}>
-                    Sebastián Carvajal
+                    Juan S. Carvajal
                 </StyledText>
             </OptionsView>
             <OptionsView style={{ flexDirection: "row", justifyContent: "space-around" }}>
@@ -43,7 +45,7 @@ export default function aboutUs(){
                 style={{width: 60, height: 60, borderRadius: 99}}>
                 </Image>
                 <StyledText style={{textAlignVertical: "center", textAlign: "center", fontSize: 20}}>
-                    Hernan Figueroa
+                    Hernán Figueroa
                 </StyledText>
             </OptionsView>
             <OptionsView style={{ flexDirection: "row", justifyContent: "space-around" }}>
@@ -52,7 +54,7 @@ export default function aboutUs(){
                 style={{width: 60, height: 60, borderRadius: 99}}>
                 </Image>
                 <StyledText style={{textAlignVertical: "center", textAlign: "center", fontSize: 20}}>
-                    Luis Miranda
+                    Luis M. Miranda
                 </StyledText>
             </OptionsView>
             <OptionsView style={{ flexDirection: "row", justifyContent: "space-around" }}>
@@ -64,13 +66,13 @@ export default function aboutUs(){
                     Fernando Villares
                 </StyledText>
             </OptionsView>
-            <OptionsView style={{ flexDirection: "row", justifyContent: "space-around" }}>
+            <OptionsView style={{ flexDirection: "row", justifyContent: "space-around" , marginBottom: "10%"}}>
                 <Image 
                 source= {{uri: "https://avatars.githubusercontent.com/u/77353533?v=4"}}
                 style={{width: 60, height: 60, borderRadius: 99}}>
                 </Image>
                 <StyledText style={{textAlignVertical: "center", textAlign: "center", fontSize: 20}}>
-                    Mauro E. N. Fernandez
+                    Mauro Fernandez
                 </StyledText>
             </OptionsView>
         </ViewStyled>
