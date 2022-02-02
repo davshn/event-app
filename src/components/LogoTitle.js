@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 export function LogoTitle() {
   const navigation = useNavigation();
   return (
-		<Logo>
+		<Logo style={{ left: "110%"}}>
 			<Image
 				style={{ width: 30, height: 30, borderRadius: 10 }}
 				source={require("../public/logo.png")}

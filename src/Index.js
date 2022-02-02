@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { setDarkModeOn, setDarkModeOff } from './stateManagement/actions/darkModeActions';
 import { eraseUser } from './stateManagement/actions/authUserActions';
 import Shopper from './components/ShoppingCart';
+import aboutUs from './components/AboutUs';
 
 const Drawer = createDrawerNavigator();
 
@@ -42,6 +43,7 @@ export default function Index() {
         dispatch(eraseUser());
   };
   
+  
     return (
       <NavigationContainer>
         <ThemeProvider theme={{ mode: modes ? "dark" : "light" }}>
@@ -51,6 +53,12 @@ export default function Index() {
             drawerContent={(props) => {
               return (
                 <DrawerContentScrollView {...props}>
+                  <Switch
+                    style={{ alignSelf: "center" }}
+                    color={"#776BC7"}
+                    value={isSwitchOn}
+                    onValueChange={onToggleSwitch}
+                  />
                   <DrawerItemList {...props} />
                   {logged ? (
                     <DrawerItem
@@ -61,12 +69,6 @@ export default function Index() {
                   ) : (
                     <></>
                   )}
-                  <Switch
-                    style={{ alignSelf: "center" }}
-                    color={"#776BC7"}
-                    value={isSwitchOn}
-                    onValueChange={onToggleSwitch}
-                  />
                 </DrawerContentScrollView>
               );
             }}
@@ -92,6 +94,9 @@ export default function Index() {
             ) : (
               <></>
             )}
+            
+            <Drawer.Screen name="About Us" component={aboutUs}/>
+           
           </Drawer.Navigator>
         </ThemeProvider>
       </NavigationContainer>
