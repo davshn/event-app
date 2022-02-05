@@ -36,8 +36,13 @@ export default function ForYou() {
     let result = interests?.map((i) => {
       return events.filter((e) => e.categories.includes(i));
     });
-    // result es un array con varios array con 1 objeto c/u. Abajo le aplico .flat() para sacarle los array y que mande bien la info
-    if (result) return result.flat()
+    // result es un array con varios array con 1 objeto c/u. Abajo le aplico .flat(2) para sacarle los array y que mande bien la info
+    if (result){
+      let newResult = result.flat(2)
+      let set = new Set( newResult.map( JSON.stringify ) ) //el set es para eliminar duplicados
+      let arrSinDuplicaciones = Array.from( set ).map( JSON.parse );
+      return arrSinDuplicaciones
+    } 
     else return undefined
   }
   var filterEvents = filteredEvents(events)
