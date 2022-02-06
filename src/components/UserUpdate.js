@@ -10,6 +10,7 @@ import { useSelector } from "react-redux"
 import { TermsConditions } from "./Terms&Contditions"
 import styled from "styled-components/native";
 import { backgroundColor } from "../services/theme";
+import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 
 export default function Register({ navigation }) {
   const user = useSelector((state) => state.authUserReducer);
@@ -25,6 +26,9 @@ export default function Register({ navigation }) {
   const [errors, setErrors] = useState({});  //Crea el estado que contendrá los errores
   const [modalVisible, setModalVisible] = useState(false); //Controla el modal de error al crear usuario
   const [termsmodalVisible, setTermsModalVisible] = useState(false);
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const [hidePassword, setHidePassword] = useState(true);
+  const modes = useSelector(state => state.darkModeReducer.darkMode);
 
   function createUser(user) {
     axios.post('https://find-spot.herokuapp.com/register/updateUser',user) //Envia por post la a crear
@@ -86,6 +90,10 @@ export default function Register({ navigation }) {
     .then(data => setInput(prev => ({ ...prev, "profilePic": data.secure_url })))
   }
 
+  const onToggleSwitch = () => {
+    setIsSwitchOn(!isSwitchOn);
+    setHidePassword(!hidePassword)
+    }
 
   return (
     <ViewBackground style= {{height: "100%"}}>
@@ -93,10 +101,28 @@ export default function Register({ navigation }) {
         <StyledTitle style={{marginBottom: 30, marginTop: 20}}> Actualizar perfil</StyledTitle>
           <InputStyled value={input.name} onChangeText={(ev)=>hadleInputChange("name",ev)} placeholder="Nombre completo" placeholderTextColor='gray' />
           {errors.name&&(<FormError>{errors.name}</FormError>)}
-          <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
+          <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry={hidePassword}/>
           {errors.password&&(<FormError>{errors.password}</FormError>)}
-          <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
+          <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry={hidePassword}/>
           {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
+          <StyledTitle>
+            {isSwitchOn ? <MaterialCommunityIcons
+                  name="eye-outline"
+                  color={modes? "#776BC7" : "#5302de"}
+                  size={30}
+                  
+                  alignSelf="center"
+                  onPress={onToggleSwitch}
+                /> : <MaterialCommunityIcons
+                name="eye-off-outline"
+                color={modes? "#776BC7" : "#5302de"}
+                size={30}
+                alignSelf="center"
+                onPress={onToggleSwitch}                
+            />}
+          </StyledTitle>
+
+
       <AgregarFotoButton onPress={pickImage}>
         <TextButton color={'#EDEDED'}>Cambiar foto de perfil</TextButton>
       </AgregarFotoButton>

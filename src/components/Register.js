@@ -10,6 +10,7 @@ import { ModalContStyled, ModalText, ModalButtonStyled, ButtonText } from '../ge
 import CustomMultiPicker from "react-native-multiple-select-list";
 import { useSelector } from "react-redux"
 import { TermsConditions } from "./Terms&Contditions"
+import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 
 export default function Register({ navigation }) {
   let selected = [];
@@ -29,6 +30,8 @@ export default function Register({ navigation }) {
   const modes = useSelector(state => state.darkModeReducer.darkMode);
   const categories = useSelector((state) => state.getCategoriesReducer.categories);
   const [termsmodalVisible, setTermsModalVisible] = useState(false);
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const [hidePassword, setHidePassword] = useState(true);
 
   function createUser(user) {
     user.interests = selected;
@@ -123,6 +126,12 @@ export default function Register({ navigation }) {
     const difference = -date.getTimezoneOffset() / 60
     time.setHours(time.getHours() + difference)
   }
+
+  const onToggleSwitch = () => {
+    setIsSwitchOn(!isSwitchOn);
+    setHidePassword(!hidePassword)
+    }
+
   return (
     <ViewBackground>
       <StyledView>
@@ -131,10 +140,26 @@ export default function Register({ navigation }) {
         {errors.name&&(<FormError>{errors.name}</FormError>)}
         <InputStyled value={input.email} onChangeText={(ev)=>hadleInputChange("email",ev)} placeholder="Correo" placeholderTextColor='gray' keyboardType='email-address'/>
         {errors.email&&(<FormError>{errors.email}</FormError>)}
-        <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry/>
+        <InputStyled value={input.password} onChangeText={(ev)=>hadleInputChange("password",ev)} placeholder="Contraseña" placeholderTextColor='gray' secureTextEntry={hidePassword}/>
         {errors.password&&(<FormError>{errors.password}</FormError>)}
-        <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry/>
+        <InputStyled value={input.passwordRep} onChangeText={(ev)=>hadleInputChange("passwordRep",ev)} placeholder="Repite la contraseña" placeholderTextColor='gray' secureTextEntry={hidePassword}/>
         {errors.passwordRep&&(<FormError>{errors.passwordRep}</FormError>)}
+        <StyledTitle>
+            {isSwitchOn ? <MaterialCommunityIcons
+                  name="eye-outline"
+                  color={modes? "#776BC7" : "#5302de"}
+                  size={30}
+                  
+                  alignSelf="center"
+                  onPress={onToggleSwitch}
+                /> : <MaterialCommunityIcons
+                name="eye-off-outline"
+                color={modes? "#776BC7" : "#5302de"}
+                size={30}
+                alignSelf="center"
+                onPress={onToggleSwitch}                
+            />}
+          </StyledTitle>
         <SelectedDate style={{width: "90%", alignSelf: "center"}} onPress={showDatepicker}>Año de nacimiento: {input.dateOfBirth}</SelectedDate>
         {errors.dateOfBirth&&(<FormError>{errors.dateOfBirth}</FormError>)}
       <AgregarFotoButton onPress={pickImage}>
