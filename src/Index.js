@@ -14,6 +14,8 @@ import { setDarkModeOn, setDarkModeOff } from './stateManagement/actions/darkMod
 import { eraseUser } from './stateManagement/actions/authUserActions';
 import Shopper from './components/ShoppingCart';
 import aboutUs from './components/AboutUs';
+import { View } from 'react-native';
+import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
 
 const Drawer = createDrawerNavigator();
 
@@ -53,12 +55,16 @@ export default function Index() {
             drawerContent={(props) => {
               return (
                 <DrawerContentScrollView {...props}>
-                  <Switch
-                    style={{ alignSelf: "center" }}
-                    color={"#776BC7"}
-                    value={isSwitchOn}
-                    onValueChange={onToggleSwitch}
-                  />
+                  <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center' }}>
+                      <MaterialCommunityIcons name="sunny-outline" color={"#776BC7"} size={30}/>
+                      <Switch
+                        style={{ alignSelf: "center" }}
+                        color={"#776BC7"}
+                        value={isSwitchOn}
+                        onValueChange={onToggleSwitch}
+                      />
+                       <MaterialCommunityIcons name="moon-outline" color={"#776BC7"} size={25}/>
+                  </View>
                   <DrawerItemList {...props} />
                   {logged ? (
                     <DrawerItem
