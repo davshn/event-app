@@ -33,6 +33,7 @@ export default function Index() {
     drawerActiveBackgroundColor: "#776BC7",
     drawerStyle: { backgroundColor: modes ? '#292929' : '#EDEDED' },
     headerStyle: { backgroundColor: modes ? '#292929' : '#EDEDED', elevation: 0 },
+    headerTintColor: modes ? '#776BC7' : '#776BC7',
     }
 
     const onToggleSwitch = () => {

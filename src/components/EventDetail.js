@@ -22,6 +22,7 @@ import {
   ButtonText,
 } from "../generiComponents/ModalGen";
 import { Modal, View } from "react-native";
+import Loading from "./Loading";
 
 const initialState = {
   //Estado inicial para usuarios
@@ -97,6 +98,8 @@ export default function EventDetail({ navigation: { goBack }, route }) {
     dispatch(addToCart(cartEvent));
     setModal(true);
   };
+
+  if (event.length === 0) return (<Loading></Loading>) 
 
   return (
     <MapViewContainer>
