@@ -90,7 +90,7 @@ export default function Login({navigation}) {
       </SectionStyled>
       <SectionStyled>
         <TextStyled style={{ color: "#999999" }}>¿No tienes una cuenta?</TextStyled>
-        <ButtonGen title="Registrate" onPress={() => navigation.navigate('Register')} textcolor={'#EDEDED'} />
+        <ButtonGen title="Registrate" onPress={() => navigation.jumpTo('Registrarse')} textcolor={'#EDEDED'} />
       </SectionStyled>
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <ModalContStyled>

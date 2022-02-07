@@ -45,7 +45,7 @@ const TotalComponent = () => {
         </RowViews>
   
         <RowViews>
-          <CartText>Total - </CartText>
+          <CartText>Total a pagar </CartText>
           <CartText>${totalToPay}</CartText>
         </RowViews>
       </RowViews>

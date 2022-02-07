@@ -1,33 +1,3 @@
-// import React from "react";
-// import { ActivityIndicator, StyleSheet, Text, View , Image } from "react-native";
-
-// export default function Loading() {
-    
-//     const styles = StyleSheet.create({
-//       container: {
-//         flex: 1,
-//         justifyContent: "center"
-//       },
-//       horizontal: {
-//         flexDirection: "row",
-//         justifyContent: "space-around",
-//         padding: 10
-//       }
-//     });
-
-//     return (
-//         <View style={[styles.container, styles.horizontal]}>
-//             <ActivityIndicator size="large" color="#5641abff" />
-//             <Image
-//                 style={{ width: 100, height: 100, borderRadius: 100, alignSelf:"center"}}
-//                 source={require("../public/logo.png")}
-//             />
-//             <Text>Loading</Text>
-//         </View>
-        
-        
-// )}
-
 import React, {useState, useEffect} from 'react';
 import {View, Animated, Easing} from 'react-native';
 import { SectionStyled,TextStyled,ViewStyled,TitleStyled, StyledText, OptionsView, Title, Container} from '../generiComponents/GenericStyles';

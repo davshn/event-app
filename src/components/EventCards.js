@@ -4,6 +4,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { EventItem, EventImage, CardInfo, CardInfoText, EventItemContainer } from "../generiComponents/GenericStyles";
 import { View } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/Ionicons";
+import Loading from "./Loading";
 
 const Item = ({ item }) => (
   
@@ -54,7 +55,7 @@ export function EventCards() {
     );
   };
 
-  
+  if(events.length === 0) return (<Loading></Loading>)
 
   return (
     <FlatList
